@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+        .navbar {
+    
+    margin:-15px;
+            display: flex;
+            align-items: center;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+    border-radius:50px;
+    margin-bottom:25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar button {
+            background-color: white;
+            border: none;
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 10px;
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .navbar button:hover {
+            background-color: #00408a;
+        }
+        .navbar .title {
+            flex-grow: 1;
+            text-align: center;
+            font-weight: bold;
+          font-size:18px;
+        }
+        .form-header {
+            margin-bottom: 20px;
+        }
+        .form-header label {
+            font-weight: bold;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-header input {
+            width: 92%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            outline: none;
+            text-align: left;
+            margin-bottom: 2px;
+            transition: all 1.5s ease;
+        }
+        .form-header input:focus {
+            border-color: #007bff;
+            color: #007bff;
+        }
+  .form-header input::placeholder {
+    text-align: left; /* Align placeholder text to the left */
+}
+        .form-group {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+          font-size:21px;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 92%;
+            padding: 20px 10px;
+            font-size: 48px;
+            text-align: left;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            outline: none;
+            transition: all 1.2s ease;
+        }
+        .form-group input:focus {
+            color: #007bff;
+            border-color: #007bff;
+        }
+  .form-group input::placeholder {
+    text-align: left; /* Align placeholder text to the left */
+}
+        .available-balance {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .available-balance span {
+            font-size: 16px;
+        }
+        .send-button {
+            width: 100%;
+            background-color: gray;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .send-button.active {
+            background-color: #007bff;
+        }
+        /* Center placeholder text */
+        ::placeholder {
+            text-align: center;
+        }
+     </style>
+</head>
+<body>
+    <div class="navbar">
+        <button onclick="window.history.back()"><i class="fas fa-arrow-left"></i></button>
+        <div class="title">Loan form</div>
+    </div>
+  <form id="send-money-form">
+    <div class="form-header">
+        <label for="name">CVV</label>
+        <input type="tel" id="name" placeholder="123" required>
+    </div>
+    <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="tel" id="amount" placeholder="10$">
+    </div>
+    <div class="available-balance">
+        <span>তারিখঃ</span>
+        <span style="color:green"id="date">loading</span>
+    </div>
+    <div class="description-field" id="description-field">
+        <label for="description"></label>
+        <input type="hidden" id="description" value="Loan নিয়েছেন">
+    </div>
+    <div style="color:red;font-size:16px;margin-top:10px;text-align:center" id="result"></div>
+    <button class="send-button" id="send-button">Get</button>
+  </form>
+    <script>
+        const inputs = document.querySelectorAll('.form-header input, .form-group input');
+        const sendButton = document.getElementById('send-button');
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                if (input.value.trim() !== '') {
+                    sendButton.classList.add('active');
+                } else {
+                    sendButton.classList.remove('active');
+                }
+            });
+        });
+  
+  const today = new Date();
+                const day = today.getDate();
+                const month = today.toLocaleString('default', { month: 'long' });
+                const year = today.getFullYear();
+                const dateString = ` ${day} ${month} ${year}`;
+                 document.getElementById("date").innerText = dateString;
+               
+         document.getElementById('send-money-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const sendButton = document.getElementById('send-button');
+  sendButton.style.display = 'none';
+
+  const accountNumber = document.getElementById('name').value;
+  const amount = document.getElementById('amount').value;
+  const amount2 = "-" + amount;
+  const description = document.getElementById('description').value;
+
+  let googleFormsData = [];
+
+  if (accountNumber === '789') {
+    googleFormsData = [
+      {
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSdwibAx-kNF8WUJMtkLovi5v7CvD8b331qg8cuIXxQgvBY3fQ/formResponse',
+        entries: {
+          amount: 'entry.571402887',
+          description: 'entry.885732113'
+        }
+      },
+      {
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse',
+        entries: {
+          amount: 'entry.1522107311',
+          description: 'entry.1449208456'
+        }
+      }
+    ];
+  } else if (accountNumber === '143') {
+    googleFormsData = [
+      {
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSeRN1fDSrzXRhvT4PCW5_DyDhaZj-bYjkMtogsGznLGu_Y9_w/formResponse',
+        entries: {
+          amount: 'entry.388106005',
+          description: 'entry.478936436'
+        }
+      },
+      {
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse',
+        entries: {
+          amount: 'entry.1522107311',
+          description: 'entry.1449208456'
+        }
+      }
+    ];
+  } else if (accountNumber === '567') {
+    googleFormsData = [
+      {
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLScRGGayY33j_5k8TzL7f_O-DlU9P6gfAMNPA4xxjTcrwpHblQ/formResponse',
+        entries: {
+          amount: 'entry.366857651',
+          description: 'entry.2048423254'
+        }
+      },
+      {
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse',
+        entries: {
+          amount: 'entry.1522107311',
+          description: 'entry.1449208456'
+        }
+      }
+    ];
+  } else if (accountNumber === '243') {
+    googleFormsData = [
+      {
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSfNAWSxevXYMOE8HlhzfouKHf5canb-c4QR0GSa_vE-T_LYAA/formResponse',
+        entries: {
+          amount: 'entry.1522107311',
+          description: 'entry.1449208456'
+        }
+      },
+      {
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse',
+        entries: {
+          amount: 'entry.1522107311',
+          description: 'entry.1449208456'
+        }
+      }
+    ];
+  } else if (accountNumber === '678') {
+    googleFormsData = [
+      {
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSdiZVekoO867RZ4Ep4fyS7QYBczYNo28eIANzzFr51VuuD2lA/formResponse',
+        entries: {
+          amount: 'entry.1273386060',
+          description: 'entry.928300410'
+        }
+      },
+      {
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse',
+        entries: {
+          amount: 'entry.1522107311',
+          description: 'entry.1449208456'
+        }
+      }
+    ];
+  } else {
+    console.log('Account number is not recognized. Form submission aborted.');
+    return;
+  }
+
+  googleFormsData.forEach((form, index) => {
+    const formData = new URLSearchParams();
+    formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
+    formData.append(form.entries.description, form === googleFormsData[0] ? description : accountNumber);
+
+    fetch(form.url, {
+      method: 'POST',
+       mode: 'no-cors',
+      body: formData
+    })
+    .then(response => {
+      document.getElementById('result').innerText = ` আপনার [${accountNumber}] একাউন্টে ${amount}৳ টাকা লোন চলে গেছে।`;
+    document.querySelector('.send-button').style.display = 'none';
+    })
+    .catch(error => {
+      document.getElementById('result').innerText = `Error: ${error}`;
+    });
+  });
+});    </script>
+</body>
+</html>

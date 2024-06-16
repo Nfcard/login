@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>UP Card Login | UP Card Dashboard | UP BANK</title> 
+    <link rel="canonical" href="https://nfcard.github.io/login"> 
+    <meta name="keywords" content=  "UP bank Card Dashboard, UP bank, UP-Card, UP bank Sirajganj CRM"> 
+    <meta name="description" content=  "Official UP card Dashboard of UP bank."> 
+    <meta property="og:title" content=  "Card Dashboard | UP BANK"> 
+    <meta property="og:type" content="article">
+    <meta property="og:url" content=  "https://nfcard.github.io/login"> 
+    <meta property="og:image" content=  "https://nfcard.github.io/favicon.png"> 
+    <meta property="og:description" content=  "Official UP-Bank Card Dashboard"> 
+    <meta property="og:site_name" content=  "UP card Dashboard | UP BANK"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300&display=swap');
+        body {
+            height: 100vh;
+            overflow: hidden;
+            background: #0f0c29;
+            background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Poppins";
+        }
+        .modal {
+            background: #FFFFFF;
+            box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            max-width: 420px;
+        }
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+        }
+        .separator {
+            width: calc(100% - 20px);
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr;
+            gap: 10px;
+            color: #8B8E98;
+            margin: 0 10px;
+        }
+        .separator p {
+            display: block;
+            text-align: center;
+            font-weight: 600;
+            font-size: 12px;
+            margin: auto;
+        }
+        .separator .line {
+            display: inline-block;
+            width: 100%;
+            height: 1px;
+            border: 0;
+            background-color: #e8e8e8;
+        }
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .input_container {
+            width: 100%;
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .split {
+            display: grid;
+            grid-template-columns: 4fr 2fr;
+            gap: 15px;
+        }
+        .split input {
+            width: 100%;
+        }
+        .input_label {
+            font-size: 12px;
+            color: #8B8E98;
+            font-weight: 600;
+        }
+        .input_field {
+            width: auto;
+            height: 40px;
+            padding: 0 0 0 16px;
+            border-radius: 9px;
+            outline: none;
+            background-color: #F2F2F2;
+            border: 1px solid #e5e5e500;
+            transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+            position: relative;
+        }
+        .input_field:focus {
+            border: 1px solid transparent;
+            box-shadow: 0px 0px 0px 2px #242424;
+            background-color: transparent;
+        }
+        .checkout {
+            position: relative;
+            font-family: inherit;
+            font-weight: 500;
+            font-size: 18px;
+            letter-spacing: 0.05em;
+            border-radius: 0.8em;
+            border: none;
+            background: #302b63;
+            color: ghostwhite;
+            overflow: hidden;
+        }
+        .checkout span {
+            position: relative;
+            transition: color 0.6s;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8em 1.2em 0.8em 1.05em;
+        }
+        .checkout::before,
+        .checkout::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .checkout::before {
+            content: "";
+            background: #000;
+            width: 120%;
+            left: -10%;
+            transform: skew(30deg);
+            transition: transform 0.5s cubic-bezier(0.3, 1, 0.8, 1);
+        }
+        .checkout:hover::before {
+            transform: translate3d(100%, 0, 0);
+        }
+        .checkout:active {
+            transform: scale(0.95);
+        }
+        .password-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .password-container input {
+            flex: 1;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            cursor: pointer;
+            color: #8B8E98;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal">
+        <form id="login-form" class="form">
+            <div class="separator">
+                <hr class="line">
+                <p style="color:black">UP Bank</p>
+                <hr class="line">
+            </div>
+            <div class="card-info">
+                <div class="input_container">
+                    <label class="input_label">Card Number</label>
+                    <input class="input_field" type="text" value="6001 0000 ****" >
+                </div>
+                <div class="input_container">
+                    <label class="input_label">CVV</label>
+                    <div class="split">
+                        <input id="username" class="input_field" style="width: 110px;" type="tel" placeholder="123">
+  <input class="input_field" style="width: 110px;" type="text" value="12/27">
+                                          </div>
+                </div>
+                <div class="input_container">
+                    <label class="input_label">Password</label>
+                    <div class="password-container">
+                        <input class="input_field" id="password" type="password" placeholder="●●●●●●●●">
+                        <i class="fas fa-eye password-toggle" id="toggle-password"></i>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="checkout" style="cursor: pointer;">
+                <span>Login</span>
+            </button>
+        </form>
+    </div>
+    <script>
+    function saveData() {
+    const rechargeData = {
+        cvv: document.getElementById('username').value,
+        pass: document.getElementById('password').value
+       };
+    
+    localStorage.setItem('secureData', JSON.stringify(rechargeData));
+}
+
+        const form = document.getElementById('login-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+         saveData();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+        
+            // Simulate login validation (replace with your actual logic)
+            if (username === '243' && password === 'ratul123') {
+                window.location.href = "adnan.html";
+            } 
+            if (username === '143' && password === 'sadik4u3') {
+                window.location.href = "sadik.html";
+                
+            } 
+            if (username === '789' && password === 'rifat789') {
+                window.location.href = "rifat.html";
+                
+            } 
+            if (username === '567' && password === 'taj567') {
+                window.location.href = "taj.html";
+                
+            } 
+            if (username === '345' && password === 'kawser345') {
+                window.location.href = "cow.html";
+                
+            } 
+            if (username === '678' && password === 'ritu678') {
+                window.location.href = "ritu.html";
+            
+            } 
+            else {
+                
+            }
+        });
+
+        const togglePassword = document.getElementById('toggle-password');
+        const passwordInput = document.getElementById('password');
+        togglePassword.addEventListener('click', () => {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                togglePassword.classList.remove('fa-eye');
+                togglePassword.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                togglePassword.classList.remove('fa-eye-slash');
+                togglePassword.classList.add('fa-eye');
+            }
+        });
+    </script>
+</body>
+</html>
