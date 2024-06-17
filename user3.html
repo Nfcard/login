@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md Adnan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #8a6fce;
+            color: white;
+            height: 100%;
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .header {
+            color:gray;
+            text-align:center;
+            border-radius: 15px;
+        }
+
+        .header h2 {
+            padding:5px;
+            align-items: center;
+            text-align:center;
+            font-size: 32px;
+            
+ background: radial-gradient(circle at -8.9% 51.2%, rgb(255, 124, 0) 0%, rgb(255, 124, 0) 15.9%, rgb(255, 163, 77) 15.9%, rgb(255, 163, 77) 24.4%, rgb(19, 30, 37) 24.5%, rgb(19, 30, 37) 66%);         
+          
+          
+          -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+            
+            margin-top:0;
+        }
+
+               .slideshow-container {
+    width: 90vw;
+    height: 40vh;
+    position: relative;
+          justify-content: center;
+    align-items: center;
+          
+}
+
+        .mySlides {
+            display: none;
+        }
+
+        .slideshow-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 90%;
+}
+.slideshow-images img {
+    width: auto;
+    height: auto;
+    max-width: 90%;
+    max-height: 90%;
+  margin:0;
+}
+
+
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+
+        @keyframes fade {
+            from {opacity: .4} 
+            to {opacity: 1}
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 25%;
+            width: 20px;
+            height: 20px;
+            padding: 15px;
+            color: black;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 50%;
+            background-color: #83aff0;
+            border: none;
+            user-select: none;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .next {
+            right: -20px;
+        }
+
+        .prev {
+            left: -20px;
+        }
+
+        .dashboard {
+            background-color: ;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 10px;
+            width: 300px;
+            text-align: center;
+          margin:0;
+          margin-top:-25px;
+        }
+        
+        
+        .task-status {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+          gap:10px;
+        }
+  
+        .task-status div {
+            background-color: black;
+            border-radius: 10px;
+            padding: 10px;
+            width: 45%;
+        }
+        .task-status div p {
+            margin: 5px 0;
+        }
+        .reminder {
+            background-color: black;
+            border-radius: 10px;
+            padding: 10px;
+            position: relative;
+        }
+        .reminder-icon {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+            color: #ff5050;
+        }
+        .reminder-text {
+            margin-left: 40px;
+        }
+        .reminder-text p {
+            margin: 5px 0;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .menu .menu-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-size: 20px;
+        }      
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            padding: 0;
+            margin-top:45px;
+            margin-left:-8px;
+        }
+        .button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 76px;
+            height: 76px;
+            background-color: black;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            border:none;
+          
+        }
+
+        .button i {
+          
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .transfer i {
+            color: #00ff00;
+        }
+  .transfer a {
+            color: #fff;
+    text-decoration: none;
+    
+        }
+
+        .request i {
+            color: #ff0055;
+        }
+
+        .exchange i {
+            color: #007bff;
+        }
+
+        .bills i {
+            color: #d4a017;
+        }
+          .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      z-index: 100;
+      transition: visibility 0s, opacity 0.3s ease;
+    }
+    .popup.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .popup-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 300px;
+      position: relative;
+    }
+    .popup-content img {
+      width: 100px;
+      margin-bottom: 20px;
+    }
+    .popup-content p {
+      margin: 0;
+      padding: 0;
+    }
+    .popup-content .title {
+      font-size: 20px;
+      color: #ff0066;
+      margin-bottom: 10px;
+    }
+    .popup-content .message {
+      color: #2f7a34;
+      margin-bottom: 20px;
+    }
+    .popup-content .close-btn {
+      background-color: #ff0066;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="date">
+                <h2>CEO of UP bank</h2>
+            </div>
+        </div>
+
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <img src="user3.png" style="width:100%">
+            </div>
+
+            <div class="mySlides fade">
+                <img src="3bk.png" style="width:100%">
+            </div>
+            <a class="prev" onclick="plusSlides(-1)"><i style="font-size:15px" class="fa-solid fa-caret-left"></i></a>
+            <a class="next" onclick="plusSlides(1)"><i style="font-size:15px" class="fa-solid fa-caret-right"></i></a>
+        </div>
+
+         <div class="dashboard">
+             <div class="popup" id="popup">
+    <div class="popup-content">
+      <img src="gift.png" alt="Gift Box">
+      <p class="title"><i class="fa-solid fa-bell"></i> Reminder</p>
+      <p class="message" id="balance4"></p>
+      <button class="close-btn" onclick="closePopup()">ঠিক আছে</button>
+    </div>
+             </div>
+        <div class="task-status">
+            <div>
+                <p style="font-weight: bold">Main balance</p>
+                <p style="color:#42ed56"id="balance1">Loading</p>
+            </div>
+            <div>
+                <p style="font-weight: bold">UP Coin</p>
+                <p style="color:#d7f542"id="balance3">0 UPC</p>
+            </div>
+        </div>
+        <div class="reminder">
+            <i class="fas fa-user-clock reminder-icon"></i>
+            <div class="reminder-text">
+                <p style="color: #ff5050;font-weight: bold">NEXT Due</p>
+                <p id="balance2">Loading</p>
+            </div>
+        </div>
+    </div>
+
+        <div class="menu">
+            <div class="menu-item">
+                <div class="button-container">
+                    <div class="button transfer">
+                      <button class="button"onclick="document.location='sendmoney.html'" ><i class="fas fa-arrow-up"></i>
+                      Transfer</button>
+                    </div>
+                    <div class="button request">
+                      <button class="button" onclick="document.location='https://nfcard.github.io/ol'"> <i class="fa-solid fa-bell"></i>
+                      Offer</button>
+                    </div>
+                    <div class="button exchange">
+                      <button class="button" onclick="document.location='history.html'"><i class="fas fa-sync-alt"></i>
+                      History</button>
+                    </div>
+                    <div class="button bills">
+                      <button id="clearButton"class="button" ><i class="fas fa-arrow-right-from-bracket"></i>
+                      Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    function saveLink() {
+      const sheetLink = 'https://docs.google.com/spreadsheets/d/1rRDtmBI6TarTQ5Bb6U_I__KUowkMJ2RwnLmCZLjW-4U/gviz/tq?gid=1236981988'; // Replace gid with the actual sheet ID
+      const surl = 'https://docs.google.com/forms/d/e/1FAIpQLSez19H6vm8kLmvRV33WPadkuscVBjjvku0pIeZKNSO7gpV-hA/formResponse';
+      const saentry = 'entry.1522107311';
+      const sdentry = 'entry.1449208456';
+      const tbl = 1;
+      localStorage.setItem('tbl', tbl);
+      localStorage.setItem('surl', surl);
+      localStorage.setItem('saentry', saentry);
+      localStorage.setItem('sdentry', sdentry);
+      localStorage.setItem('historylink', sheetLink);
+    }
+            function fetchData1() {
+                var url = 'https://docs.google.com/spreadsheets/u/0/d/1rRDtmBI6TarTQ5Bb6U_I__KUowkMJ2RwnLmCZLjW-4U/htmlview';
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        var parser = new DOMParser();
+                        var htmlDoc = parser.parseFromString(data, 'text/html');
+                        var cellElement = htmlDoc.querySelectorAll('table')[1].rows[3].cells[2];
+                        
+                        var cellText = cellElement.innerText || cellElement.textContent;
+                        document.getElementById('balance1').innerText = cellText.trim();
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+
+            function fetchData3() {
+                var url = 'https://docs.google.com/spreadsheets/u/0/d/1rRDtmBI6TarTQ5Bb6U_I__KUowkMJ2RwnLmCZLjW-4U/htmlview';
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        var parser = new DOMParser();
+                        var htmlDoc = parser.parseFromString(data, 'text/html');
+                        var cellElement = htmlDoc.querySelectorAll('table')[1].rows[3].cells[3];
+                        
+                        var cellText = cellElement.innerText || cellElement.textContent;
+                        document.getElementById('balance2').innerText = cellText.trim();
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }function fetchData2() {
+                var url = 'https://docs.google.com/spreadsheets/u/0/d/1rRDtmBI6TarTQ5Bb6U_I__KUowkMJ2RwnLmCZLjW-4U/htmlview';
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        var parser = new DOMParser();
+                        var htmlDoc = parser.parseFromString(data, 'text/html');
+                        var cellElement = htmlDoc.querySelectorAll('table')[1].rows[3].cells[4];
+                        
+                        var cellText = cellElement.innerText || cellElement.textContent;
+                        document.getElementById('balance3').innerText = cellText.trim();
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }function fetchData4() {
+                var url = 'https://docs.google.com/spreadsheets/d/1VvKwtRmRSLy-eLCQfeCDeN6xT_vv-Gw5CsXbjcwcpxw/htmlview';
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        var parser = new DOMParser();
+                        var htmlDoc = parser.parseFromString(data, 'text/html');
+                        var cellElement = htmlDoc.querySelectorAll('table')[0].rows[1].cells[10];
+                        
+                        var cellText = cellElement.innerText || cellElement.textContent;
+                        document.getElementById('balance4').innerText = cellText.trim();
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+
+            saveLink();
+            fetchData1();
+            fetchData2();
+  fetchData3();fetchData4();
+  
+
+            let slideIndex = 1;
+            showSlides(slideIndex);
+
+            function plusSlides(n) {
+                showSlides(slideIndex += n);
+            }
+
+            function showSlides(n) {
+                let i;
+                let slides = document.getElementsByClassName("mySlides");
+                if (n > slides.length) {slideIndex = 1}
+                if (n < 1) {slideIndex = slides.length}
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none"; 
+                }
+                slides[slideIndex-1].style.display = "block"; 
+            }
+
+            document.querySelector('.prev').addEventListener('click', function() {
+                plusSlides(-1);
+            });
+
+            document.querySelector('.next').addEventListener('click', function() {
+                plusSlides(1);
+            });
+        });      const sheetUrl = 'https://docs.google.com/spreadsheets/d/1VvKwtRmRSLy-eLCQfeCDeN6xT_vv-Gw5CsXbjcwcpxw/htmlview'; // Replace with your Google Sheets pubhtml link
+    const cellKey = 'sheetCellValue';
+
+    function showPopup() {
+      document.getElementById('popup').classList.add('active');
+    }
+
+    function closePopup() {
+      document.getElementById('popup').classList.remove('active');
+      localStorage.setItem('popupShown', 'true');
+    }
+
+    async function checkForNotification() {
+      try {
+        const response = await axios.get(sheetUrl);
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(response.data, 'text/html');
+        const cellValue = doc.querySelector('table tbody tr:first-child td:nth-child(6)').innerText;
+
+        const storedValue = localStorage.getItem(cellKey);
+
+        // Check if the cell value has changed
+        if (cellValue !== storedValue) {
+          // Store the new cell value
+          localStorage.setItem(cellKey, cellValue);
+          // Reset the popup shown status
+          localStorage.removeItem('popupShown');
+        }
+
+        // Show the popup if not already dismissed
+        if (localStorage.getItem('popupShown') !== 'true') {
+          showPopup();
+        }
+      } catch (error) {
+        console.error('Error fetching data from Google Sheets:', error);
+      }
+    }
+   
+       window.onload = function() {
+      checkForNotification();
+    };
+    function takeData() {
+    const secureData = JSON.parse(localStorage.getItem('secureData'));
+    if (secureData) {
+        document.getElementById('username').innerText = secureData.cvv;
+        document.getElementById('password').innerText = secureData.password;
+    } else {
+        window.location.href = 'index.html';
+    }
+}
+
+window.onload = takeData;
+
+       function clearData() {
+            localStorage.removeItem('secureData');
+            localStorage.removeItem('historylink');
+            window.location.href = 'index.html';
+        }
+
+        document.getElementById('clearButton').addEventListener('click', clearData);
+// Add a button or a link to trigger the data clearing
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  
+</body>
+</html>
