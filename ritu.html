@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Dashboard</title>
+    <title> Mst Ritu </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         body {
@@ -463,65 +463,64 @@ saveLink();
     const cellKey = 'sheetCellValue';
 
     function showPopup() {
-      document.getElementById('popup').classList.add('active');
-    }
-
-    function closePopup() {
-      document.getElementById('popup').classList.remove('active');
-      localStorage.setItem('popupShown', 'true');
-    }
-
-    async function checkForNotification() {
-      try {
-        const response = await axios.get(sheetUrl);
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(response.data, 'text/html');
-        const cellValue = doc.querySelector('table tbody tr:first-child td:nth-child(3)').innerText;
-
-        const storedValue = localStorage.getItem(cellKey);
-
-        // Check if the cell value has changed
-        if (cellValue !== storedValue) {
-          // Store the new cell value
-          localStorage.setItem(cellKey, cellValue);
-          // Reset the popup shown status
-          localStorage.removeItem('popupShown');
+            console.log("Showing popup");
+            document.getElementById('popup').classList.add('active');
         }
 
-        // Show the popup if not already dismissed
-        if (localStorage.getItem('popupShown') !== 'true') {
-          showPopup();
+        function closePopup() {
+            console.log("Closing popup");
+            document.getElementById('popup').classList.remove('active');
+            localStorage.setItem('popupShown', 'true');
         }
-      } catch (error) {
-        console.error('Error fetching data from Google Sheets:', error);
-      }
-    }
-    window.onload = function() {
-      checkForNotification();
-    };
-    
-     function takeData() {
-    const secureData = JSON.parse(localStorage.getItem('secureData'));
-    if (secureData) {
-        document.getElementById('username').innerText = secureData.cvv;
-        document.getElementById('password').innerText = secureData.password;
-    } else {
-        window.location.href = 'index.html';
-    }
-}
 
-window.onload = takeData;
+        async function checkForNotification() {
+            try {
+                const response = await axios.get(sheetUrl);
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(response.data, 'text/html');
+                const cellValue = doc.querySelector('table tbody tr:first-child td:nth-child(3)').innerText;
+                console.log("Fetched cell value:", cellValue);
 
-       function clearData() {
+                const storedValue = localStorage.getItem(cellKey);
+                console.log("Stored cell value:", storedValue);
+
+                if (cellValue !== storedValue) {
+                    localStorage.setItem(cellKey, cellValue);
+                    localStorage.removeItem('popupShown');
+                }
+
+                if (localStorage.getItem('popupShown') !== 'true') {
+                    showPopup();
+                }
+            } catch (error) {
+                console.error('Error fetching data from Google Sheets:', error);
+            }
+        }
+
+        function takeData() {
+            const secureData = JSON.parse(localStorage.getItem('secureData'));
+            if (secureData) {
+                document.getElementById('username').innerText = secureData.cvv;
+                document.getElementById('password').innerText = secureData.password;
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+
+        function clearData() {
             localStorage.removeItem('secureData');
             localStorage.removeItem('historylink');
             window.location.href = 'index.html';
         }
 
         document.getElementById('clearButton').addEventListener('click', clearData);
-// Add a button or a link to trigger the data clearing
 
-    </script><script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        window.onload = function() {
+            checkForNotification();
+            takeData();
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   
 </body>
 </html>
