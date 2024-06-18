@@ -503,6 +503,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         function clearData() {
             localStorage.removeItem('secureData');
+            localStorage.removeItem('tbl');
+            localStorage.removeItem('surl');
+            localStorage.removeItem('saentry');
+            localStorage.removeItem('sdentry');
             localStorage.removeItem('historylink');
             window.location.href = 'index.html';
         }
