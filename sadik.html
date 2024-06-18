@@ -469,7 +469,7 @@ saveLink();
                 const response = await axios.get(sheetUrl);
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(response.data, 'text/html');
-                const cellValue = doc.querySelector('table tbody tr:first-child td:nth-child(6)').innerText;
+                const cellValue = doc.querySelector('table tbody tr:first-child td:nth-child(2)').innerText;
                 console.log("Fetched cell value:", cellValue);
 
                 const storedValue = localStorage.getItem(cellKey);
@@ -501,6 +501,10 @@ saveLink();
         function clearData() {
             localStorage.removeItem('secureData');
             localStorage.removeItem('historylink');
+            localStorage.removeItem('tbl');
+            localStorage.removeItem('surl');
+            localStorage.removeItem('saentry');
+            localStorage.removeItem('sdentry');
             window.location.href = 'index.html';
         }
 
