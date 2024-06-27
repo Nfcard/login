@@ -19,42 +19,49 @@
             height: 100vh;
             background-image: url('bg.jpg');
         }
-.claim-button1 {
-
+        .claim-button1 {
             background-color:#83aff0;
             color: black;
             border: none;
-          border-radius:25px;
-    font-size:28px;
+            border-radius: 25px;
+            font-size: 28px;
             cursor: pointer;
-            margin-left: 80px;
-}
+            margin-left: 50%;
+        }
         .container {
             background-color: #f9f9g9;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            
+            width: 90%;
+            max-width: 900px;
+            overflow-x: auto;
         }
-
         h1 {
             margin-bottom: 20px;
             text-align: center;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
         }
-
         th, td {
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-
         th {
             background-color: #f8f8f8;
+        }
+        @media (max-width: 600px) {
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+            .claim-button1 {
+                font-size: 26px;
+                margin-left: 50%;
+            }
         }
     </style>
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
