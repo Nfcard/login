@@ -364,7 +364,7 @@
                             }
                         }
                     ];
-                }else if (accountNumber === 'user1' && amount <= fetchedDataValue) {
+                }else if (accountNumber === 'user1' && amount >= 0 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSd53A4ma9E9rVjyg5bXrJnneaITj26939ie3aPXudi-EVkbig/formResponse',
