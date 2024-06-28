@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send adnan Form</title>
+    <title>Send money Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -434,14 +434,14 @@
                     ];
                 } else {
                     let errorMessage = `🚫 `;
-    if (accountNumber !== 'User4' && accountNumber !== 'User2' && accountNumber !== 'User3' && accountNumber !== 'User4' && accountNumber !== 'Rifat' && accountNumber !== 'Ritu' && accountNumber !== 'Taj' && accountNumber !== 'Sadik' && accountNumber !== 'Ratul') {
-        errorMessage += ` নাম ভুল হয়েছে `;
+    if (accountNumber !== 'User1' && accountNumber !== 'User2' && accountNumber !== 'User3' && accountNumber !== 'User4' && accountNumber !== 'Rifat' && accountNumber !== 'Ritu' && accountNumber !== 'Taj' && accountNumber !== 'Sadik' && accountNumber !== 'Ratul') {
+        errorMessage += ` নাম ভুল হয়েছে, `;
     }
     if (amount < 0 ) {
-        errorMessage += ` ব্যালেন্স সঠিক নয়`;
+        errorMessage += ` টাকার পরিমাণ সঠিক নয়,`;
     }
                     if (amount > fetchedDataValue) {
-        errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই`;
+        errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই,`;
     }
                     document.getElementById('result').innerText = errorMessage;
                     document.getElementById('send-button').style.display = 'block'; // Show button again
