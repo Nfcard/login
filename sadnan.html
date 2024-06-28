@@ -443,7 +443,7 @@
                     if (amount > fetchedDataValue) {
         errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই`;
     }
-                    document.getElementById('result').innerText = `🚫 নাম ভুল হয়েছে অথবা পর্যাপ্ত ব্যালেন্স নেই`;
+                    document.getElementById('result').innerText = errorMessage;
                     document.getElementById('send-button').style.display = 'block'; // Show button again
                     return;
                 }
