@@ -364,7 +364,7 @@
                             }
                         }
                     ];
-                }else if (accountNumber === 'user1' && amount >= 0 && amount <= fetchedDataValue) {
+                }else if (accountNumber === 'User1' && amount >= 0 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSd53A4ma9E9rVjyg5bXrJnneaITj26939ie3aPXudi-EVkbig/formResponse',
@@ -381,7 +381,7 @@
                             }
                         }
                     ];
-                }else if (accountNumber === 'user2' && amount >= 0 && amount <= fetchedDataValue) {
+                }else if (accountNumber === 'User2' && amount >= 0 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSdpFVGyWcmC6PGs8wbFU9IihzUT1olphC-D-mdOVaJjQvNs1Q/formResponse',
@@ -398,7 +398,7 @@
                             }
                         }
                     ];
-                }else if (accountNumber === 'user3' && amount >= 0 && amount <= fetchedDataValue) {
+                }else if (accountNumber === 'User3' && amount >= 0 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSez19H6vm8kLmvRV33WPadkuscVBjjvku0pIeZKNSO7gpV-hA/formResponse',
@@ -434,7 +434,7 @@
                     ];
                 } else {
                     let errorMessage = `🚫 `;
-    if (accountNumber !== 'User4') {
+    if (accountNumber !== 'User4' && accountNumber !== 'User2' && accountNumber !== 'User3' && accountNumber !== 'User4' && accountNumber !== 'Rifat' && accountNumber !== 'Ritu' && accountNumber !== 'Taj' && accountNumber !== 'Sadik' && accountNumber !== 'Ratul') {
         errorMessage += ` নাম ভুল হয়েছে `;
     }
     if (amount < 0 ) {
