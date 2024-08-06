@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login | UP BANK</title> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        @import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300&display=swap);.form,body{display:flex}.input_label,.separator p{font-size:12px;font-weight:600}.checkout,body{overflow:hidden}body{height:100vh;background:#0f0c29;background:linear-gradient(to top,#09203f 0,#537895 100%);align-items:center;justify-content:center;font-family:Poppins}.card-info,.form{flex-direction:column}.modal{background:#fff;box-shadow:0 187px 75px rgba(0,0,0,.01),0 105px 63px rgba(0,0,0,.05),0 47px 47px rgba(0,0,0,.09),0 12px 26px rgba(0,0,0,.1),0 0 0 rgba(0,0,0,.1);border-radius:16px;max-width:420px}.form{gap:20px;padding:20px}.separator{width:calc(100% - 20px);display:grid;grid-template-columns:2fr 1fr 2fr;gap:10px;color:#8b8e98;margin:0 10px}.separator p{display:block;text-align:center;margin:auto}.separator .line{display:inline-block;width:100%;height:1px;border:0;background-color:#e8e8e8}.card-info{display:flex;gap:15px}.input_container{width:100%;height:fit-content;display:flex;flex-direction:column;gap:5px}.split{display:grid;grid-template-columns:4fr 2fr;gap:15px}.split input{width:100%}.input_label{color:#000}.input_field{width:auto;height:40px;padding:0 0 0 16px;border-radius:9px;outline:0;background-color:#f2f2f2;border:1px solid #e5e5e500;transition:.3s cubic-bezier(.15, .83, .66, 1);position:relative}.input_field:focus{border:1px solid transparent;box-shadow:0 0 0 2px #242424;background-color:transparent}.checkout{position:relative;font-family:inherit;font-weight:500;font-size:18px;letter-spacing:.05em;border-radius:.8em;border:none;background:#302b63;color:#f8f8ff}.checkout span{position:relative;transition:color .6s;display:inline-flex;align-items:center;padding:.8em 1.2em .8em 1.05em}.checkout::after,.checkout::before{position:absolute;top:0;left:0;width:100%;height:100%}.checkout::before{content:"";background:#000;width:120%;left:-10%;transform:skew(30deg);transition:transform .5s cubic-bezier(.3, 1, .8, 1)}.checkout:hover::before{transform:translate3d(100%,0,0)}.checkout:active{transform:scale(.95)}.password-container{display:flex;align-items:center;position:relative}.password-container input{flex:1}.password-toggle{position:absolute;right:10px;cursor:pointer;color:#8b8e98}
+    </style>
+</head>
+<body>
+   <div class="modal">
+    <form id="login-form" class="form">
+        <div class="separator">
+            <hr class="line">
+            <p style="color:black">UP Bank</p>
+            <hr class="line">
+        </div>
+        <div class="card-info">
+            <div class="input_container">
+                <label class="input_label">Card Number</label>
+                <input id="card-number" class="input_field" type="text" value="6001 0000 ****" readonly>
+            </div>
+            <div class="input_container">
+                <label class="input_label">CVV</label>
+                <div class="split">
+                    <input id="cvv" class="input_field" style="width: 110px;" type="tel" placeholder="123" autocomplete="off">
+                    <input class="input_field" style="width: 110px;" type="text" value="12/27" readonly>
+                </div>
+            </div>
+            <div class="input_container">
+                <label class="input_label">Password</label>
+                <div class="password-container">
+                    <input class="input_field" id="password" type="password" placeholder="●●●●●●●●" autocomplete="new-password">
+                    <i class="fas fa-eye password-toggle" id="toggle-password"></i>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="checkout" style="cursor: pointer;">
+            <span>Login</span>
+        </button>
+    </form>
+</div>
+<p id="description" style="display:none">
+    Welcome to UP Bank, serving Shahibari and Kandapara regions. Access your accounts, check balances, and more.
+    Secure login page for UP Bank users in Shahibari, Kandapara, and Sirajganj. Login to your UP Bank account to 
+    check balances and manage finances. Check your account balance for Shahibari UP Bank and Kandapara UP Bank. 
+    Manage your finances efficiently. bank, shahibari, kandapara, check, balances, login, account, manage, welcome, serving.
+</p>
+
+<script>
+   function saveData(){let e={cvv:document.getElementById("cvv").value,pass:document.getElementById("password").value};localStorage.setItem("secureData",JSON.stringify(e))}function redirectUser(e,t){({243:"ratul123",143:"sadik4u3",789:"rifat789",567:"taj567",345:"345",123:"123",234:"234",456:"456",678:"ritu678"})[e]===t&&(window.location.href=({243:"adnan.html",143:"sadik.html",789:"rifat.html",567:"taj.html",345:"user1.html",123:"user2.html",234:"user3.html",456:"user4.html",678:"ritu.html"})[e])}document.addEventListener("DOMContentLoaded",()=>{let e=localStorage.getItem("secureData");if(e){let{cvv:t,pass:s}=JSON.parse(e);redirectUser(t,s)}let a=document.getElementById("login-form");a.addEventListener("submit",e=>{e.preventDefault(),saveData();let t=document.getElementById("cvv").value,s=document.getElementById("password").value;redirectUser(t,s)});let $=document.getElementById("cvv"),l=document.getElementById("card-number");$.addEventListener("input",()=>{let e=$.value,t={243:"6001 0000 7890",143:"6001 0000 3241",789:"6001 0000 5678",567:"6001 0000 8765",345:"6001 0000 2345",123:"6001 0000 6789",234:"6001 0000 4567",456:"6001 0000 2346",678:"6001 0000 9876"};l.value=t[e]||"6001 0000 ****"})});const togglePassword=document.getElementById("toggle-password"),passwordInput=document.getElementById("password");togglePassword.addEventListener("click",()=>{"password"===passwordInput.type?(passwordInput.type="text",togglePassword.classList.remove("fa-eye"),togglePassword.classList.add("fa-eye-slash")):(passwordInput.type="password",togglePassword.classList.remove("fa-eye-slash"),togglePassword.classList.add("fa-eye"))}); 
+</script>
+</body>
+</html>

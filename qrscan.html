@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+    <title>QR Code Scanner</title>
+  <style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f8f0fc;
+    color: #0;
+    font-family: Arial, sans-serif;
+}
+
+.scanner-container {
+    text-align: center;
+   opacity: 0;
+          transform: translateY(20px);
+            animation: fadeIn .7s forwards;
+        }
+  @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+.qr-box {
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
+    border: 5px dotted black;
+    position: relative;
+}
+
+.qr-box video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+button {
+    background-color: #fff;
+    color: black;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 25px;
+    font-size: 28px;
+    
+}
+
+button:hover {
+    background-color: #007E33;
+}
+  </style></head>
+<body>
+    <div class="scanner-container">
+        <h1>Send money by QR</h1>
+        <div class="qr-box">
+            <video id="video" width="300" height="200" style="display:none;" autoplay></video>
+    </div>
+        <button id="scanButton"><i class="fas fa-camera"></i></button>
+    </div>
+    <script src="https://unpkg.com/@zxing/library@0.18.6/umd/index.min.js"></script>
+    <script src="scanner.js"></script>
+</body>
+</html>

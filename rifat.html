@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Mobile App Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+              body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f8f0fc;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-height: 40px;
+            margin: 20px;
+            margin-bottom: 25px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logout {
+            font-size: 1.5em;
+            color: black;
+            margin: 10px;
+            background: none;
+            border: none;
+        }
+
+        .content {
+          margin-top:10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            flex-grow: 1;
+            overflow-y: auto;
+           opacity: 0;
+          transform: translateY(20px);
+            animation: fadeIn .7s forwards;
+        }
+  @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .balance, .low-balance, .buttons {
+            width: 90%;
+            margin: 10px auto;
+            padding: 10px;
+        }
+         @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotateX(90deg);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0);
+            }
+        }
+
+        /* Style for individual letters */
+        .letter {
+            display: inline-block;
+            opacity: 0;
+            transform-origin: bottom;
+            animation: rotateIn 0.4s ease forwards;
+        }
+.letter-wave {
+    display: inline-block;
+    opacity: 0;
+    animation: wave 0.1s ease-in-out forwards;
+}
+
+@keyframes wave {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+        .balance {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 50px;
+            height: 60px;
+        }
+
+        .amount {
+            margin-left: 15px;
+            font-size: 1.8em;
+            color: #000;
+          font-weight:bold;
+        }
+
+        .expiry {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 1px;
+            margin-left: 20px;
+            margin-bottom: -1px;
+        }
+
+        .recharge {
+            background-color: #E9F5F9;
+            color: green;
+            font-weight: bold;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 60px;
+            width: 60px;
+                    box-shadow: inset 1px 1px 2px #BABECC,
+                     inset -1px -1px 2px #ffffff73;
+      
+        }
+
+        .recharge i {
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            text-align: center;
+            margin: 0;
+            margin-top: 3px;
+        }
+
+        .low-balance {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+           background: linear-gradient(90deg, hsla(309, 81%, 92%, 1) 0%, hsla(319, 67%, 95%, 1) 100%);color: black;
+            font-weight: bold;
+            border-radius: 50px;
+            height: 60px;
+        }
+
+        .low-balance p {
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .low-balance i {
+            margin: 10px;
+            font-size: 18px;
+            color: red;
+        }
+
+        .take-loan {
+            background-color: #fff;
+            color: #ff5e5e;
+            border: 2px solid #ff5e5e;
+            font-weight: bold;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.9em;
+          margin:10px;
+                    box-shadow: inset 1px 1px 2px #BABECC,
+                     inset -1px -1px 2px #ffffff73;
+      
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            background-color: #;
+            margin-bottom: 20px;
+          border-radius:25px;
+        }
+
+        .option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            text-align: center;
+            font-size: 0.8em;
+            text-decoration: none;
+            color: #333;
+            flex: 1;
+        }
+
+        .offers {
+            background: linear-gradient(45deg, hsla(224, 34%, 86%, 1) 0%, hsla(269, 59%, 89%, 1) 100%);
+            color: black;
+            height: 100%;
+          font-size:18px;
+          
+        }
+button:hover{
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+        .grid-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .option i {
+            font-size: 2em;
+            color: #ff0055;
+            margin-bottom: 3px;
+        }
+
+        .bottom-bar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px;
+            background-color: #fff;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            flex-shrink: 0;
+            height: 30px;
+            font-size: 24px;
+            border-radius: 25px 25px 0px 0px;
+        }
+
+        .qr-scanner {
+             background-color: violet;
+            padding: 10px;
+            border-radius: 50%;
+            position: relative;
+            top: -20px;
+            border: 8px solid #f8f0fc;
+           }
+
+        .qr-scanner i {
+            color: black ;
+            font-size: 38px;
+        }
+
+        .reminder {
+            background-color: black;
+            border-radius: 10px;
+            padding: 10px;
+            position: relative;
+        }
+
+        .reminder-icon {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+            color: #ff5050;
+        }
+
+        .reminder-text {
+            margin-left: 40px;
+        }
+
+        .reminder-text p {
+            margin: 5px 0;
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            z-index: 100;
+            transition: visibility 0s, opacity 0.3s ease;
+        }
+
+        .popup.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            position: relative;
+        }
+
+        .popup-content img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .popup-content p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .popup-content .title {
+            font-size: 20px;
+            color: #ff0066;
+            margin-bottom: 10px;
+        }
+
+        .popup-content .message {
+            color: #2f7a34;
+            margin-bottom: 20px;
+        }
+
+        .popup-content .close-btn {
+            background-color: #ff0066;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <div class="profile">
+            <img src="Rifatimg.jpg" alt="Profile Picture">
+            <div>
+                <h3>Rifat Mondol</h3>
+                <p style="margin-top:-20px">01826050222</p>
+            </div>
+        </div>
+        <button id="clearButton" class="logout">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+
+    <div class="content">
+        <div class="balance">
+            <div>
+                <div class="amount">৳ <span  id="balance1"></span></div>
+                <p class="expiry">Next : <span style="font-weight:bold" id="balance2"></span></p>
+            </div>
+            <button class="recharge" onclick="document.location='send.html'"><i class="fas fa-arrow-up-from-bracket"></i></button>
+        </div>
+
+        <div class="low-balance">
+            <p><i class="fas fa-exclamation-triangle"></i> Due pasted? dont worry, take loan instead.</p>
+            <button onclick="document.location='loan.html'"class="take-loan">Loan</button>
+        </div>
+
+        <div class="buttons">
+            <button class="option offers" onclick="document.location='https://nfcard.github.io/ol'">
+                <i class="fas fa-gift"></i>
+                <p>My Offer</p>
+                <p>দেখতে ট্যাপ করুন</p>
+            </button>
+            <div class="grid-options">
+                <button class="option" onclick="document.location='history.html'"><i style="color:#007bff"class="fas fa-clock"></i><p>History</p></button>
+                <button class="option" onclick="document.location='cards.html'"><i style="color:black"class="fas fa-credit-card"></i><p>Cards</p></button>
+                <button class="option"onclick="document.location='cards.html'"><i style="color:violet"class="fas fa-comment-dollar"></i><p>Request</p></button>
+                <button class="option"onclick="document.location='dension.html'"><i style="color:green"class="fas fa-hand-holding-usd"></i><p>Dension</p></button>
+            </div>
+        </div>
+    </div>
+           <p style="display: none" id="username"></p><p style="display: none" id="password"></p>  <div class="popup" id="popup">
+    <div class="popup-content">
+      <img src="gift.png" alt="Gift Box">
+      <p class="title"><i class="fa-solid fa-bell"></i> Reminder</p>
+      <p class="message" id="balance4"></p>
+      <button class="close-btn" onclick="closePopup()">ঠিক আছে</button>
+    </div>
+             </div>
+    <div class="bottom-bar">
+      <i class="fas fa-home"></i>
+        <button onclick="document.location='qrscan.html'" class="qr-scanner">
+            <i class="fas fa-qrcode"></i>
+        </button>
+      <a style="text-decoration:none;color:black;"href="https://proyojoniobazar.github.io/shop"><i class="fas fa-bag-shopping"></i></a>
+    </div>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    function saveLink() {
+      const sheetLink = 'https://docs.google.com/spreadsheets/d/1MlPp7zpJWnXb7XdImIcrgUNWWqFNidOCGF1rBKG7Xjg/gviz/tq?gid=269875807'; // Replace gid with the actual sheet ID
+      const surl = 'https://docs.google.com/forms/d/e/1FAIpQLSdwibAx-kNF8WUJMtkLovi5v7CvD8b331qg8cuIXxQgvBY3fQ/formResponse';
+      const saentry = 'entry.571402887';
+      const sdentry = 'entry.885732113';
+      const tbl = 4;
+      localStorage.setItem('tbl', tbl);
+      localStorage.setItem('surl', surl);
+      localStorage.setItem('saentry', saentry);
+      localStorage.setItem('sdentry', sdentry);
+      localStorage.setItem('historylink', sheetLink);
+    }
+            function fetchData1() {
+                var url = 'https://docs.google.com/spreadsheets/u/0/d/1MlPp7zpJWnXb7XdImIcrgUNWWqFNidOCGF1rBKG7Xjg/htmlview';
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        var parser = new DOMParser();
+                        var htmlDoc = parser.parseFromString(data, 'text/html');
+                        var cellElement = htmlDoc.querySelectorAll('table')[4].rows[3].cells[2];
+                        
+                        var cellText = cellElement.innerText || cellElement.textContent;
+                        animateText(cellText.trim(), 'balance1', 'letter');
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+                     
+            }
+
+            function fetchData2() {
+                var url = 'https://docs.google.com/spreadsheets/u/0/d/1MlPp7zpJWnXb7XdImIcrgUNWWqFNidOCGF1rBKG7Xjg/htmlview';
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        var parser = new DOMParser();
+                        var htmlDoc = parser.parseFromString(data, 'text/html');
+                        var cellElement = htmlDoc.querySelectorAll('table')[4].rows[3].cells[3];
+                        
+                        var cellText = cellElement.innerText || cellElement.textContent;
+                        animateText(cellText.trim(), 'balance2', 'letter-wave');
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+function fetchData4() {
+                var url = 'https://docs.google.com/spreadsheets/d/1VvKwtRmRSLy-eLCQfeCDeN6xT_vv-Gw5CsXbjcwcpxw/htmlview';
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        var parser = new DOMParser();
+                        var htmlDoc = parser.parseFromString(data, 'text/html');
+                        var cellElement = htmlDoc.querySelectorAll('table')[0].rows[1].cells[9];
+                        
+                        var cellText = cellElement.innerText || cellElement.textContent;
+                        document.getElementById('balance4').innerText = cellText.trim();
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+            function animateText(text, elementId, className) {
+    const element = document.getElementById(elementId);
+    element.innerHTML = ''; // Clear any existing content
+
+    text.split('').forEach((char, index) => {
+        const letterSpan = document.createElement('span');
+        letterSpan.textContent = char === ' ' ? '\u00A0' : char; // Use non-breaking space for spaces
+        letterSpan.classList.add(className);
+        letterSpan.style.animationDelay = `${index * 0.1}s`;
+        element.appendChild(letterSpan);
+    });
+}
+
+saveLink();
+            fetchData1();
+            fetchData2();
+fetchData4();
+                  });      const sheetUrl = 'https://docs.google.com/spreadsheets/d/1VvKwtRmRSLy-eLCQfeCDeN6xT_vv-Gw5CsXbjcwcpxw/htmlview'; // Replace with your Google Sheets pubhtml link
+    const cellKey = 'sheetCellValue';
+
+    function showPopup() {
+            console.log("Showing popup");
+            document.getElementById('popup').classList.add('active');
+        }
+
+        function closePopup() {
+            console.log("Closing popup");
+            document.getElementById('popup').classList.remove('active');
+            localStorage.setItem('popupShown', 'true');
+        }
+
+        async function checkForNotification() {
+            try {
+                const response = await axios.get(sheetUrl);
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(response.data, 'text/html');
+                const cellValue = doc.querySelector('table tbody tr:first-child td:nth-child(5)').innerText;
+                console.log("Fetched cell value:", cellValue);
+
+                const storedValue = localStorage.getItem(cellKey);
+                console.log("Stored cell value:", storedValue);
+
+                if (cellValue !== storedValue) {
+                    localStorage.setItem(cellKey, cellValue);
+                    localStorage.removeItem('popupShown');
+                }
+
+                if (localStorage.getItem('popupShown') !== 'true') {
+                    showPopup();
+                }
+            } catch (error) {
+                console.error('Error fetching data from Google Sheets:', error);
+            }
+        }
+
+        function takeData() {
+            const secureData = JSON.parse(localStorage.getItem('secureData'));
+            if (secureData) {
+                document.getElementById('username').innerText = secureData.cvv;
+                document.getElementById('password').innerText = secureData.password;
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+
+        function clearData() {
+            localStorage.removeItem('secureData');
+            localStorage.removeItem('historylink');
+            localStorage.removeItem('tbl');
+            localStorage.removeItem('surl');
+            localStorage.removeItem('saentry');
+            localStorage.removeItem('sdentry');
+            window.location.href = 'index.html';
+        }
+
+        document.getElementById('clearButton').addEventListener('click', clearData);
+
+        window.onload = function() {
+            checkForNotification();
+            takeData();
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>

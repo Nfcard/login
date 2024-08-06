@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dension</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f0fc;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+        .navbar {
+            margin: -15px;
+            display: flex;
+            align-items: center;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar button {
+            background-color: white;
+            border: none;
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 10px;
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .navbar button:hover {
+            background-color: #00408a;
+        }
+        .navbar .title {
+            flex-grow: 1;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border:2px;
+    margin: 0 auto 20px;
+    display: block;
+    object-fit: contain; /* Ensure entire image fits within 100x100 */
+    object-position: center; /* Center the image within its container */
+}
+        .form-header {
+            margin-bottom: 20px;
+        }
+        .form-header label {
+            font-weight: bold;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-header input {
+            width: 92%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            outline: none;
+            text-align: left;
+            margin-bottom: 2px;
+            transition: all 1.5s ease;
+          background:#f8f0fc;
+        }
+        .form-header input:focus {
+            border-color: #007bff;
+            color: #007bff;
+        }
+        .form-header input::placeholder {
+            text-align: left; /* Align placeholder text to the left */
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 21px;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 92%;
+            padding: 20px 10px;
+            font-size: 48px;
+            text-align: left;
+            border-bottom: 2px solid #ccc;
+            border: none;
+            outline: none;
+            transition: all 1.2s ease;background:#f8f0fc;
+        }
+        .form-group input:focus {
+            color: #007bff;
+            border-color: #007bff;
+        }
+        .form-group input::placeholder {
+            text-align: left; /* Align placeholder text to the left */
+        }
+        .available-balance {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .available-balance span {
+            font-size: 16px;
+        }
+        .description-link {
+            text-align: center;
+            color: #007bff;
+            cursor: pointer;
+            margin-top: 20px;
+          background:#f8f0fc;
+        }
+        .description-field {
+            display: none;
+            margin-top: 20px;
+          background:#f8f0fc;
+        }
+        .send-button {
+            width: 100%;
+            background-color: gray;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .send-button.active {
+            background-color: #007bff;
+        }
+        /* Center placeholder text */
+        ::placeholder {
+            text-align: center;
+        }
+        .description-field {
+            text-align: center; /* Center text */
+            margin-bottom: 2px; /* Match margin */
+          
+        }
+        .description-field label {
+            display: block;
+            font-weight: bold;
+            font-size: 21px;
+            /* Match margin */
+        }
+        .description-field input {
+            width: calc(100% - 40px); /* Match width */
+            padding: 10px; /* Match padding */
+            font-size: 16px; /* Match font size */
+            border: none; /* Remove border */
+            border-bottom: 2px solid #ccc; /* Add bottom border */
+            outline: none; /* Remove outline */
+            text-align: left; /* Center text */
+            margin-bottom: 1px; /* Match margin */
+            transition: all 0.2s ease; /* Match transition */
+          
+        }
+        .description-field input:focus {
+            border-color: #007bff; /* Match focus color */
+            color: #007bff; /* Match focus color */
+        }
+        .description-field input::placeholder {
+            text-align: left; /* Align placeholder text to the left */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <button onclick="window.history.back()"><i class="fas fa-arrow-left"></i></button>
+        <div class="title">অনুদান পাঠাও</div>
+    </div>
+    <form id="send-money-form">
+      <img id="profilePic" class="profile-pic" src="User.png" alt="Profile Picture">
+        <div class="form-header">
+            <label for="name">Foundation name</label>
+<input list="browsers" id="name" placeholder="Name"/>
+<datalist id="browsers">
+    <option value="আস-সুন্নাহ ফাউন্ডেশন">
+    <option value="প্রথম আলো ট্রাস্ট">
+    <option value="শক্তি ফাউন্ডেশন">
+    <option value="তাসাউফ ফাউন্ডেশন">
+    <option value="জাগো ফাউন্ডেশন">
+      <option value="বিদ্যানন্দ ফাউন্ডেশন">
+        <option value="অ্যাকশন এইড">
+          <option value="UP Bank">
+</datalist></div>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="tel" id="amount" placeholder="$">
+        </div>
+        <div class="available-balance">
+            <span>Account Balance:</span>
+            <span style="color:green" id="balance">loading</span>
+        </div>
+        <div class="description-field" id="description-field">
+            <label for="description">Description</label>
+            <input type="text" id="description" value="Dension ">
+        </div>
+        <div style="color:red;font-size:16px;margin-top:10px;text-align:center" id="result"></div>
+        <button class="send-button" id="send-button">SEND</button>
+        <div class="description-link" id="description-link">+ Add Message</div>
+    </form>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "YhCaKlqyXGsPVBljd",
+      });
+   })();
+const inputs = document.querySelectorAll('.form-header input, .form-group input');
+const sendButton = document.getElementById('send-button');
+const descriptionLink = document.getElementById('description-link');
+const descriptionField = document.getElementById('description-field');
+
+inputs.forEach(input => {
+    input.addEventListener('input', () => {
+        if (input.value.trim() !== '') {
+            sendButton.classList.add('active');
+        } else {
+            sendButton.classList.remove('active');
+        }
+    });
+});
+
+descriptionLink.addEventListener('click', () => {
+    if (descriptionField.style.display === 'none' || descriptionField.style.display === '') {
+        descriptionField.style.display = 'block';
+        descriptionLink.textContent = '- Remove Message';
+    } else {
+        descriptionField.style.display = 'none';
+        descriptionLink.textContent = '+ Add Message';
+    }
+});
+
+const profiles = {
+    "বিদ্যানন্দ ফাউন্ডেশন": "bid.jpeg",
+    "অ্যাকশন এইড": "action.jpeg",
+    "জাগো ফাউন্ডেশন": "JAAGO.jpeg",
+    "তাসাউফ ফাউন্ডেশন": "t.jpeg",
+    "শক্তি ফাউন্ডেশন": "shakti.png",
+    "প্রথম আলো ট্রাস্ট": "protom.png",
+    "আস-সুন্নাহ ফাউন্ডেশন": "as.png",
+    "UP Bank": "uplogo.png",
+    "UP bank": "uplogo.png",
+};
+
+function updateProfile() {
+    const profilePic = document.getElementById('profilePic');
+    const nameInput = document.getElementById('name');
+    const name = nameInput.value.trim();
+
+    if (name === "") {
+        profilePic.src = "user.jpg"; // Image for empty name
+    } else if (profiles[name]) {
+        profilePic.src = profiles[name];
+    } else {
+        profilePic.src = "who.png"; // Image for name not found
+    }
+}
+
+document.getElementById('name').addEventListener('input', updateProfile);
+
+// Initial profile setup
+updateProfile();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let fetchedDataValue; // Global variable to store fetched data
+
+            function fetchData() {
+                const tbl = parseInt(localStorage.getItem('tbl'), 10); // Fetching the table number from local storage and converting to an integer
+                if (isNaN(tbl)) {
+                    console.error('Invalid table number in local storage');
+                    return;
+                }
+
+                var url = 'https://docs.google.com/spreadsheets/u/0/d/1MlPp7zpJWnXb7XdImIcrgUNWWqFNidOCGF1rBKG7Xjg/htmlview'; // Provided Google Sheets URL
+
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        var parser = new DOMParser();
+                        var htmlDoc = parser.parseFromString(data, 'text/html');
+                        var tables = htmlDoc.querySelectorAll('table');
+
+                        if (tbl >= tables.length) {
+                            console.error('Table number exceeds available tables');
+                            window.location.href = 'index.html';
+                            return;
+                        }
+
+                        var cellElement = tables[tbl].rows[3].cells[1]; // Fetching data from the specified table, row 4, column 2
+
+                        // Handling different types of cell content
+                        var cellText = cellElement.innerText || cellElement.textContent;
+                        fetchedDataValue = parseFloat(cellText.trim()); // Corrected here
+                        document.getElementById('balance').innerText = cellText.trim();
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+
+            window.onload = fetchData;
+    function getNameFromTbl(tbl) {
+        // Define your mapping logic here
+        const nameMapping = {
+            1: "From Ratul",
+            2: "From Ritu",
+            3: "From Taj",
+            4: "From Rifat",
+            5: "From Sadik"
+        };
+
+        return nameMapping[tbl] || "Unknown";
+    }
+
+ function getEmailFromTbl(tbl) {
+        // Define your mapping logic here
+        const emailMapping = {
+            1: "md.adnan.bank@gmail.com",
+            2: "tajmulok8@gmail.com",
+            3: "tajmulok8@gmail.com",
+            4: "K45255336@gmail.com",
+            5: "sadik4u3@gmail.com"
+        };
+
+        return emailMapping[tbl] || "adnanratul6@gmail.com";
+    }
+
+    function getQueryParams() {
+        let params = {};
+        window.location.search.substring(1).split("&").forEach(function (pair) {
+            let [key, value] = pair.split("=");
+            params[decodeURIComponent(key)] = decodeURIComponent(value);
+        });
+        console.log("Parsed Parameters:", params); // Debugging line
+        return params;
+    }
+
+    // Function to fill the form with URL parameters
+    function fillForm() {
+        let params = getQueryParams();
+        console.log("URL Parameters:", params); // Debugging line
+        if (params.name) {
+            document.getElementById('name').value = params.name;
+        }
+    }
+
+    fillForm(); // Call fillForm after DOM is fully loaded
+   
+  document.getElementById('send-money-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                document.getElementById('send-button').style.display = 'none';
+                const accountNumber = document.getElementById('name').value;
+                const accountNumber2 = "Donation to " + accountNumber;
+                const amount = parseFloat(document.getElementById('amount').value); // Ensure amount is a number
+                const amount2 = "-" + amount;
+                const description = document.getElementById('description').value;
+const tbl = parseInt(localStorage.getItem('tbl'), 10);
+        const matchedName = getNameFromTbl(tbl);
+        const recipientEmail = getEmailFromTbl(tbl);
+const msg = "Dear Sir, your rocket A/C ***9332 credited (Donation credit) by " + amount + " BDT. For more ,download dbbl NexusPay https://bit.ly/nexuspay";
+        const updatedDescription = `${description} - ${matchedName}`;
+        
+
+        document.getElementById('description').value = updatedDescription;
+                // Fetch data from local storage
+                const surl = localStorage.getItem('surl');
+                const saentry = localStorage.getItem('saentry');
+                const sdentry = localStorage.getItem('sdentry');
+
+                let googleFormsData = [];
+
+                if (accountNumber === 'আস-সুন্নাহ ফাউন্ডেশন' && amount >= 0 && amount <= fetchedDataValue) {
+                    googleFormsData = [
+                        {
+                         url: 'https://docs.google.com/forms/d/e/1FAIpQLScuAspEw6MJNhkI8tPYKCHZhRfS6F3n15EElqu73AzMqjBhSA/formResponse',
+                            entries: {
+                                amount: 'entry.1522107311',
+                                description: 'entry.1449208456'
+                               }
+                        },
+                        {
+                            url: surl,
+                            entries: {
+                                amount: saentry,
+                                description: sdentry
+                            }
+                        }
+                    ];
+                } else if (accountNumber === 'প্রথম আলো ট্রাস্ট' && amount >= 0 && amount <= fetchedDataValue) {
+                    googleFormsData = [
+                        {
+                           url: 'https://docs.google.com/forms/d/e/1FAIpQLScuAspEw6MJNhkI8tPYKCHZhRfS6F3n15EElqu73AzMqjBhSA/formResponse',
+                            entries: {
+                                amount: 'entry.1522107311',
+                                description: 'entry.1449208456'
+                             }
+                        },
+                        {
+                            url: surl,
+                            entries: {
+                                amount: saentry,
+                                description: sdentry
+                            }
+                        }
+                    ];
+                } else if (accountNumber === 'শক্তি ফাউন্ডেশন' && amount >= 0 && amount <= fetchedDataValue) {
+                    googleFormsData = [
+                        {
+                          url: 'https://docs.google.com/forms/d/e/1FAIpQLScuAspEw6MJNhkI8tPYKCHZhRfS6F3n15EElqu73AzMqjBhSA/formResponse',
+                            entries: {
+                                amount: 'entry.1522107311',
+                                description: 'entry.1449208456'
+                              }
+                        },
+                        {
+                            url: surl,
+                            entries: {
+                                amount: saentry,
+                                description: sdentry
+                            }
+                        }
+                    ];
+                } else if (accountNumber === 'তাসাউফ ফাউন্ডেশন' && amount >= 0 && amount <= fetchedDataValue) {
+                    googleFormsData = [
+                        {
+                          url: 'https://docs.google.com/forms/d/e/1FAIpQLScuAspEw6MJNhkI8tPYKCHZhRfS6F3n15EElqu73AzMqjBhSA/formResponse',
+                            entries: {
+                                amount: 'entry.1522107311',
+                                description: 'entry.1449208456'
+                              }
+                        },
+                        {
+                            url: surl,
+                            entries: {
+                                amount: saentry,
+                                description: sdentry
+                            }
+                        }
+                    ];
+                } else if (accountNumber === 'জাগো ফাউন্ডেশন' && amount >= 0 && amount <= fetchedDataValue) {
+                    googleFormsData = [
+                        {
+                            url: 'https://docs.google.com/forms/d/e/1FAIpQLScuAspEw6MJNhkI8tPYKCHZhRfS6F3n15EElqu73AzMqjBhSA/formResponse',
+                            entries: {
+                                amount: 'entry.1522107311',
+                                description: 'entry.1449208456'
+                            }
+                        },
+                        {
+                            url: surl,
+                            entries: {
+                                amount: saentry,
+                                description: sdentry
+                            }
+                        }
+                    ];
+                }else if (accountNumber === 'অ্যাকশন এইড' && amount >= 0 && amount <= fetchedDataValue) {
+                    googleFormsData = [
+                        {
+                            url: 'https://docs.google.com/forms/d/e/1FAIpQLScuAspEw6MJNhkI8tPYKCHZhRfS6F3n15EElqu73AzMqjBhSA/formResponse',
+                            entries: {
+                                amount: 'entry.1522107311',
+                                description: 'entry.1449208456'
+                            }
+                        },
+                        {
+                            url: surl,
+                            entries: {
+                                amount: saentry,
+                                description: sdentry
+                            }
+                        }
+                    ];
+                }else if (accountNumber === 'বিদ্যানন্দ ফাউন্ডেশন' && amount >= 0 && amount <= fetchedDataValue) {
+                    googleFormsData = [
+                        {
+                            url: 'https://docs.google.com/forms/d/e/1FAIpQLScuAspEw6MJNhkI8tPYKCHZhRfS6F3n15EElqu73AzMqjBhSA/formResponse',
+                            entries: {
+                                amount: 'entry.1522107311',
+                                description: 'entry.1449208456'
+                            }
+                        },
+                        {
+                            url: surl,
+                            entries: {
+                                amount: saentry,
+                                description: sdentry
+                            }
+                        }
+                    ];
+                }else if (accountNumber === 'UP bank' && amount >= 0 && amount <= fetchedDataValue) {
+                    googleFormsData = [
+                        {
+                            url: 'https://docs.google.com/forms/d/e/1FAIpQLScuAspEw6MJNhkI8tPYKCHZhRfS6F3n15EElqu73AzMqjBhSA/formResponse',
+                            entries: {
+                                amount: 'entry.1522107311',
+                                description: 'entry.1449208456'
+                            }
+                        },
+                        {
+                            url: surl,
+                            entries: {
+                                amount: saentry,
+                                description: sdentry
+                            }
+                        }
+                    ];
+                }else if (accountNumber === 'UP Bank' && amount >= 0 && amount <= fetchedDataValue) {
+                    googleFormsData = [
+                        {
+                            url: 'https://docs.google.com/forms/d/e/1FAIpQLScuAspEw6MJNhkI8tPYKCHZhRfS6F3n15EElqu73AzMqjBhSA/formResponse',
+                            entries: {
+                                amount: 'entry.1522107311',
+                                description: 'entry.1449208456'
+                            }
+                        },
+                        {
+                            url: surl,
+                            entries: {
+                                amount: saentry,
+                                description: sdentry
+                            }
+                        }
+                    ];
+                } else {
+                    let errorMessage = `🚫 `;
+    if (accountNumber !== 'আস-সুন্নাহ ফাউন্ডেশন' && accountNumber !== 'প্রথম আলো ট্রাস্ট' && accountNumber !== 'শক্তি ফাউন্ডেশন' && accountNumber !== 'UP Bank' && accountNumber !== 'তাসাউফ ফাউন্ডেশন' && accountNumber !== 'জাগো ফাউন্ডেশন' && accountNumber !== 'অ্যাকশন এইড' && accountNumber !== 'বিদ্যানন্দ ফাউন্ডেশন' && accountNumber !== 'UP bank') {
+        errorMessage += ` নাম ভুল হয়েছে, `;
+    }
+    if (amount < 0 ) {
+        errorMessage += ` টাকার পরিমাণ সঠিক নয়,`;
+    }
+                    if (amount > fetchedDataValue) {
+        errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই,`;
+    }
+                    document.getElementById('result').innerText = errorMessage;
+                    document.getElementById('send-button').style.display = 'block'; // Show button again
+                    return;
+                }
+
+                googleFormsData.forEach((form, index) => {
+                    const formData = new FormData();
+                    formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
+                    formData.append(form.entries.description, form === googleFormsData[0] ? updatedDescription : accountNumber2);
+
+                    fetch(form.url, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: new URLSearchParams(formData)
+                      })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('result').innerText = `${amount} in transaction! please wait.....`;
+                } else {
+                    console.error('Error submitting form');
+                }
+            })
+            .catch(error => console.error('Error submitting form:', error));
+        });
+
+        // Send email using EmailJS
+      emailjs.send("updensiion", "template_densiion", {
+    to_email: recipientEmail, // Corrected key name
+    to_name: matchedName,
+    from_name: "Rocket",
+    message: msg,
+})
+.then(response => {
+    console.log('Email sent successfully:', response.status, response.text);
+    document.getElementById('result').innerText = `${amount} has credited for ${accountNumber}`;
+})
+.catch(error => {
+    console.error('Error sending email:', error);
+        document.getElementById('result').innerText = `${amount}৳ to ${accountNumber} has Successfully donated ✅️`;
+                       });
+  });
+});  
+            </script>
+</body>
+</html>
