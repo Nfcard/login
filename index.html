@@ -169,53 +169,56 @@
       </form>
    </div>
    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-         const storedPhoneNumber = localStorage.getItem('phoneNumber');
-         if (storedPhoneNumber) {
-            document.getElementById('phoneNumber').value = storedPhoneNumber;
-         }
-      });
+    document.addEventListener('DOMContentLoaded', function() {
+    const storedPhoneNumber = localStorage.getItem('phoneNumber');
+    if (storedPhoneNumber) {
+        document.getElementById('phoneNumber').value = storedPhoneNumber;
+    }
+});
 
-      document.getElementById('loginForm').addEventListener('submit', function(event) {
-         event.preventDefault();
-         const phoneNumber = document.getElementById('phoneNumber').value;
-         const pin = document.getElementById('pin').value;
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const pin = document.getElementById('pin').value;
 
-         // Predefined account details and their corresponding URLs
-         const accountDetails = [
-            { phoneNumber: '01888396332', pin: '243', url: 'adnan.html' },
-            { phoneNumber: '01332775626', pin: '678', url: 'ritu.html' },
-            { phoneNumber: '01628752575', pin: '143', url: 'sadik.html' },
-            { phoneNumber: '01888334616', pin: '567', url: 'taj.html' },
-            { phoneNumber: '01826050222', pin: '789', url: 'rifat.html' },
-            { phoneNumber: '+88 01987654321', pin: 'abcd', url: 'https://site3.com' },
-          { phoneNumber: '+88 01987654321', pin: 'abcd', url: 'https://site3.com' },
-          { phoneNumber: '+88 01987654321', pin: 'abcd', url: 'https://site3.com' },
-          { phoneNumber: '+88 01987654321', pin: 'abcd', url: 'https://site3.com' }
-         ];
+    // Predefined account details and their corresponding URLs
+    const accountDetails = [
+        { phoneNumber: '01888396332', pin: '243', url: 'adnan.html' },
+        { phoneNumber: '01332775626', pin: '678', url: 'ritu.html' },
+        { phoneNumber: '01628752575', pin: '143', url: 'sadik.html' },
+        { phoneNumber: '01888334616', pin: '567', url: 'taj.html' },
+        { phoneNumber: '01826050222', pin: '789', url: 'rifat.html' },
+        { phoneNumber: '+88 01987654321', pin: 'abcd', url: 'https://site3.com' },
+        { phoneNumber: '+88 01987654321', pin: 'abcd', url: 'https://site3.com' },
+        { phoneNumber: '+88 01987654321', pin: 'abcd', url: 'https://site3.com' },
+        { phoneNumber: '+88 01987654321', pin: 'abcd', url: 'https://site3.com' }
+    ];
 
-         // Check if the entered details match any of the predefined account details
-         const matchedAccount = accountDetails.find(account => 
-            account.phoneNumber === phoneNumber && account.pin === pin
-         );
+    // Check if the entered details match any of the predefined account details
+    const matchedAccount = accountDetails.find(account => 
+        account.phoneNumber === phoneNumber && account.pin === pin
+    );
 
-         if (matchedAccount) {
-            // Store the phone number in local storage
-            localStorage.setItem('phoneNumber', phoneNumber);
+    if (matchedAccount) {
+        // Remove old secure data from local storage
+        localStorage.removeItem('secureData');
 
-            // Store the data in local storage
-            const secureData = {
-               cvv: phoneNumber,
-               password: pin
-            };
-            localStorage.setItem('secureData', JSON.stringify(secureData));
+        // Store the phone number in local storage
+        localStorage.setItem('phoneNumber', phoneNumber);
 
-            // Redirect to the matched URL
-            window.location.href = matchedAccount.url;
-         } else {
-            alert('একাউন্ট নাম্বার বা পিন ভুল।');
-         }
-      });
+        // Store the new secure data in local storage
+        const secureData = {
+            cvv: phoneNumber,
+            password: pin
+        };
+        localStorage.setItem('secureData', JSON.stringify(secureData));
+
+        // Redirect to the matched URL
+        window.location.href = matchedAccount.url;
+    } else {
+        alert('একাউন্ট নাম্বার বা পিন ভুল।');
+    }
+});
    </script>
 </body>
 </html>
