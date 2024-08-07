@@ -140,7 +140,24 @@
          font-size: 18px;
          text-align: center;
          margin-bottom: 20px;
-      }
+      }@keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotateX(90deg);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0);
+            }
+        }
+
+        /* Style for individual letters */
+        .letter {
+            display: inline-block;
+            opacity: 0;
+            transform-origin: bottom;
+            animation: rotateIn 0.4s ease forwards;
+        }
    </style>
 </head>
 <body>
@@ -170,11 +187,26 @@
    </div>
    <script>
     document.addEventListener('DOMContentLoaded', function() {
+    // Remove old secure data from local storage on page load or reload
+    localStorage.removeItem('secureData');
+
     const storedPhoneNumber = localStorage.getItem('phoneNumber');
     if (storedPhoneNumber) {
-        document.getElementById('phoneNumber').value = storedPhoneNumber;
+        animateText(storedPhoneNumber, 'phoneNumber', 'letter');
     }
 });
+      function animateText(text, elementId, className) {
+    const element = document.getElementById(elementId);
+    element.innerHTML = ''; // Clear any existing content
+
+    text.split('').forEach((char, index) => {
+        const letterSpan = document.createElement('span');
+        letterSpan.textContent = char === ' ' ? '\u00A0' : char; // Use non-breaking space for spaces
+        letterSpan.classList.add(className);
+        letterSpan.style.animationDelay = `${index * 0.1}s`;
+        element.appendChild(letterSpan);
+    });
+      }
 
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -200,9 +232,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     );
 
     if (matchedAccount) {
-        // Remove old secure data from local storage
-        localStorage.removeItem('secureData');
-
         // Store the phone number in local storage
         localStorage.setItem('phoneNumber', phoneNumber);
 
