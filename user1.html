@@ -258,12 +258,12 @@ button:hover{
         }
 
         .qr-scanner {
-            background-color: violet;
+           background: linear-gradient(50deg, hsla(194, 63%, 60%, 1) 0%, hsla(302, 85%, 66%, 1) 100%);
             padding: 10px;
             border-radius: 50%;
             position: relative;
-            top: -20px;
-            border: 8px solid #f8f0fc;
+            top: -25px;
+             border: 8px solid #f8f0fc;
             
         }
 
@@ -360,10 +360,10 @@ button:hover{
 <body>
     <div class="header-bar">
         <div class="profile">
-            <img src="Ratulimg.jpg" alt="Profile Picture">
+            <img src="Ruhulimg.jpeg" alt="Profile Picture">
             <div>
-                <h3>MoraL adnan</h3>
-                <p style="margin-top:-20px">01888396332</p>
+                <h3>Md Ruhul Amin</h3>
+                <p style="margin-top:-20px">01601517779</p>
             </div>
         </div>
         <button id="clearButton" class="logout">
@@ -377,12 +377,12 @@ button:hover{
                 <div class="amount">৳ <span  id="balance1"></span></div>
                 <p class="expiry">Next : <span style="font-weight:bold" id="balance2"></span></p>
             </div>
-            <button class="recharge" onclick="document.location='send.html'"><i class="fas fa-arrow-up-from-bracket"></i></button>
+            <button class="recharge" onclick="document.location='  '"><i class="fas fa-arrow-up-from-bracket"></i></button>
         </div>
 
         <div class="low-balance">
             <p><i class="fas fa-exclamation-triangle"></i> Due pasted? dont worry, take loan instead.</p>
-            <button onclick="document.location='loan.html'"class="take-loan">Loan</button>
+            <button onclick="document.location=' '"class="take-loan">Loan</button>
         </div>
 
         <div class="buttons">
@@ -393,9 +393,9 @@ button:hover{
             </button>
             <div class="grid-options">
                 <button class="option" onclick="document.location='history.html'"><i style="color:#007bff"class="fas fa-clock"></i><p>History</p></button>
-                <button class="option" onclick="document.location='cards.html'"><i style="color:#706d9c"class="fas fa-credit-card"></i><p>Cards</p></button>
-                <button class="option"onclick="document.location='cards.html'"><i style="color:violet"class="fas fa-comment-dollar"></i><p>Request</p></button>
-                <button class="option"onclick="document.location='dension.html'"><i style="color:green"class="fas fa-hand-holding-usd"></i><p>Dension</p></button>
+                <button class="option" onclick="document.location=' '"><i style="color:#706d9c"class="fas fa-credit-card"></i><p>Cards</p></button>
+                <button class="option"onclick="document.location=' '"><i style="color:violet"class="fas fa-comment-dollar"></i><p>Request</p></button>
+                <button class="option"onclick="document.location=' '"><i style="color:green"class="fas fa-hand-holding-usd"></i><p>Dension</p></button>
             </div>
         </div>
     </div>
@@ -414,14 +414,14 @@ button:hover{
         </button>
       <a style="text-decoration:none;color:black;"href="https://proyojoniobazar.github.io/shop"><i class="fas fa-bag-shopping"></i></a>
     </div>
-    <script>
-document.addEventListener("DOMContentLoaded", function() {
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
     function saveLink() {
-      const sheetLink = 'https://docs.google.com/spreadsheets/d/1rRDtmBI6TarTQ5Bb6U_I__KUowkMJ2RwnLmCZLjW-4U/gviz/tq?gid=1498873600'; // Replace gid with the actual sheet ID
-      const surl = 'https://docs.google.com/forms/d/e/1FAIpQLSd53A4ma9E9rVjyg5bXrJnneaITj26939ie3aPXudi-EVkbig/formResponse';
+      const sheetLink = 'https://docs.google.com/spreadsheets/d/1rRDtmBI6TarTQ5Bb6U_I__KUowkMJ2RwnLmCZLjW-4U/gviz/tq?gid=8875538'; // Replace gid with the actual sheet ID
+      const surl = 'https://docs.google.com/forms/d/e/1FAIpQLScuAspEw6MJNhkI8tPYKCHZhRfS6F3n15EElqu73AzMqjBhSA/formResponse';
       const saentry = 'entry.1522107311';
       const sdentry = 'entry.1449208456';
-      const tbl = 3;
+      const tbl = 0;
       localStorage.setItem('tbl', tbl);
       localStorage.setItem('surl', surl);
       localStorage.setItem('saentry', saentry);
@@ -435,10 +435,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     .then(data => {
                         var parser = new DOMParser();
                         var htmlDoc = parser.parseFromString(data, 'text/html');
-                        var cellElement = htmlDoc.querySelectorAll('table')[3].rows[3].cells[2];
+                        var cellElement = htmlDoc.querySelectorAll('table')[1].rows[3].cells[2];
                         
                         var cellText = cellElement.innerText || cellElement.textContent;
-                        document.getElementById('balance1').innerText = cellText.trim();
+                        animateText(cellText.trim(), 'balance1', 'letter-wave');
                     })
                     .catch(error => console.error('Error fetching data:', error));
             }
@@ -450,14 +450,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     .then(data => {
                         var parser = new DOMParser();
                         var htmlDoc = parser.parseFromString(data, 'text/html');
-                        var cellElement = htmlDoc.querySelectorAll('table')[3].rows[3].cells[3];
+                        var cellElement = htmlDoc.querySelectorAll('table')[1].rows[3].cells[3];
                         
                         var cellText = cellElement.innerText || cellElement.textContent;
-                        document.getElementById('balance2').innerText = cellText.trim();
+                        animateText(cellText.trim(), 'balance2', 'letter-wave');
                     })
                     .catch(error => console.error('Error fetching data:', error));
-            }function fetchData4() {
-                var url = 'https://docs.google.com/spreadsheets/u/0/d/1rRDtmBI6TarTQ5Bb6U_I__KUowkMJ2RwnLmCZLjW-4U/htmlview';
+            } function fetchData4() {
+                var url = 'https://docs.google.com/spreadsheets/d/1VvKwtRmRSLy-eLCQfeCDeN6xT_vv-Gw5CsXbjcwcpxw/htmlview';
                 fetch(url)
                     .then(response => response.text())
                     .then(data => {
@@ -470,42 +470,28 @@ document.addEventListener("DOMContentLoaded", function() {
                     })
                     .catch(error => console.error('Error fetching data:', error));
             }
+function animateText(text, elementId, className) {
+    const element = document.getElementById(elementId);
+    element.innerHTML = ''; // Clear any existing content
+
+    text.split('').forEach((char, index) => {
+        const letterSpan = document.createElement('span');
+        letterSpan.textContent = char === ' ' ? '\u00A0' : char; // Use non-breaking space for spaces
+        letterSpan.classList.add(className);
+        letterSpan.style.animationDelay = `${index * 0.1}s`;
+        element.appendChild(letterSpan);
+    });
+}
 
             saveLink();
             fetchData1();
-  fetchData3();
-    fetchData4();
-  
-
-            let slideIndex = 1;
-            showSlides(slideIndex);
-
-            function plusSlides(n) {
-                showSlides(slideIndex += n);
-            }
-
-            function showSlides(n) {
-                let i;
-                let slides = document.getElementsByClassName("mySlides");
-                if (n > slides.length) {slideIndex = 1}
-                if (n < 1) {slideIndex = slides.length}
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none"; 
-                }
-                slides[slideIndex-1].style.display = "block"; 
-            }
-
-            document.querySelector('.prev').addEventListener('click', function() {
-                plusSlides(-1);
-            });
-
-            document.querySelector('.next').addEventListener('click', function() {
-                plusSlides(1);
-            });
-        });      const sheetUrl = 'https://docs.google.com/spreadsheets/d/1VvKwtRmRSLy-eLCQfeCDeN6xT_vv-Gw5CsXbjcwcpxw/htmlview'; // Replace with your Google Sheets pubhtml link
+             
+  fetchData3();fetchData4();
+        });  
+            const sheetUrl = 'https://docs.google.com/spreadsheets/d/1VvKwtRmRSLy-eLCQfeCDeN6xT_vv-Gw5CsXbjcwcpxw/htmlview'; // Replace with your Google Sheets pubhtml link
     const cellKey = 'sheetCellValue';
 
-    function showPopup() {
+   function showPopup() {
             console.log("Showing popup");
             document.getElementById('popup').classList.add('active');
         }
@@ -552,11 +538,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
         function clearData() {
             localStorage.removeItem('secureData');
-            localStorage.removeItem('historylink');
             localStorage.removeItem('tbl');
             localStorage.removeItem('surl');
             localStorage.removeItem('saentry');
             localStorage.removeItem('sdentry');
+            localStorage.removeItem('historylink');
             window.location.href = 'index.html';
         }
 
@@ -565,9 +551,9 @@ document.addEventListener("DOMContentLoaded", function() {
         window.onload = function() {
             checkForNotification();
             takeData();
-        };
+        }; 
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+  </script>
 </body>
 </html>
