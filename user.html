@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>App!</title>
+          <link
+      rel="stylesheet"
+      data-purpose="Layout StyleSheet"
+      title="Web Awesome"
+      href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
+    >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
+      >
+  <link rel="stylesheet" href="user.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
+   
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">   
+</head>
+<body>
+  <div class="header-bar">
+        <div class="profile">
+            <img id="mypic" src="" alt="Profile Picture">
+            <div>
+                <h3 id="name"></h3>
+                <p id="mob"style="margin-top:-18px"></p>
+            </div>
+        </div>
+        <button id="clearButton" class="logout">
+            <i class="fa-duotone fa-solid fa-right-from-bracket"></i>
+        </button>
+    </div>
+
+    <div class="content">
+        <div class="balance">
+            <div>
+                <div class="amount">
+    <span class="currency-symbol">৳</span>
+    <span class="balance1" id="balance1"></span>
+</div><p class="expiry">পরবর্তী : <span style="font-weight:bold" id="balance2"></span></p>
+            </div>
+            <button id="lockbtn" class="recharge" ><i class="fa-duotone fa-solid fa-arrow-up-from-bracket"></i></button>
+        </div>
+
+        <div class="low-balance">
+            <p><i class="fa-duotone fa-solid fa-alarm-exclamation"></i> সময়সীমার মধ্যে টাকা জমা দিতে পারছেন না? লোন নিন।</p>
+            <button id="lockbtn"class="take-loan">Loan</button>
+        </div>
+
+        <div class="buttons">
+            <button class="option offers" onclick="document.location='ol.html'">
+               <i class="fa-duotone fa-solid fa-gift"></i>
+                <span>My Offer</span>
+                <p>দেখতে ট্যাপ করুন</p>
+            </button>
+            <div class="grid-options">
+                <button id="lockbtn"style="background: #c7d8fc ;" class="option"><i style="color:#0e5199"class="fa-duotone fa-solid fa-clock"></i><p>History</p></button>
+                <button id="lockbtn"style="background: #cdc5db ;" onclick="document.location='card.html'"class="option" ><i style="color:#433d8f"class="fa-duotone fa-solid fa-credit-card"></i><p>Cards</p></button>
+                <button style="background: #a8f0ba ;" onclick="document.location='cashout.html'"class="option"><i style="color:#29663c"class="fa-duotone fa-solid fa-money-from-bracket"></i><p>Cashout</p></button>
+                <button style="background: #d5b6fa ;" onclick="document.location='dension.html'" class="option"><i style="color:#521c94"class="fa-duotone fa-solid fa-hands-holding-dollar"></i><p>অনুদান</p></button>
+            </div>
+        </div>
+    </div>
+        <p style="display: none" id="password"></p>  <div class="no-connection-popup" id="no-connection-popup">
+        <div class="icon"><i class="fa-duotone fa-solid fa-bell"></i></div>
+        <h1> লেনদেন সম্ভব নয় !</h1>
+        <p>লেনদেন করতে অ্যাপ ব্যবহার করুন। </p>
+        
+    </div>
+ <div class="popup" id="popup">
+    <div class="popup-content">
+      <img src="gift.png" alt="Gift Box">
+      <p class="title"><i class="fa-solid fa-bell"></i> Reminder</p>
+      <p class="message" id="balance4"></p>
+      <button class="close-btn" onclick="closePopup()">ঠিক আছে</button>
+    </div>
+             </div> 
+             
+    <div class="bottom-bar">
+      <i style="color:#3c3b8c"class="fa-duotone fa-solid fa-house"></i>
+     <button  class="qr-scanner">
+          <i class="fa-light fa-qrcode"></i>
+     </button>
+      <a style="text-decoration:none;color:black;"href="https://proyojoniobazar.github.io/shop"><i style="color:#a62161"class="fa-duotone fa-solid fa-cart-shopping"></i></a>
+    </div>
+  <script>
+let audioPlayed = false;
+const audioElement = new Audio('ting.mp3');
+
+// Preload the audio
+audioElement.preload = 'auto';
+audioElement.load();
+
+document.querySelectorAll('#lockbtn').forEach(button => {
+    button.addEventListener('click', function() {
+        const done = document.getElementById('no-connection-popup');
+        if (!audioPlayed) {
+            audioElement.play().catch(error => {
+                console.error('Audio playback failed:', error);
+            });
+            audioPlayed = true;
+        }
+        done.style.display = 'block';
+    });
+});
+</script>
+    
+  <script src="user.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+  </script>
+
+</body>
+</html>

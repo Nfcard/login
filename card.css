@@ -1,0 +1,189 @@
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f8f0fc;
+            color: white;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+       }
+       
+  .navbar {
+    
+    margin-top:5px;
+            display: flex;
+            align-items: center;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+    border-radius:50px;
+    margin-bottom:25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar button {
+            background-color: white;
+            border: none;
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 10px;
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .navbar button:hover {
+            background-color: #00408a;
+        }
+        .navbar .title {
+            flex-grow: 1;
+            text-align: center;
+            font-weight: bold;
+          font-size:18px;
+        }
+    
+        .slideshow-container {
+            width: 90vw;
+            height: 40vh;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+          margin:10px auto ;
+        opacity: 0;
+          transform: translateY(20px);
+            animation: fadeIn .7s forwards;
+        }
+  @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .mySlides {
+            display: none;
+        }
+        .slideshow-images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .slideshow-images img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            margin: 0;
+        }
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+        @keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
+        }
+        .prev, .next {
+            
+            position: absolute;
+            top: 30%;
+            width: 20px;
+            height: 20px;
+            padding: 15px;
+            color: black;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 50%;
+            background-color: #83aff0;
+            border: none;
+            user-select: none;
+            text-align: center;
+            line-height: 20px;
+        }
+        .next {
+            right: -20px;
+        }
+        .prev {
+            left: -20px;
+        }
+        .qr-code {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        opacity: 0;
+          transform: translateY(20px);
+            animation: fadeIn .7s forwards;
+        }
+  @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .qr-code img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+#no-connection-popup {
+            background-color: #ffccd2;
+            padding: 10px;
+            border-left: 5px solid #f24655;
+            box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+            text-align: center;
+            z-index: 101;
+            position: fixed;
+            margin-right: -10%;
+            top: 20px;
+            right: -20px; /* Start off-screen */
+            width: 200px;
+            display: none; /* Hidden initially */
+            opacity: 0;
+            animation: slideIn .3s forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                right: 20px; /* Slide into view */
+            }
+        }
+
+        #no-connection-popup .icon {
+            font-size: 19px;
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        #no-connection-popup h1 {
+            font-size: 16px;
+            margin: 10px 0;
+            color: black;
+        }
+
+        
+
+        #no-connection-popup button {
+            padding: 5px 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        #no-connection-popup button:focus {
+            outline: none;
+        }
+
+

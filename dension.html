@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dension</title>
+     <link
+      rel="stylesheet"
+      data-purpose="Layout StyleSheet"
+      title="Web Awesome"
+      href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
+    >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
+      ><link rel="stylesheet" href="send.css">
+
+</head>
+<body>
+    <div class="navbar">
+        <button onclick="window.history.back()"><i class="fa-duotone fa-solid fa-arrow-left"></i></button>
+        <div class="title">অনুদান পাঠান</div><div class="no-connection-popup" id="no-connection-popup">
+        <div class="icon"><i class="fa-duotone fa-solid fa-wifi-slash"></i></div>
+        <h1>ইন্টারনেট সংযোগ নেই!</h1>
+    </div>
+    </div>
+ <div class="no-connection-popup" id="no-connection-popup2">
+        <div class="icon"><i class="fa-duotone fa-solid fa-ban"></i></div>
+        <h1>কোনো একটি সমস্যা হচ্ছে!</h1>
+        </div>
+    <div style="background-color: #c6f7d6;border-left: 5px solid #52ff8b"class="no-connection-popup" id="no-connection-popup3">
+        <div class="icon"><i  style="color:green"class="fa-duotone fa-solid fa-badge-check"></i></div>
+        <h1>দান সম্পূর্ণ হয়েছে!</h1>
+    </div>
+   
+    
+    </div>
+    <form id="send-money-form">
+     
+      <img id="profilePic" class="profile-pic" src="User.png" alt="Profile Picture">
+        <div class="form-header">
+            <label for="name">Foundation name</label>
+<input list="browsers" id="name" placeholder="Name"/>
+<datalist id="browsers">
+    <option value="আস-সুন্নাহ ফাউন্ডেশন">
+    <option value="প্রথম আলো ট্রাস্ট">
+    <option value="শক্তি ফাউন্ডেশন">
+    <option value="তাসাউফ ফাউন্ডেশন">
+    <option value="জাগো ফাউন্ডেশন">
+      <option value="বিদ্যানন্দ ফাউন্ডেশন">
+        <option value="অ্যাকশন এইড">
+          <option value="UP Bank">
+</datalist></div>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="tel" id="amount" placeholder="$">
+        </div>
+        <div class="available-balance">
+            <span>Account Balance:</span>
+            <span style="color:green;font-weight: bold" id="balance">loading</span>
+        </div>
+        <div class="description-field" id="description-field">
+            <label for="description">Description</label>
+            <input type="text" id="description" value="Dension ">
+        </div>
+        <div style="color:red;font-size:16px;margin-top:10px;text-align:center" id="result"></div>
+        <button class="send-button" id="send-button"><i class="fa-duotone fa-solid fa-hand-holding-circle-dollar"></i></button>
+        <div class="description-link" id="description-link">+ Add Message</div>
+    </form>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script><script>
+let audioPlayed = false;
+const audioElement = new Audio('ting.mp3');
+
+// Preload the audio
+audioElement.preload = 'auto';
+audioElement.load();
+
+function checkInternetConnection() {
+    const netpopup = document.getElementById('no-connection-popup');
+    
+    if (navigator.onLine) {
+        netpopup.style.display = 'none';
+        audioPlayed = false; // Reset the flag when the popup is hidden
+        
+        // Check if we need to reload the page
+        if (sessionStorage.getItem('reloaded') === 'true') {
+            // Reset the flag and reload
+            sessionStorage.removeItem('reloaded');
+            location.reload();
+        }
+    } else {
+        netpopup.style.display = 'block';
+        
+        // Play the audio only if it hasn't been played for this session
+        if (!audioPlayed) {
+            audioElement.play().catch(error => {
+                console.error('Audio playback failed:', error);
+            });
+            audioPlayed = true;
+        }
+        
+        // Set the flag to reload the page when connection is restored
+        sessionStorage.setItem('reloaded', 'true');
+    }
+}
+
+window.addEventListener('load', checkInternetConnection);
+setInterval(checkInternetConnection, 3000);
+
+document.getElementById('close-popup').addEventListener('click', function () {
+    document.getElementById('no-connection-popup').style.display = 'none';
+    audioPlayed = false; // Reset the flag when the popup is manually closed
+});
+</script>
+
+<script type="text/javascript" src="dension.js">
+  
+            </script>
+</body>
+</html>

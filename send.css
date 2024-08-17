@@ -1,0 +1,279 @@
+body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f0fc;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+        .navbar {
+            margin: -15px;
+            display: flex;
+            align-items: center;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar button {
+            background-color: white;
+            border: none;
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 10px;
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .navbar button:hover {
+            background-color: #00408a;
+        }
+        .navbar .title {
+            flex-grow: 1;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border:2px;
+    margin: 0 auto 20px;
+    display: block;
+    object-fit: contain; /* Ensure entire image fits within 100x100 */
+    object-position: center; /* Center the image within its container */
+}
+form{
+opacity: 0;
+          transform: translateY(20px);
+            animation: fadeIn .7s forwards;
+        }
+  @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+                    .form-header {
+            margin-bottom: 20px;
+        }
+        .form-header label {
+            font-weight: bold;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-header input {
+            width: 92%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            outline: none;
+            text-align: left;
+            margin-bottom: 2px;
+            transition: all 1.5s ease;
+          background:#f8f0fc;
+        }
+        .form-header input:focus {
+            border-color: #007bff;
+            color: #007bff;
+        }
+        .form-header input::placeholder {
+            text-align: left; /* Align placeholder text to the left */
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 21px;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 92%;
+            padding: 20px 10px;
+            font-size: 48px;
+            text-align: left;
+            border-bottom: 2px solid #ccc;
+            border: none;
+            outline: none;
+            transition: all 1.2s ease;background:#f8f0fc;
+        }
+        .form-group input:focus {
+            color: #007bff;
+            border-color: #007bff;
+        }
+        .form-group input::placeholder {
+            text-align: left; /* Align placeholder text to the left */
+        }
+        .available-balance {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .available-balance span {
+            font-size: 16px;
+        }
+         @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotateX(90deg);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0);
+            }
+        }
+
+        /* Style for individual letters */
+        .letter {
+            display: inline-block;
+            opacity: 0;
+            transform-origin: bottom;
+            animation: rotateIn 0.5s ease forwards;
+        }
+.letter-wave {
+    display: inline-block;
+    opacity: 0;
+    animation: wave.1s ease-in-out forwards;
+}
+
+@keyframes wave {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+        .description-link {
+            text-align: center;
+            color: #007bff;
+            cursor: pointer;
+            margin-top: 20px;
+          background:#f8f0fc;
+        }
+        .description-field {
+            display: none;
+            margin-top: 20px;
+          background:#f8f0fc;
+        }
+        .send-button {
+            width: 100%;
+            background-color: gray;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .send-button.active {
+            background-color: #007bff;
+        }
+        /* Center placeholder text */
+        ::placeholder {
+            text-align: center;
+        }
+        .description-field {
+            text-align: center; /* Center text */
+            margin-bottom: 2px; /* Match margin */
+          
+        }
+        .description-field label {
+            display: block;
+            font-weight: bold;
+            font-size: 21px;
+            /* Match margin */
+        }
+        .description-field input {
+            width: calc(100% - 40px); /* Match width */
+            padding: 10px; /* Match padding */
+            font-size: 16px; /* Match font size */
+            border: none; /* Remove border */
+            border-bottom: 2px solid #ccc; /* Add bottom border */
+            outline: none; /* Remove outline */
+            text-align: left; /* Center text */
+            margin-bottom: 1px; /* Match margin */
+            transition: all 0.2s ease; /* Match transition */
+          
+        }
+        .description-field input:focus {
+            border-color: #007bff; /* Match focus color */
+            color: #007bff; /* Match focus color */
+        }
+        .description-field input::placeholder {
+            text-align: left; /* Align placeholder text to the left */
+        }
+.no-connection-popup {
+                       display: flex;
+            background-color: #ffccd2;
+            padding: 10px;
+            border-left: 5px solid #f24655;
+            box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+            text-align: center;
+            z-index: 101;
+            position: fixed;
+            margin-right: -10%;
+            top: 20px;
+            right: -20px; /* Start off-screen */
+            width: 200px;
+            display: none; /* Hidden initially */
+            opacity: 0;
+            animation: slideIn .3s forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                right: 20px; /* Slide into view */
+            }
+        }
+
+        .no-connection-popup .icon {
+            font-size: 26px;
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        .no-connection-popup h1 {
+            font-size: 16px;
+            margin: 10px 0;
+            color: black;
+        }
+        .no-connection-popup button {
+            padding: 5px 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        .no-connection-popup button:focus {
+            outline: none;
+        }
+button:hover{box-shadow: 
+  2px 2px 4px rgba(0, 0, 0, 0.3) inset, /* Inner shadow for depth */
+  -2px -2px 4px rgba(255, 255, 255, 0.5) inset;}

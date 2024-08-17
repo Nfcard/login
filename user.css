@@ -1,0 +1,421 @@
+body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+                 background-color:#f8f0fc;
+                 margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-height: 40px;
+            margin: 20px;
+            margin-bottom: 25px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+              
+        }
+
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;border: 4px solid #cdc5db ;
+        }
+
+        .logout {
+            font-size: 1.5em;
+            color: black;
+            margin: 10px;
+            background: none;
+            border: none;
+        }
+
+        .content {
+          margin-top:10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            flex-grow: 1;
+            overflow-y: auto;   opacity: 0;
+          transform: translateY(20px);
+            animation: fadeIn .7s forwards;
+        }
+  @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .balance, .low-balance, .buttons {
+            width: 90%;
+            margin: 10px auto;
+            padding: 10px;
+            
+        }
+ @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotateX(90deg);
+            }
+            to {
+                opacity: 1;
+                transform: rotateX(0);
+            }
+        }
+
+        /* Style for individual letters */
+        .letter {
+            display: inline-block;
+            opacity: 0;
+            transform-origin: bottom;
+            animation: rotateIn 0.4s ease forwards;
+        }
+.letter-wave {
+    display: inline-block;
+    opacity: 0;
+    animation: wave 0.1s ease-in-out forwards;
+}
+
+@keyframes wave {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+        .balance {
+            display: flex;
+              
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 50px;
+            height: 60px;
+        }
+
+        .amount {
+    font-family: 'Inter', sans-serif;
+    margin-left: 15px;
+    color: #000;
+    font-weight: bold;
+}
+
+.currency-symbol {
+    font-size: 1.2em; /* Adjust this size to fine-tune the appearance of the currency symbol */
+    vertical-align: top;
+}
+
+.balance1 {
+    font-size: 1.9em; /* Adjust this size to match the desired appearance */
+}
+
+        .expiry {
+             
+    font-family: 'IBM Plex Sans', sans-serif;
+
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 1px;
+            margin-left: 20px;
+            margin-bottom: -1px;
+        }
+
+        .recharge {
+            background-color: #d5f7df;
+            color: green;
+            font-weight: bold;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 60px;
+            width: 60px;
+             box-shadow: inset 1px 1px 2px #BABECC,
+                     inset -1px -1px 2px #ffffff73;
+      
+        }
+
+        .recharge i {
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            text-align: center;
+            margin: 0;
+            margin-top: 3px;
+            }
+
+        .low-balance {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+           background: linear-gradient(90deg, hsla(309, 81%, 92%, 1) 0%, hsla(319, 67%, 95%, 1) 100%);color: black;
+            
+            border-radius: 50px;
+            height: 60px;
+        }
+
+        .low-balance p {
+          
+    font-family: 'Noto Sans Bengali', sans-serif;
+
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .low-balance i {
+            margin: 10px;
+            font-size: 22px;
+            color: darkred;
+        }
+
+        .take-loan {
+            background-color: #fff;
+            color: #ff5e5e;
+            border: 2px solid #ff5e5e;
+            font-weight: bold;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.9em;
+          margin:10px;  
+         box-shadow: inset 1px 1px 2px #BABECC,
+                     inset -1px -1px 2px #ffffff73;
+      
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            background-color: #;
+            margin-bottom: 20px;
+          border-radius:25px;
+        }
+
+        .option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            text-align: center;
+            font-size: 0.8em;
+            text-decoration: none;
+            color: #333;
+            font-weight:bold;
+            
+        }
+
+        .offers {
+            background: linear-gradient(45deg, hsla(224, 34%, 86%, 1) 0%, hsla(269, 59%, 89%, 1) 100%);
+            color: black;
+            height: 100%;
+          font-size:18px;
+          box-shadow: none;
+        }
+button:hover{
+ box-shadow: 
+  2px 2px 4px rgba(0, 0, 0, 0.3) inset, /* Inner shadow for depth */
+  -2px -2px 4px rgba(255, 255, 255, 0.5) inset; /* Highlight for a recessed effect */}
+        .grid-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            flex: 1;
+       
+        }
+
+        .option i {
+            font-size: 2em;
+            color: #e81c1c;
+            margin-bottom: 5px;
+        }
+
+        .bottom-bar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px;
+            background-color: #fff;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            flex-shrink: 0;
+            height: 30px;
+            font-size: 24px;
+            border-radius: 25px 25px 0px 0px;
+         
+              box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        }
+
+        .qr-scanner {
+           background: linear-gradient(45deg, hsla(176, 89%, 89%, 1) 0%, hsla(320, 77%, 78%, 1) 100%);
+              padding: 10px;
+            border-radius: 50%;
+              top:-25px;
+            position: relative;
+             border: 8px solid #f8f0fc;
+            
+        }
+
+        .qr-scanner i {
+            color: black ;
+            font-size: 38px;
+        }
+
+        .reminder {
+            background-color: black;
+            border-radius: 10px;
+            padding: 10px;
+            position: relative;
+        }
+
+        .reminder-icon {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+            color: #ff5050;
+        }
+
+        .reminder-text {
+            margin-left: 40px;
+        }
+
+        .reminder-text p {
+            margin: 5px 0;
+        }
+
+       .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 100;
+    transition: visibility 0s, opacity 0.3s ease;
+  }
+
+  .popup.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  /* First Popup (Reminder) */
+  .popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    position: relative;
+  }
+
+  .popup-content img {
+    width: 100px;
+    margin-bottom: 20px;
+  }
+
+  .popup-content p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .popup-content .title {
+    font-size: 20px;
+    color: #ff0066;
+    margin-bottom: 10px;
+  }
+
+  .popup-content .message {
+    color: #2f7a34;
+    margin-bottom: 20px;
+  }
+
+  .popup-content .close-btn {
+    background-color: #ff0066;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  /* Second Popup (No Connection) */
+  .no-connection-popup {
+               display: flex;
+            background-color: #ffccd2;
+            padding: 10px;
+            border-left: 5px solid #f24655;
+            box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+            text-align: center;
+            z-index: 101;
+            position: fixed;
+            margin-right: -8%;
+            top: 20px;
+            right: -20px; /* Start off-screen */
+            width: 200px;
+            display: none; /* Hidden initially */
+            opacity: 0;
+            animation: slideIn .3s forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                right: 20px; /* Slide into view */
+            }
+        }
+
+        .no-connection-popup .icon {
+            font-size: 26px;
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        .no-connection-popup h1 {
+            font-size: 16px;
+            margin: 10px 0;
+            color: black;
+        }
+        .no-connection-popup button {
+            padding: 5px 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        .no-connection-popup button:focus {
+            outline: none;
+        }
