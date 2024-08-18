@@ -105,11 +105,11 @@ document.addEventListener("DOMContentLoaded", function() {
         if (['হাতে টাকা চাই', 'উপায়ে চাই', 'রকেটে চাই', 'বিকাশে চাই'].includes(description) && amount >= 50 && amount <= fetchedDataValue) {
             googleFormsData = [
                 {
-                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSdwibAx-kNF8WUJMtkLovi5v7CvD8b331qg8cuIXxQgvBY3fQ/formResponse',
+                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse',
                     entries: {
-                        amount: 'entry.571402887',
-                        description: 'entry.885732113'
-                    }
+                        amount: 'entry.1522107311',
+                        description: 'entry.1449208456'
+            }
                 },
                 {
                     url: surl,
