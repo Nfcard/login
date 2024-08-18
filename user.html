@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1, minimum-scale=1, maximum-scale=1"><title>App!</title>
+  <title>App!</title>
           <link
       rel="stylesheet"
       data-purpose="Layout StyleSheet"
@@ -69,12 +69,12 @@
     <span class="balance1" id="balance1"></span>
 </div><p class="expiry">পরবর্তী : <span style="font-weight:bold" id="balance2"></span></p>
             </div>
-            <button class="recharge" onclick="document.location='send.html'"><i class="fa-duotone fa-solid fa-arrow-up-from-bracket"></i></button>
+            <button id="lockbtn" class="recharge" ><i class="fa-duotone fa-solid fa-arrow-up-from-bracket"></i></button>
         </div>
 
         <div class="low-balance">
             <p><i class="fa-duotone fa-solid fa-alarm-exclamation"></i> সময়সীমার মধ্যে টাকা জমা দিতে পারছেন না? লোন নিন।</p>
-            <button onclick="document.location='loan.html'"class="take-loan">Loan</button>
+            <button id="lockbtn"class="take-loan">Loan</button>
         </div>
 
         <div class="buttons">
@@ -84,17 +84,17 @@
                 <p>দেখতে ট্যাপ করুন</p>
             </button>
             <div class="grid-options">
-                <button style="background: #c7d8fc ;" class="option" onclick="document.location='history.html'"><i style="color:#0e5199"class="fa-duotone fa-solid fa-clock"></i><p>History</p></button>
-                <button style="background: #cdc5db ;" class="option" onclick="document.location='card.html'"><i style="color:#433d8f"class="fa-duotone fa-solid fa-credit-card"></i><p>Cards</p></button>
-                <button style="background: #a8f0ba ;" class="option" id="cashout"><i style="color:#29663c"class="fa-duotone fa-solid fa-money-from-bracket"></i><p>Cashout</p></button>
-                <button style="background: #d5b6fa ;" class="option" id="dension"><i style="color:#521c94"class="fa-duotone fa-solid fa-hands-holding-dollar"></i><p>Dension</p></button>
+                <button id="lockbtn"style="background: #c7d8fc ;" class="option"><i style="color:#0e5199"class="fa-duotone fa-solid fa-clock"></i><p>History</p></button>
+                <button id="lockbtn"style="background: #cdc5db ;" onclick="document.location='card.html'"class="option" ><i style="color:#433d8f"class="fa-duotone fa-solid fa-credit-card"></i><p>Cards</p></button>
+                <button style="background: #a8f0ba ;" onclick="document.location='cashout.html'"class="option"><i style="color:#29663c"class="fa-duotone fa-solid fa-money-from-bracket"></i><p>Cashout</p></button>
+                <button style="background: #d5b6fa ;" onclick="document.location='dension.html'" class="option"><i style="color:#521c94"class="fa-duotone fa-solid fa-hands-holding-dollar"></i><p>অনুদান</p></button>
             </div>
         </div>
     </div>
         <p style="display: none" id="password"></p>  <div class="no-connection-popup" id="no-connection-popup">
-        <div class="icon"><i class="fa-duotone fa-solid fa-wifi-slash"></i></div>
-        <h1>ইন্টারনেট সংযোগ নেই!</h1>
-        <p>আপনার ইন্টারনেট সংযোগ করুন এবং আবার চেষ্টা করুন.</p>
+        <div class="icon"><i class="fa-duotone fa-solid fa-bell"></i></div>
+        <h1> লেনদেন সম্ভব নয় !</h1>
+        <p>লেনদেন করতে অ্যাপ ব্যবহার করুন। </p>
         <button id="close-popup">Ok</button>
     </div>
  <div class="popup" id="popup">
@@ -108,7 +108,7 @@
              
     <div class="bottom-bar">
       <i style="color:#3c3b8c"class="fa-duotone fa-solid fa-house"></i>
-     <button onclick="document.location='qrscan.html'" class="qr-scanner">
+     <button  class="qr-scanner">
           <i class="fa-light fa-qrcode"></i>
      </button>
       <a style="text-decoration:none;color:black;"href="https://proyojoniobazar.github.io/shop"><i style="color:#a62161"class="fa-duotone fa-solid fa-cart-shopping"></i></a>
@@ -121,80 +121,22 @@ const audioElement = new Audio('ting.mp3');
 audioElement.preload = 'auto';
 audioElement.load();
 
-function checkInternetConnection() {
-    const netpopup = document.getElementById('no-connection-popup');
-    
-    if (navigator.onLine) {
-        netpopup.style.display = 'none';
-        audioPlayed = false; // Reset the flag when the popup is hidden
-        
-        // Check if we need to reload the page
-        if (sessionStorage.getItem('reloaded') === 'true') {
-            // Reset the flag and reload
-            sessionStorage.removeItem('reloaded');
-            location.reload();
-        }
-    } else {
-        netpopup.style.display = 'block';
-        
-        // Play the audio only if it hasn't been played for this session
+document.querySelectorAll('#lockbtn').forEach(button => {
+    button.addEventListener('click', function() {
+        const done = document.getElementById('no-connection-popup');
         if (!audioPlayed) {
             audioElement.play().catch(error => {
                 console.error('Audio playback failed:', error);
             });
             audioPlayed = true;
         }
-        
-        // Set the flag to reload the page when connection is restored
-        sessionStorage.setItem('reloaded', 'true');
-    }
-}
-
-window.addEventListener('load', checkInternetConnection);
-setInterval(checkInternetConnection, 3000);
-
-document.getElementById('close-popup').addEventListener('click', function () {
+        done.style.display = 'block';
+    });
+});
+      document.getElementById('close-popup').addEventListener('click', function () {
     document.getElementById('no-connection-popup').style.display = 'none';
     audioPlayed = false; // Reset the flag when the popup is manually closed
 });
-      const sheetUrl = 'https://docs.google.com/spreadsheets/d/1VvKwtRmRSLy-eLCQfeCDeN6xT_vv-Gw5CsXbjcwcpxw/htmlview'; // Replace with your Google Sheets pubhtml link
-    const cellKey = 'sheetCellValue';
-
-   function showPopup() {
-            console.log("Showing popup");
-            document.getElementById('popup').classList.add('active');
-        }
-
-        function closePopup() {
-            console.log("Closing popup");
-            document.getElementById('popup').classList.remove('active');
-            localStorage.setItem('popupShown', 'true');
-        }
-
-        async function checkForNotification() {
-            try {
-                const response = await axios.get(sheetUrl);
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(response.data, 'text/html');
-                const cellValue = doc.querySelector('table tbody tr:first-child td:nth-child(6)').innerText;
-                console.log("Fetched cell value:", cellValue);
-
-                const storedValue = localStorage.getItem(cellKey);
-                console.log("Stored cell value:", storedValue);
-
-                if (cellValue !== storedValue) {
-                    localStorage.setItem(cellKey, cellValue);
-                    localStorage.removeItem('popupShown');
-                }
-
-                if (localStorage.getItem('popupShown') !== 'true') {
-                    showPopup();
-                }
-            } catch (error) {
-                console.error('Error fetching data from Google Sheets:', error);
-            }
-        }
-
 </script>
     
   <script src="user.js">
