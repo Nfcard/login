@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dension</title>
+    <title>Cashout</title>
      <link
       rel="stylesheet"
       data-purpose="Layout StyleSheet"
@@ -52,7 +52,7 @@
     </div>
  <div class="no-connection-popup" id="no-connection-popup2">
         <div class="icon"><i class="fa-duotone fa-solid fa-ban"></i></div>
-        <h1>কোনো একটি সমস্যা হচ্ছে!</h1>
+        <h1 id="result2">কোনো একটি সমস্যা হচ্ছে!</h1>
         </div>
     <div style="background-color: #c6f7d6;border-left: 5px solid #52ff8b"class="no-connection-popup" id="no-connection-popup3">
         <div class="icon"><i  style="color:green"class="fa-duotone fa-solid fa-badge-check"></i></div>
@@ -127,13 +127,9 @@ function checkInternetConnection() {
 window.addEventListener('load', checkInternetConnection);
 setInterval(checkInternetConnection, 3000);
 
-document.getElementById('close-popup').addEventListener('click', function () {
-    document.getElementById('no-connection-popup').style.display = 'none';
-    audioPlayed = false; // Reset the flag when the popup is manually closed
-});
 </script>
 
-<script type="text/javascript" src="dension.js">
+<script type="text/javascript" src="cashout.js">
   
             </script>
 </body>
