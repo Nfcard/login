@@ -42,12 +42,7 @@
       >
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="index.css"></head>
-<body><div class="no-connection-popup" id="no-connection-popup">
-        <div class="icon"><i class="fa-duotone fa-solid fa-wifi-slash"></i></div>
-        <h1>ইন্টারনেট সংযোগ নেই!</h1>
-        <p>আপনার ইন্টারনেট সংযোগ করুন</p>
-        <button id="close-popup">Ok</button>
-    </div><div class="no-connection-popup" id="no-connection-popup2">
+<body><div class="no-connection-popup" id="no-connection-popup2">
         <div class="icon"><i class="fa-duotone fa-solid fa-seal-exclamation"></i></div>
         <h1>তথ্য সঠিক নয়!</h1>
         <p id="result"></p>
@@ -99,24 +94,9 @@ audioElement.preload = 'auto';
 audioElement.load();
 
 async function checkInternetConnection() {
-    const netpopup = document.getElementById('no-connection-popup');
     const netpopup3 = document.getElementById('no-connection-popup3');
     
-    try {
-        // Attempt to fetch the first resource
-        const response1 = await fetch('https://www.google.com/favicon.ico',{ method: 'HEAD', cache: 'no-store' });
-        
-        if (!response1.ok) {
-            throw new Error('First link offline');
-        }
-        
-        netpopup.style.display = 'none';
-    } catch (error) {
-        netpopup.style.display = 'block';
-        playAudioOnce();
-      return;
-    }
-
+   
     try {
         // Attempt to fetch the second resource
         const response2 = await fetch('https://unpob.github.io/app/hack.jpg' ,{ method: 'HEAD', cache: 'no-store' });
