@@ -117,16 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return params;
     }
 
-    function fillForm() {
-        let params = getQueryParams();
-        console.log("URL Parameters:", params);
-        if (params.name) {
-            document.getElementById('name').value = params.name;
-        }
-    }
-
-    fillForm();
-
+    
     document.getElementById('send-money-form').addEventListener('submit', function(e) {
         e.preventDefault();
         document.getElementById('send-button').style.display = 'none';
@@ -150,9 +141,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const done = document.getElementById('no-connection-popup3');
         let audioPlayed = false;
         const audioElement = new Audio('ting.mp3');
-
+const audioElement = new Audio('fail.mp3');
         audioElement.preload = 'auto';
-        audioElement.load();
+        audioElement.load();audioElement2.preload = 'auto';
+audioElement2.load();
+
 
         document.getElementById('description').value = updatedDescription;
         let googleFormsData = [];
@@ -185,6 +178,13 @@ document.addEventListener("DOMContentLoaded", function() {
             if (amount > fetchedDataValue) {
                 errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই,`;
             }
+             failed.style.display = 'block';
+                    if (!audioPlayed) {
+                        audioElement2.play().catch(error => {
+                            console.error('Audio playback failed:', error);
+                        });
+                        audioPlayed = true;
+                    }
             document.getElementById('result').innerText = errorMessage;
             document.getElementById('send-button').style.display = 'block';
             return;
