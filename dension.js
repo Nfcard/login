@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function fetchData() {
         const secureData = JSON.parse(localStorage.getItem('secureData'));
         const params = getQueryParams();
-        const tbl = parseInt(params.tbl, 10) || secureData.tbl;
+        const tbl = params.tbl || secureData.tbl;
 
         if (isNaN(tbl)) {
             console.error('Invalid table number in local storage');
@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function() {
     window.onload = fetchData;
     const secureData = JSON.parse(localStorage.getItem('secureData'));
     const params = getQueryParams();
-    const id = parseInt(params.id, 10) || secureData.id;
+    const id = params.id || secureData.id;
 
     function getEmailFromTbl(id) {
         const emailMapping = {
