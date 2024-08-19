@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const done = document.getElementById('no-connection-popup3');
         let audioPlayed = false;
         const audioElement = new Audio('ting.mp3');
-        const audioElement = new Audio('fail.mp3');
+        const audioElement2 = new Audio('fail.mp3');
         audioElement.preload = 'auto';
         audioElement.load();audioElement2.preload = 'auto';
 audioElement2.load();
@@ -184,8 +184,7 @@ audioElement2.load();
                 console.error('Audio playback failed:', error);
             });
             audioPlayed = true;
-        }failed.style.display = 'block';
-                        
+        }               
             done.style.display = 'block';
             fetchData();
             console.log('Email sent successfully:', response.status, response.text);
