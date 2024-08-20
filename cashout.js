@@ -148,8 +148,7 @@ audioElement2.load();
                 body: new URLSearchParams(formData)
             })
             .then(response => {
-                if (response.ok) {
-                    if (!audioPlayed) {
+                                    if (!audioPlayed) {
                         audioElement.play().catch(error => {
                             console.error('Audio playback failed:', error);
                         });
@@ -158,16 +157,7 @@ audioElement2.load();
                     done.style.display = 'block';
                     document.getElementById('result').innerText = `${amount} টাকা ${accountNumber} তে ${description} মাধ্যমে পাঠানো হবে ২৪ ঘন্টার মধ্যে। `;
                     fetchData();
-                } else {
-                    if (!audioPlayed) {
-                        audioElement.play().catch(error => {
-                            console.error('Audio playback failed:', error);
-                        });
-                        audioPlayed = true;
-                    }
-                    failed.style.display = 'block';
-                    console.error('Error submitting form');
-                }
+                
             })
             .catch(error => console.error('Error submitting form:', error));
         });
