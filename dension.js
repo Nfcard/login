@@ -150,7 +150,7 @@ audioElement2.load();
         document.getElementById('description').value = updatedDescription;
         let googleFormsData = [];
 
-        if (profiles[accountNumber] && amount >= 0 && amount <= fetchedDataValue) {
+        if (profiles[accountNumber] && amount >= 1 && amount <= fetchedDataValue) {
             googleFormsData = [
                 {
                     url: 'https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse',
