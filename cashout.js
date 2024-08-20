@@ -156,7 +156,7 @@ audioElement2.load();
                         audioPlayed = true;
                     }
                     done.style.display = 'block';
-                    document.getElementById('result').innerText = `${amount} টাকা ${accountNumber} তে ${description} মাধ্যমে পাঠানো হবে ৩০ মিনিটের মধ্যে। `;
+                    document.getElementById('result').innerText = `${amount} টাকা ${accountNumber} তে ${description} মাধ্যমে পাঠানো হবে ২৪ ঘন্টার মধ্যে। `;
                     fetchData();
                 } else {
                     if (!audioPlayed) {
@@ -186,7 +186,7 @@ audioElement2.load();
             audioPlayed = true;
         }               
             done.style.display = 'block';
-            fetchData();
+            
             console.log('Email sent successfully:', response.status, response.text);
             document.getElementById('result').innerText = `${amount} টাকা ${accountNumber} তে ${description} মাধ্যমে পাঠানো হবে ৩০ মিনিটের মধ্যে। `;
         })
@@ -199,7 +199,7 @@ audioElement2.load();
             }
             done.style.display = 'block';
             console.error('Error sending email:', error);
-            document.getElementById('result').innerText = `${amount} টাকা ${accountNumber} তে ${description} মাধ্যমে পাঠানো হবে ৩০ মিনিটের মধ্যে। `;
+            document.getElementById('result').innerText = `${amount} টাকা ${accountNumber} তে ${description} মাধ্যমে পাঠানো হবে ১২ ঘন্টার মধ্যে। `;
         });
     });
 });
