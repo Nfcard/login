@@ -1,6 +1,6 @@
 (function() {
     emailjs.init({
-        publicKey: "LqDynLMjDwYU33Fy7",
+        publicKey: "dnubinfz9VQV8L-Li",
     });
 })();
 
@@ -115,12 +115,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             ];
         } else {
-            let errorMessage = `🚫 `;
+            let errorMessage = `❌️ `;
             if (!['হাতে টাকা চাই', 'উপায়ে চাই', 'রকেটে চাই', 'বিকাশে চাই'].includes(description)) {
-                errorMessage += ` নাম ভুল হয়েছে, `;
+                errorMessage += ` মাধ্যম ভুল হয়েছে, `;
             }
             if (amount < 50) {
-                errorMessage += ` সর্বনিম্ন 100 টাকা বের করা যাবে,`;
+                errorMessage += ` সর্বনিম্ন 50 টাকা বের করা যাবে,`;
             }
             if (amount > fetchedDataValue) {
                 errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই,`;
