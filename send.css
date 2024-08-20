@@ -235,7 +235,7 @@ opacity: 0;
             text-align: center;
             z-index: 101;
             position: fixed;
-            margin-right: -10%;
+            margin-right: -8%;
             top: 20px;
             right: -20px; /* Start off-screen */
             width: 200px;
