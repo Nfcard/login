@@ -159,47 +159,15 @@ document.getElementById('close-popup').addEventListener('click', function () {
     document.getElementById('no-connection-popup').style.display = 'none';
     audioPlayed = false; // Reset the flag when the popup is manually closed
 });
-      const sheetUrl = 'https://docs.google.com/spreadsheets/d/1VvKwtRmRSLy-eLCQfeCDeN6xT_vv-Gw5CsXbjcwcpxw/htmlview'; // Replace with your Google Sheets pubhtml link
-    const cellKey = 'sheetCellValue';
-
-   function showPopup() {
-            console.log("Showing popup");
-            document.getElementById('popup').classList.add('active');
-        }
-
         function closePopup() {
             console.log("Closing popup");
             document.getElementById('popup').classList.remove('active');
             localStorage.setItem('popupShown', 'true');
         }
 
-        async function checkForNotification() {
-            try {
-                const response = await axios.get(sheetUrl);
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(response.data, 'text/html');
-                const cellValue = doc.querySelector('table tbody tr:first-child td:nth-child(6)').innerText;
-                console.log("Fetched cell value:", cellValue);
-
-                const storedValue = localStorage.getItem(cellKey);
-                console.log("Stored cell value:", storedValue);
-
-                if (cellValue !== storedValue) {
-                    localStorage.setItem(cellKey, cellValue);
-                    localStorage.removeItem('popupShown');
-                }
-
-                if (localStorage.getItem('popupShown') !== 'true') {
-                    showPopup();
-                }
-            } catch (error) {
-                console.error('Error fetching data from Google Sheets:', error);
-            }
-        }
-
 </script>
     
-  <script src="user.js">
+  <script src="https://unpob.github.io/app/user.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
   </script>
