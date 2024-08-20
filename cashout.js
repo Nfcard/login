@@ -91,9 +91,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const audioElement = new Audio('ting.mp3');
         const audioElement2 = new Audio('fail.mp3');
         audioElement.preload = 'auto';
-        audioElement.load();audioElement2.preload = 'auto';
-audioElement2.load();
-
+        audioElement.load();
+        audioElement2.preload = 'auto';
+        audioElement2.load();
 
         let googleFormsData = [];
 
@@ -104,7 +104,7 @@ audioElement2.load();
                     entries: {
                         amount: 'entry.1522107311',
                         description: 'entry.1449208456'
-            }
+                    }
                 },
                 {
                     url: surl,
@@ -148,21 +148,25 @@ audioElement2.load();
                 body: new URLSearchParams(formData)
             })
             .then(response => {
-                                    if (!audioPlayed) {
-                        audioElement.play().catch(error => {
-                            console.error('Audio playback failed:', error);
-                        });
-                        audioPlayed = true;
-                    }
-                    done.style.display = 'block';
-                    document.getElementById('result').innerText = `${amount} টাকা ${accountNumber} তে ${description} মাধ্যমে পাঠানো হবে ২৪ ঘন্টার মধ্যে। `;
-                    fetchData();
-                
+                if (!audioPlayed) {
+                    audioElement.play().catch(error => {
+                        console.error('Audio playback failed:', error);
+                    });
+                    audioPlayed = true;
+                }
+                done.style.display = 'block';
+                document.getElementById('result').innerText = `${amount} টাকা ${accountNumber} তে ${description} মাধ্যমে পাঠানো হবে ২৪ ঘন্টার মধ্যে। `;
+                fetchData();
             })
-            .catch(error => console.error('Error submitting form:', error));
+            .catch(error => {
+                console.error('Error submitting form:', error);
+                failed.style.display = 'block';
+                document.getElementById('result2').innerText = 'Form submission failed!';
+                sendButton.style.display = 'block';
+            });
         });
 
-        emailjs.send("updensiion", "template_densiion", {
+        emailjs.send("service_g55k84c", "template_v7ksvaj", {
             to_email: "moraladnan.siraj@gmail.com",
             to_name: "DM sir",
             from_name: matchedName,
@@ -170,26 +174,26 @@ audioElement2.load();
         })
         .then(response => {
             if (!audioPlayed) {
-            audioElement.play().catch(error => {
-                console.error('Audio playback failed:', error);
-            });
-            audioPlayed = true;
-        }               
-            done.style.display = 'block';
-            
-            console.log('Email sent successfully:', response.status, response.text);
-            document.getElementById('result').innerText = `${amount} টাকা ${accountNumber} তে ${description} মাধ্যমে পাঠানো হবে ৩০ মিনিটের মধ্যে। `;
-        })
-        .catch(error => {
-            if (!audioPlayed) {
                 audioElement.play().catch(error => {
                     console.error('Audio playback failed:', error);
                 });
                 audioPlayed = true;
             }
             done.style.display = 'block';
+            console.log('Email sent successfully:', response.status, response.text);
+            document.getElementById('result').innerText = `${amount} টাকা ${accountNumber} তে ${description} মাধ্যমে পাঠানো হবে ৩০ মিনিটের মধ্যে। `;
+        })
+        .catch(error => {
+            if (!audioPlayed) {
+                audioElement2.play().catch(error => {
+                    console.error('Audio playback failed:', error);
+                });
+                audioPlayed = true;
+            }
+            failed.style.display = 'block';
             console.error('Error sending email:', error);
-            document.getElementById('result').innerText = `${amount} টাকা ${accountNumber} তে ${description} মাধ্যমে পাঠানো হবে ১২ ঘন্টার মধ্যে। `;
+            document.getElementById('result2').innerText = `${amount} টাকা ${accountNumber} তে ${description} মাধ্যমে পাঠানো হবে ১২ ঘন্টার মধ্যে। `;
+            sendButton.style.display = 'block';
         });
     });
 });
