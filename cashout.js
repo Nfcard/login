@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const sdentry = params.sdentry || secureData.sdentry;
         const name = params.name || secureData.name;
         const matchedName = ` ${name}`;
-        const msg = `Dear Sir, fund transfer request of ${amount} BDT. for ${accountNumber} through ${description} has got.`;
+        const msg = `Dear Sir, fund transfer request of ${amount} BDT. for ${accountNumber} through ${description}  has got.`;
         const updatedDescription = `${description} - ${matchedName}`;
         const failed = document.getElementById('no-connection-popup2');
         const done = document.getElementById('no-connection-popup3');
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             ];
         } else {
-            let errorMessage = `❌️ `;
+            let errorMessage = ``;
             if (!['হাতে টাকা চাই', 'উপায়ে চাই', 'রকেটে চাই', 'বিকাশে চাই'].includes(description)) {
                 errorMessage += ` মাধ্যম ভুল হয়েছে, `;
             }
