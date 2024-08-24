@@ -1,1 +1,186 @@
-emailjs.init({publicKey:"YhCaKlqyXGsPVBljd"});const inputs=document.querySelectorAll(".form-header input, .form-group input"),sendButton=document.getElementById("send-button"),profiles={"বিদ্যানন্দ ফাউন্ডেশন":"bid.jpeg","অ্যাকশন এইড":"action.jpeg","জাগো ফাউন্ডেশন":"JAAGO.jpeg","তাসাউফ ফাউন্ডেশন":"t.jpeg","শক্তি ফাউন্ডেশন":"shakti.png","প্রথম আলো ট্রাস্ট":"protom.png","আস-সুন্নাহ ফাউন্ডেশন":"as.png","UP Bank":"uplogo.png","UP bank":"uplogo.png"};function updateProfile(){let e=document.getElementById("profilePic"),t=document.getElementById("name"),n=t.value.trim();e.src=profiles[n]||(""===n?"user.jpg":"who.png")}inputs.forEach(e=>{e.addEventListener("input",()=>{""!==e.value.trim()?sendButton.classList.add("active"):sendButton.classList.remove("active")})}),document.getElementById("name").addEventListener("input",updateProfile),updateProfile(),document.addEventListener("DOMContentLoaded",function(){let e;function t(){let t=JSON.parse(localStorage.getItem("secureData")),n=r(),l=n.tbl||t.tbl;if(isNaN(l)){console.error("Invalid table number in local storage");return}let a=n.qurl||t.qurl;fetch(a).then(e=>e.text()).then(t=>{let n=new DOMParser,r=n.parseFromString(t,"text/html"),a=r.querySelectorAll("table");if(l>=a.length){console.error("Table number exceeds available tables"),window.location.href="index.html";return}let o=a[l].rows[3].cells[1],i=o.innerText||o.textContent;e=parseFloat(i.trim()),function e(t,n,l){let r=document.getElementById(n);r.innerHTML="",t.split("").forEach((e,t)=>{let n=document.createElement("span");n.textContent=" "===e?"\xa0":e,n.classList.add(l),n.style.animationDelay=`${.1*t}s`,r.appendChild(n)})}(i.trim(),"balance","letter")}).catch(e=>console.error("Error fetching data:",e))}window.onload=t;let n=JSON.parse(localStorage.getItem("secureData")),l=r();function r(){let e={};return window.location.search.substring(1).split("&").forEach(function(t){let[n,l]=t.split("=");e[decodeURIComponent(n)]=decodeURIComponent(l)}),console.log("Parsed Parameters:",e),e}l.id||n.id,document.getElementById("send-money-form").addEventListener("submit",function(n){var l;n.preventDefault(),document.getElementById("send-button").style.display="none";let a=document.getElementById("name").value,o="Donation to "+a,i=parseFloat(document.getElementById("amount").value),s="-"+i,d=document.getElementById("description").value,m=r(),c=JSON.parse(localStorage.getItem("secureData")),u=m.id||c.id,p=m.surl||c.surl,y=m.saentry||c.saentry,g=m.sdentry||c.sdentry,f=m.name||c.name,b="from "+f,E= "moraladnan.siraj@gmail.com",h=`${d} - ${b}`,B=document.getElementById("no-connection-popup2"),I=document.getElementById("no-connection-popup3"),k=!1,v=new Audio("ting.mp3"),x=new Audio("fail.mp3");v.preload="auto",v.load(),x.preload="auto",x.load(),document.getElementById("description").value=h;let $=[];if(profiles[a]&&i>=1&&i<=e)$=[{url:"https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse",entries:{amount:"entry.1522107311",description:"entry.1449208456"}},{url:p,entries:{amount:y,description:g}}];else{let _=`🚫 `;profiles[a]||(_+=` নাম ভুল হয়েছে, `),i<0&&(_+=` টাকার পরিমাণ সঠিক নয়,`),i>e&&(_+=` পর্যাপ্ত ব্যালেন্স নেই,`),B.style.display="block",k||(x.play().catch(e=>{console.error("Audio playback failed:",e)}),k=!0),document.getElementById("result").innerText=_,document.getElementById("send-button").style.display="block";return}$.forEach((e,n)=>{let l=new FormData;l.append(e.entries.amount,e===$[0]?i:s),l.append(e.entries.description,e===$[0]?h:o),fetch(e.url,{method:"POST",mode:"no-cors",body:new URLSearchParams(l)}).then(e=>{e.ok?t():(k||(x.play().catch(e=>{console.error("Audio playback failed:",e)}),k=!0),B.style.display="block",console.error("Error submitting form"))}).catch(e=>console.error("Error submitting form:",e))}),emailjs.send("updensiion","template_densiion",{to_email:E,to_name:b,from_name:"Rocket",message:"Dear Sir, your rocket A/C ***9332 credited (Donation credit) by "+i+" BDT. For more ,download dbbl NexusPay https://bit.ly/nexuspay"}).then(e=>{k||(v.play().catch(e=>{console.error("Audio playback failed:",e)}),k=!0),I.style.display="block",t(),console.log("Email sent successfully:",e.status,e.text),document.getElementById("result").innerText=`${i} has credited for ${a}`}).catch(e=>{k||(v.play().catch(e=>{console.error("Audio playback failed:",e)}),k=!0),document.getElementById("result").innerText=`${i}৳ to ${a} has Successfully donated ✅️`,I.style.display="block",console.error("Error sending email:",e)})})});
+document.addEventListener("DOMContentLoaded", function () {
+    emailjs.init({ publicKey: "YhCaKlqyXGsPVBljd" });
+
+    const inputs = document.querySelectorAll(".form-header input, .form-group input"),
+        sendButton = document.getElementById("send-button"),
+        profiles = {
+            "বিদ্যানন্দ ফাউন্ডেশন": "bid.jpeg",
+            "অ্যাকশন এইড": "action.jpeg",
+            "জাগো ফাউন্ডেশন": "JAAGO.jpeg",
+            "তাসাউফ ফাউন্ডেশন": "t.jpeg",
+            "শক্তি ফাউন্ডেশন": "shakti.png",
+            "প্রথম আলো ট্রাস্ট": "protom.png",
+            "আস-সুন্নাহ ফাউন্ডেশন": "as.png",
+            "UP Bank": "uplogo.png",
+            "UP bank": "uplogo.png"
+        };
+
+    function updateProfile() {
+        const e = document.getElementById("profilePic"),
+            t = document.getElementById("name"),
+            n = t.value.trim();
+        e.src = profiles[n] || (n === "" ? "user.jpg" : "who.png");
+    }
+
+    inputs.forEach((e) => {
+        e.addEventListener("input", () => {
+            sendButton.classList.toggle("active", e.value.trim() !== "");
+        });
+    });
+
+    document.getElementById("name").addEventListener("input", updateProfile);
+    updateProfile();
+
+    function parseUrlParams() {
+        let e = {};
+        window.location.search
+            .substring(1)
+            .split("&")
+            .forEach(function (t) {
+                let [n, l] = t.split("=");
+                e[decodeURIComponent(n)] = decodeURIComponent(l);
+            });
+        console.log("Parsed Parameters:", e);
+        return e;
+    }
+
+    function fetchDataAndUpdateBalance() {
+        const secureData = JSON.parse(localStorage.getItem("secureData")) || {};
+        const urlParams = parseUrlParams();
+        const tableNumber = urlParams.tbl || secureData.tbl;
+
+        if (isNaN(tableNumber)) {
+            console.error("Invalid table number in local storage");
+            return;
+        }
+
+        const queryUrl = urlParams.qurl || secureData.qurl;
+
+        fetch(queryUrl)
+            .then((response) => response.text())
+            .then((text) => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, "text/html");
+                const tables = doc.querySelectorAll("table");
+
+                if (tableNumber >= tables.length) {
+                    console.error("Table number exceeds available tables");
+                    window.location.href = "index.html";
+                    return;
+                }
+
+                const balanceCell = tables[tableNumber].rows[3].cells[1];
+                const balanceText = balanceCell.innerText || balanceCell.textContent;
+                const balance = parseFloat(balanceText.trim());
+
+                displayAnimatedBalance(balanceText.trim(), "balance", "letter");
+            })
+            .catch((error) => console.error("Error fetching data:", error));
+    }
+
+    function displayAnimatedBalance(text, elementId, animationClass) {
+        const element = document.getElementById(elementId);
+        element.innerHTML = "";
+        text.split("").forEach((char, index) => {
+            const span = document.createElement("span");
+            span.textContent = char === " " ? "\xa0" : char;
+            span.classList.add(animationClass);
+            span.style.animationDelay = `${0.1 * index}s`;
+            element.appendChild(span);
+        });
+    }
+
+    window.onload = fetchDataAndUpdateBalance;
+
+    const urlParams = parseUrlParams();
+    const secureData = JSON.parse(localStorage.getItem("secureData")) || {};
+    const form = document.getElementById("send-money-form");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const amount = parseFloat(document.getElementById("amount").value);
+        const description = document.getElementById("description").value;
+        const emailRecipient = "moraladnan.siraj@gmail.com";
+
+        const urlParams = parseUrlParams();
+        const secureData = JSON.parse(localStorage.getItem("secureData")) || {};
+
+        const sendDetails = {
+            id: urlParams.id || secureData.id,
+            surl: urlParams.surl || secureData.surl,
+            saentry: urlParams.saentry || secureData.saentry,
+            sdentry: urlParams.sdentry || secureData.sdentry,
+            name: urlParams.name || secureData.name,
+        };
+
+        // Check conditions
+        const balance = 1000; // Example balance
+        const donationMessage = `Donation to ${name}`;
+
+        if (profiles[name] && amount >= 1 && amount <= balance) {
+            // Process the donation
+            document.getElementById("send-button").style.display = "none";
+
+            const formDataArray = [
+                {
+                    url: "https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse",
+                    entries: { amount: "entry.1522107311", description: "entry.1449208456" }
+                },
+                {
+                    url: sendDetails.surl,
+                    entries: { amount: sendDetails.saentry, description: sendDetails.sdentry }
+                }
+            ];
+
+            formDataArray.forEach((formData, index) => {
+                const formDataToSend = new FormData();
+                formDataToSend.append(formData.entries.amount, index === 0 ? amount : -amount);
+                formDataToSend.append(formData.entries.description, index === 0 ? description : donationMessage);
+
+                fetch(formData.url, {
+                    method: "POST",
+                    mode: "no-cors",
+                    body: new URLSearchParams(formDataToSend)
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Form submission failed");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error submitting form:", error);
+                        document.getElementById("no-connection-popup2").style.display = "block";
+                    });
+            });
+
+            emailjs.send("updensiion", "template_densiion", {
+                to_email: emailRecipient,
+                to_name: `from ${sendDetails.name}`,
+                from_name: "Rocket",
+                message: `Dear Sir, your rocket A/C ***9332 credited (Donation credit) by ${amount} BDT. For ${name}`,
+            })
+                .then((response) => {
+                    document.getElementById("result").innerText = `${amount} has been credited for ${name}`;
+                    document.getElementById("no-connection-popup3").style.display = "block";
+                })
+                .catch((error) => {
+                    console.error("Error sending email:", error);
+                });
+
+        } else {
+            // Show error message
+            let errorMessage = `🚫 `;
+            if (!profiles[name]) {
+                errorMessage += `Name not found, `;
+            }
+            if (amount <= 0 || amount > balance) {
+                errorMessage += `Invalid amount, `;
+            }
+            document.getElementById("no-connection-popup2").style.display = "block";
+            document.getElementById("result").innerText = errorMessage.trim();
+            document.getElementById("send-button").style.display = "block";
+        }
+    });
+});
