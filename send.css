@@ -18,6 +18,15 @@ body {
             border-radius: 50px;
             margin-bottom: 25px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+         opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn .7s forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .navbar button {
             background-color: white;
