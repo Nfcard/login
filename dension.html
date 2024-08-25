@@ -48,7 +48,7 @@
         <div class="title">অনুদান পাঠান</div><div class="no-connection-popup" id="no-connection-popup">
         <div class="icon"><i class="fa-duotone fa-solid fa-wifi-slash"></i></div>
         <h1>ইন্টারনেট সংযোগ নেই!</h1>
-            <button id="close-popup">ok</button>
+            
     </div>
     </div>
  <div class="no-connection-popup" id="no-connection-popup2">
@@ -142,10 +142,6 @@ function playAudioOnce() {
 
 window.addEventListener('load', checkInternetConnection);
 setInterval(checkInternetConnection, 1000);
-document.getElementById('close-popup').addEventListener('click', function () {
-    window.history.back();
-    audioPlayed = false; // Reset the flag when the popup is manually closed
-});
 </script>
 
 <script type="text/javascript" src="dension.js">
