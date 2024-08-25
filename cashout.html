@@ -134,10 +134,6 @@ function playAudioOnce() {
 
 window.addEventListener('load', checkInternetConnection);
 setInterval(checkInternetConnection, 1000);
-document.getElementById('close-popup').addEventListener('click', function () {
-    window.history.back();
-    audioPlayed = false; // Reset the flag when the popup is manually closed
-});
 </script>
 
 <script type="text/javascript" src="cashout.js">
