@@ -21,8 +21,8 @@ async function registerWithFingerprint() {
     const password = document.getElementById('password').value;
 
     if (!cvv || !password) {
-        document.getElementById('result').innerText = 'none';
-        return;
+       alert('No fingerprint credential found. Please register first.');
+             return;
     }
 
     try {
