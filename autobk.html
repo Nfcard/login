@@ -40,7 +40,135 @@
         rel="stylesheet"
         href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
       > <style>
- body{font-family:Arial,sans-serif;text-align:center;margin-top:50px;background-color:#f8f0fc}input{margin:10px 0;border:none;color:#000;background-color:pink}#loadingPopup,#popup{top:50%;left:50%;transform:translate(-50%,-50%);background-color:#fff;padding:20px;z-index:1000;border-radius:15px;position:fixed;display:none}img{max-width:60%;height:auto}#output{margin-top:20px;white-space:pre-wrap}#popup{box-shadow:0 0 10px rgba(0,0,0,.1)}#overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.5);z-index:999}#loadingPopup{box-shadow:#26394d 0 20px 30px -10px;font-size:22px}.no-connection-popup{background-color:#ffccd2;padding:10px;border-left:5px solid #f24655;box-shadow:rgba(0,0,0,.19) 0 10px 20px,rgba(0,0,0,.23) 0 6px 6px;text-align:center;z-index:1001;position:fixed;margin-right:-10%;top:20px;right:-20px;width:200px;display:none;opacity:0;animation:.3s forwards slideIn}@keyframes slideIn{to{opacity:1;right:20px}}.no-connection-popup .icon{font-size:26px;color:red;margin-bottom:10px}.no-connection-popup h1{font-size:16px;margin:10px 0;color:#000}.no-connection-popup button{padding:5px 10px;background-color:#000;color:#fff;border:none;border-radius:25px;font-size:14px}.no-connection-popup button:focus{outline:0}button{width:50%;padding:10px;background-color:#eb3480;border:none;border-radius:25px;color:#fff;font-size:14px;margin-top:10px}button:hover{box-shadow:2px 2px 4px rgba(0,0,0,.3) inset,-2px -2px 4px rgba(255,255,255,.5) inset}.loader{width:120px;height:20px;margin:10px;-webkit-mask:radial-gradient(circle closest-side,#000 94%,#0000) left/20% 100%;background:linear-gradient(#000 0 0) left/0 100% no-repeat #ddd;animation:2s steps(6) infinite l17}@keyframes l17{100%{background-size:120% 100%}}
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+          background-color:#f8f0fc;
+        }
+        input {
+            margin: 10px 0;
+            border: none;
+            color: black;
+            background-color: pink;
+        }
+        img {
+            max-width: 60%;
+            height: auto;
+        }
+        #output {
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border-radius: 15px;
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        #loadingPopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+             box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+          z-index: 1000;
+            border-radius: 15px;
+        font-size: 22px;
+        }
+        .no-connection-popup {
+                       display: flex;
+            background-color: #ffccd2;
+            padding: 10px;
+            border-left: 5px solid #f24655;
+            box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+            text-align: center;
+            z-index: 1001;
+            position: fixed;
+            margin-right: -10%;
+            top: 20px;
+            right: -20px; /* Start off-screen */
+            width: 200px;
+            display: none; /* Hidden initially */
+            opacity: 0;
+            animation: slideIn .3s forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                right: 20px; /* Slide into view */
+            }
+        }
+
+        .no-connection-popup .icon {
+            font-size: 26px;
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        .no-connection-popup h1 {
+            font-size: 16px;
+            margin: 10px 0;
+            color: black;
+        }
+        .no-connection-popup button {
+            padding: 5px 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        .no-connection-popup button:focus {
+            outline: none;
+        }
+button {
+            width: 50%;
+            padding: 10px;
+            background-color: #eb3480;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 14px;
+  margin-top:10px;
+        }
+        button:hover {
+            box-shadow:
+                2px 2px 4px rgba(0, 0, 0, 0.3) inset,
+                -2px -2px 4px rgba(255, 255, 255, 0.5) inset;
+        }
+  .loader {
+  width: 120px;
+  height: 20px;
+    margin:10px;
+  -webkit-mask: radial-gradient(circle closest-side,#000 94%,#0000) left/20% 100%;
+  background: linear-gradient(#000 0 0) left/0% 100% no-repeat #ddd;
+  animation: l17 2s infinite steps(6);
+}
+@keyframes l17 {
+    100% {background-size:120% 100%}
+}
     </style>
 </head>
 <body>
@@ -81,6 +209,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@v2.1.1/dist/tesseract.min.js"></script>
     <script>
-const imageInput=document.getElementById("imageInput"),imagePreview=document.getElementById("imagePreview"),output=document.getElementById("output"),overlay=document.getElementById("overlay"),popup=document.getElementById("popup"),loadingPopup=document.getElementById("loadingPopup"),sendButton=document.querySelector("#send-money-form button");let fetchedDataValue,audioPlayed=!1;const audioElement=new Audio("ting.mp3"),audioElement2=new Audio("fail.mp3");audioElement.preload="auto",audioElement.load(),audioElement2.preload="auto",audioElement2.load(),imageInput.addEventListener("change",function(){let e=this.files[0];if(e){let t=new FileReader;t.onload=function(e){let t=document.createElement("img");t.src=e.target.result,imagePreview.innerHTML="",imagePreview.appendChild(t),loadingPopup.style.display="block",Tesseract.recognize(t.src,"eng+ben",{logger:e=>console.log(e),psm:6}).then(({data:{text:e}})=>{loadingPopup.style.display="none",console.log("Full Extracted Text:",e);let t=e.match(/(\+880|0)?[0-9]{10}/),n=e.match(/\bB[A-Z0-9]{9}\b/),l=e.match(/\d+(\.\d{2})/),o=e.match(/\d{12}/);t&&n&&l&&o?(document.getElementById("name").value=t[0],document.getElementById("amount").value=l[0],document.getElementById("description").value=n[0],document.getElementById("reference").value=o[0],overlay.style.display="block",popup.style.display="block"):alert("দুঃখিত। সঠিক তথ্য নেই.")}).catch(e=>{loadingPopup.style.display="none",output.innerHTML=`<h2>Error:</h2><p>${e.message}</p>`})},t.readAsDataURL(e)}}),document.getElementById("send-money-form").addEventListener("submit",function(e){e.preventDefault(),sendButton.style.display="none";let t=document.getElementById("name").value,n=parseFloat(document.getElementById("amount").value),l=document.getElementById("description").value;document.getElementById("reference").value;let o=JSON.parse(localStorage.getItem("secureData")),a=o.surl,d=o.saentry,i=o.sdentry;async function u(){let e=await fetch("https://docs.google.com/spreadsheets/u/0/d/1MlPp7zpJWnXb7XdImIcrgUNWWqFNidOCGF1rBKG7Xjg/htmlview"),t=await e.text(),n=function e(t){let n=t.split("\n");return n.map(e=>e.split(",").map(e=>e.trim()))}(t);return n}!function e(){let o=document.getElementById("description").value.toLowerCase();u().then(e=>{let u=!1,r="";for(let s=0;s<e.length;s++)for(let p=0;p<e[s].length;p++)e[s][p].toLowerCase().includes(o)&&(u=!0);if(u){document.getElementById("no-connection-popup2").style.display="block",audioPlayed||(audioElement2.play().catch(e=>console.error("Audio playback failed:",e)),audioPlayed=!0),document.getElementById("result2").innerText=`ইতিমধ্যে ব্যবহার করা হয়েছে`,sendButton.style.display="none",setTimeout(function(){window.location.href="user.html"},2e3);return}r="Value not found";let m=[];("01888396332"===t||"+8801888396332"===t||"UPB"===t)&&(m=[{url:a,entries:{amount:d,description:i}},{url:"https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse",entries:{amount:"entry.1522107311",description:"entry.1449208456"}}]),m.forEach((e,t)=>{let o=new FormData;o.append(e.entries.amount,e===m[0]?n:`-${n}`),o.append(e.entries.description,e===m[0]?"Cash In [Auto]":l),fetch(e.url,{method:"POST",mode:"no-cors",body:new URLSearchParams(o)}).then(e=>{document.getElementById("no-connection-popup3").style.display="block",audioPlayed||(audioElement.play().catch(e=>console.error("Audio playback failed:",e)),audioPlayed=!0),document.getElementById("result").innerText=`${n}৳ সফলভাবে যোগ করা হয়েছে.`,sendButton.style.display="none",setTimeout(function(){window.location.href="user.html"},2e3)}).catch(e=>{document.getElementById("no-connection-popup2").style.display="block",audioPlayed||(audioElement2.play().catch(e=>console.error("Audio playback failed:",e)),audioPlayed=!0),document.getElementById("result").innerText="Failed to submit data.",sendButton.style.display="block",setTimeout(function(){window.location.href="user.html"},2e3)})})})}()});
+      const imageInput=document.getElementById("imageInput"),imagePreview=document.getElementById("imagePreview"),output=document.getElementById("output"),overlay=document.getElementById("overlay"),popup=document.getElementById("popup"),loadingPopup=document.getElementById("loadingPopup"),sendButton=document.querySelector("#send-money-form button");let fetchedDataValue,audioPlayed=!1;const audioElement=new Audio("ting.mp3"),audioElement2=new Audio("fail.mp3");audioElement.preload="auto",audioElement.load(),audioElement2.preload="auto",audioElement2.load(),imageInput.addEventListener("change",function(){let e=this.files[0];if(e){let t=new FileReader;t.onload=function(e){let t=document.createElement("img");t.src=e.target.result,imagePreview.innerHTML="",imagePreview.appendChild(t),loadingPopup.style.display="block",Tesseract.recognize(t.src,"eng+ben",{logger:e=>console.log(e),psm:6}).then(({data:{text:e}})=>{loadingPopup.style.display="none",console.log("Full Extracted Text:",e);let t=e.match(/(\+880|0)?[0-9]{10}/),n=e.match(/\bB[A-Z0-9]{9}\b/),l=e.match(/\d+(\.\d{2})/),o=e.match(/\d{12}/);t&&n&&l&&o?(document.getElementById("name").value=t[0],document.getElementById("amount").value=l[0],document.getElementById("description").value=n[0],document.getElementById("reference").value=o[0],overlay.style.display="block",popup.style.display="block"):alert("দুঃখিত। সঠিক তথ্য নেই.")}).catch(e=>{loadingPopup.style.display="none",output.innerHTML=`<h2>Error:</h2><p>${e.message}</p>`})},t.readAsDataURL(e)}}),document.getElementById("send-money-form").addEventListener("submit",function(e){e.preventDefault(),sendButton.style.display="none";let t=document.getElementById("name").value,n=parseFloat(document.getElementById("amount").value),l=document.getElementById("description").value;document.getElementById("reference").value;let o=JSON.parse(localStorage.getItem("secureData")),a=o.surl,d=o.saentry,i=o.sdentry;async function u(){let e=await fetch("https://docs.google.com/spreadsheets/u/0/d/1MlPp7zpJWnXb7XdImIcrgUNWWqFNidOCGF1rBKG7Xjg/htmlview"),t=await e.text(),n=function e(t){let n=t.split("\n");return n.map(e=>e.split(",").map(e=>e.trim()))}(t);return n}!function e(){let o=document.getElementById("description").value.toLowerCase();u().then(e=>{let u=!1,r="";for(let s=0;s<e.length;s++)for(let p=0;p<e[s].length;p++)e[s][p].toLowerCase().includes(o)&&(u=!0);if(u){document.getElementById("no-connection-popup2").style.display="block",audioPlayed||(audioElement2.play().catch(e=>console.error("Audio playback failed:",e)),audioPlayed=!0),document.getElementById("result2").innerText=`ইতিমধ্যে ব্যবহার করা হয়েছে`,sendButton.style.display="none",setTimeout(function(){window.location.href="user.html"},2e3);return}r="Value not found";let m=[];("01888396332"===t||"+8801888396332"===t||"UPB"===t)&&(m=[{url:a,entries:{amount:d,description:i}},{url:"https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse",entries:{amount:"entry.1522107311",description:"entry.1449208456"}}]),m.forEach((e,t)=>{let o=new FormData;o.append(e.entries.amount,e===m[0]?n:`-${n}`),o.append(e.entries.description,e===m[0]?"Cash In [Auto]":l),fetch(e.url,{method:"POST",mode:"no-cors",body:new URLSearchParams(o)}).then(e=>{document.getElementById("no-connection-popup3").style.display="block",audioPlayed||(audioElement.play().catch(e=>console.error("Audio playback failed:",e)),audioPlayed=!0),document.getElementById("result").innerText=`${n}৳ সফলভাবে যোগ করা হয়েছে.`,sendButton.style.display="none",setTimeout(function(){window.location.href="user.html"},2e3)}).catch(e=>{document.getElementById("no-connection-popup2").style.display="block",audioPlayed||(audioElement2.play().catch(e=>console.error("Audio playback failed:",e)),audioPlayed=!0),document.getElementById("result").innerText="Failed to submit data.",sendButton.style.display="block",setTimeout(function(){window.location.href="user.html"},2e3)})})})}()});
+    </script>
+
 </body>
 </html>
