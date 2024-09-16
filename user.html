@@ -63,7 +63,7 @@
         </button>
     </div>
 
-    <div class="content">
+    <div id="content" class="content">
         <div class="balance">
             <div>
                 <div class="amount">
@@ -116,6 +116,30 @@
       <a style="text-decoration:none;color:black;"href="https://proyojoniobazar.github.io/shop"><i style="color:#a62161"class="fa-duotone fa-solid fa-cart-shopping"></i></a>
     </div>
   <script>
+    function triggerShake() {
+      const container = document.getElementById('content');
+      let shakeInterval;
+      let shakeTime = 0;
+      
+      // Function to create the soft left-right shake effect
+      function shake() {
+        const randomX = Math.floor(Math.random() * 6) - 3; // Small shake between -3px and 3px for X (left-right)
+        
+        container.style.transform = `translateX(${randomX}px)`; // Only translate along the X-axis
+        
+        shakeTime += 50; // Shake duration in milliseconds
+        if (shakeTime >= 300) { // Shake for 300ms (for a smoother and shorter effect)
+          clearInterval(shakeInterval);
+          container.style.transform = ''; // Reset the transform property after the shake
+        }
+      }
+
+      // Start shaking at 50ms intervals
+      shakeInterval = setInterval(shake, 50);
+    }function metallicErrorVibration() {
+            // Rapid short bursts for a metallic feel: 20ms on, 10ms off, repeated
+            navigator.vibrate([20, 10, 20, 10, 20, 10, 20,]);
+    }
 let audioPlayed = false;
 const audioElement = new Audio('fail.mp3');
 
@@ -131,6 +155,11 @@ document.querySelectorAll('#lockbtn').forEach(button => {
                 console.error('Audio playback failed:', error);
             });
             audioPlayed = true;
+        }if ("vibrate" in navigator) {
+                metallicErrorVibration();
+              triggerShake();
+            } else {
+                console.log("Vibration API is not supported by this browser.");
         }
         done.style.display = 'block';
     });
