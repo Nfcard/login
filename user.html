@@ -138,7 +138,7 @@
       shakeInterval = setInterval(shake, 50);
     }function metallicErrorVibration() {
             // Rapid short bursts for a metallic feel: 20ms on, 10ms off, repeated
-            navigator.vibrate([20, 10, 20, 10, 20, 10, 20,]);
+            navigator.vibrate([20, 10, 20, 10, 20, 10, 20]);
     }
 let audioPlayed = false;
 const audioElement = new Audio('fail.mp3');
@@ -155,12 +155,11 @@ document.querySelectorAll('#lockbtn').forEach(button => {
                 console.error('Audio playback failed:', error);
             });
             audioPlayed = true;
-        }if ("vibrate" in navigator) {
+        }
+      if ("vibrate" in navigator) {
                 metallicErrorVibration();
               triggerShake();
-            } else {
-                console.log("Vibration API is not supported by this browser.");
-        }
+            }
         done.style.display = 'block';
     });
 });
