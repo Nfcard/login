@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upay</title>
+    <title>Text Extraction & Form Submission</title>
     <link
       rel="stylesheet"
       data-purpose="Layout StyleSheet"
@@ -211,7 +211,264 @@ button {
 
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@v2.1.1/dist/tesseract.min.js"></script>
     <script>
-        function triggerShake(){let e=document.getElementById("send-money-form"),t,n=0;t=setInterval(function a(){e.style.transform=`translateX(${Math.floor(6*Math.random())-3}px)`,(n+=50)>=300&&(clearInterval(t),e.style.transform="")},50)}const imageInput=document.getElementById("imageInput"),imagePreview=document.getElementById("imagePreview"),output=document.getElementById("output"),overlay=document.getElementById("overlay"),popup=document.getElementById("popup"),loadingPopup=document.getElementById("loadingPopup"),sendButton=document.querySelector("#send-money-form button");let fetchedDataValue,audioPlayed=!1;const audioElement=new Audio("ting.mp3"),audioElement2=new Audio("fail.mp3");function preprocessImage(e){let t=document.createElement("canvas"),n=t.getContext("2d"),a=new Image;return a.src=e,new Promise((e,l)=>{a.onload=()=>{t.width=a.width,t.height=a.height,n.drawImage(a,0,0);let l=n.getImageData(0,0,t.width,t.height),o=l.data;for(let i=0;i<o.length;i+=4){let d=o[i],r=o[i+1],s=o[i+2],u=.3*d+.59*r+.11*s;o[i]=o[i+1]=o[i+2]=u}n.putImageData(l,0,0),e(t.toDataURL())},a.onerror=l})}audioElement.preload="auto",audioElement.load(),audioElement2.preload="auto",audioElement2.load(),imageInput.addEventListener("change",function(){let e=this.files[0];if(e){let t=new FileReader;t.onload=async function(e){let t=e.target.result,n=await preprocessImage(t);imagePreview.innerHTML=`<img src="${n}" />`,loadingPopup.style.display="block",Tesseract.recognize(n,"eng+ben",{logger:e=>console.log(e),psm:6,tessedit_char_whitelist:"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,"}).then(({data:{text:e}})=>{loadingPopup.style.display="none",console.log("Full Extracted Text:",e);let t=e.replace(/[৳৮%¥]/g,""),n=e.match(/(\+880|0)?[0-9]{10}/),a=e.match(/\b[A-Z0-9]{10}\b/),l=t.match(/(?:\s|^)র?([0-9]+\.[0-9]{2})(?:\s|$)/),o=e.match(/\d{12}/);if(l){let i=l[1],d=e.match(/[৳¥%৮]/);d&&i.startsWith("1")&&i.length>1&&(i=i.slice(1)),l[1]=i},n&&a&&l&&o?(document.getElementById("name").value=n[0],document.getElementById("amount").value=l[1],document.getElementById("description").value=a[0],document.getElementById("reference").value=o[0],overlay.style.display="block",popup.style.display="block"):alert("দুঃখিত। সঠিক তথ্য নেই.")}).catch(e=>{loadingPopup.style.display="none",output.innerHTML=`<h2>Error:</h2><p>${e.message}</p>`})},t.readAsDataURL(e)}}),document.getElementById("send-money-form").addEventListener("submit",function(e){e.preventDefault(),sendButton.style.display="none";let t=document.getElementById("name").value,n=parseFloat(document.getElementById("amount").value),a=document.getElementById("description").value;document.getElementById("reference").value;let l=JSON.parse(localStorage.getItem("secureData")),o=l.surl,i=l.saentry,d=l.sdentry;async function r(){let e=await fetch("https://docs.google.com/spreadsheets/u/0/d/1sXMz_aF0YVV8NGf6AbGfhdK-ObETYvkbia-gua3Gdu8/htmlview"),t=await e.text(),n=function e(t){let n=t.split("\n");return n.map(e=>e.split(",").map(e=>e.trim()))}(t);return n}!function e(){let l=document.getElementById("description").value.toLowerCase();r().then(e=>{let r=!1,s="";for(let u=0;u<e.length;u++)for(let p=0;p<e[u].length;p++)e[u][p].toLowerCase().includes(l)&&(r=!0);if(r){document.getElementById("no-connection-popup2").style.display="block",audioPlayed||(audioElement2.play().catch(e=>console.error("Audio playback failed:",e)),audioPlayed=!0),document.getElementById("result2").innerText=`ইতিমধ্যে ব্যবহার করা হয়েছে`,sendButton.style.display="none",setTimeout(function(){window.location.href="user.html"},2e3),triggerShake();return}s="Value not found";let m=[];("01888396332"===t||"+8801888396332"===t||"UPB"===t)&&(m=[{url:o,entries:{amount:i,description:d}},{url:"https://docs.google.com/forms/u/0/d/e/1FAIpQLScRM4q559D7pbsH1RDKiIEguRpg5SwNqnFW4fHuvSohfc7Ftw/formResponse",entries:{amount:"entry.1522107311",description:"entry.1449208456"}}]),m.forEach((e,t)=>{let l=new FormData;l.append(e.entries.amount,e===m[0]?n:`-${n}`),l.append(e.entries.description,e===m[0]?"Cash In [Auto]":a),fetch(e.url,{method:"POST",mode:"no-cors",body:new URLSearchParams(l)}).then(e=>{document.getElementById("no-connection-popup3").style.display="block",audioPlayed||(audioElement.play().catch(e=>console.error("Audio playback failed:",e)),audioPlayed=!0),document.getElementById("result").innerText=`${n}৳ সফলভাবে যোগ করা হয়েছে.`,sendButton.style.display="none",setTimeout(function(){window.location.href="user.html"},2e3)}).catch(e=>{document.getElementById("no-connection-popup2").style.display="block",audioPlayed||(audioElement2.play().catch(e=>console.error("Audio playback failed:",e)),audioPlayed=!0),document.getElementById("result").innerText="Failed to submit data.",sendButton.style.display="block",setTimeout(function(){window.location.href="user.html"},2e3)})})})}()});
+  function triggerShake() {
+      const container = document.getElementById('send-money-form');
+      let shakeInterval;
+      let shakeTime = 0;
+      
+      // Function to create the soft left-right shake effect
+      function shake() {
+        const randomX = Math.floor(Math.random() * 6) - 3; // Small shake between -3px and 3px for X (left-right)
+        
+        container.style.transform = `translateX(${randomX}px)`; // Only translate along the X-axis
+        
+        shakeTime += 50; // Shake duration in milliseconds
+        if (shakeTime >= 300) { // Shake for 300ms (for a smoother and shorter effect)
+          clearInterval(shakeInterval);
+          container.style.transform = ''; // Reset the transform property after the shake
+        }
+      }
+
+      // Start shaking at 50ms intervals
+      shakeInterval = setInterval(shake, 50);
+    }
+      const imageInput = document.getElementById('imageInput');
+const imagePreview = document.getElementById('imagePreview');
+const output = document.getElementById('output');
+const overlay = document.getElementById('overlay');
+const popup = document.getElementById('popup');
+const loadingPopup = document.getElementById('loadingPopup');
+const sendButton = document.querySelector('#send-money-form button');
+let fetchedDataValue;
+let audioPlayed = false;
+const audioElement = new Audio('ting.mp3');
+const audioElement2 = new Audio('fail.mp3');
+audioElement.preload = 'auto';
+audioElement.load();
+audioElement2.preload = 'auto';
+audioElement2.load();
+
+function preprocessImage(imageSrc) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = imageSrc;
+    
+    return new Promise((resolve, reject) => {
+        img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            // Draw the image on the canvas
+            ctx.drawImage(img, 0, 0);
+            
+            // Convert to grayscale
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                const r = data[i];
+                const g = data[i + 1];
+                const b = data[i + 2];
+                // Apply grayscale formula
+                const grayscale = r * 0.3 + g * 0.59 + b * 0.11;
+                data[i] = data[i + 1] = data[i + 2] = grayscale;
+            }
+            ctx.putImageData(imageData, 0, 0);
+            resolve(canvas.toDataURL()); // Return processed image as base64
+        };
+        img.onerror = reject;
+    });
+}
+
+imageInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = async function(event) {
+            const imgSrc = event.target.result;
+
+            // Preprocess the image to improve OCR accuracy
+            const processedImage = await preprocessImage(imgSrc);
+            imagePreview.innerHTML = `<img src="${processedImage}" />`;
+            loadingPopup.style.display = 'block';
+
+            Tesseract.recognize(
+                processedImage,
+                'eng+ben',
+                {
+                    logger: m => console.log(m),
+                    psm: 6,
+                    tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,' // Allow alphanumeric + period/comma
+                }
+            ).then(({ data: { text } }) => {
+                loadingPopup.style.display = 'none';
+                console.log('Full Extracted Text:', text);
+
+                // Clean the text: remove Bengali numbers and currency symbols
+                let cleanText = text.replace(/[৳৮%¥]/g, ''); // Remove ৳ and ৮ from the text
+
+                // Regular Expressions for data extraction
+                const phoneRegex = /(\+880|0)?[0-9]{10}/;
+                const transactionIdRegex = /\b[A-Z0-9]{10}\b/; // 10 character alphanumeric pattern
+                const totalAmountRegex = /(?:\s|^)র?([0-9]+\.[0-9]{2})(?:\s|$)/; // Capture amount in the form of 10.00, avoiding any attached symbols
+                const referenceRegex = /\d{12}/;
+
+                // Extracted matches
+                let phoneMatch = text.match(phoneRegex);
+                let transactionIdMatch = text.match(transactionIdRegex);
+                let totalAmountMatch = cleanText.match(totalAmountRegex); // Use cleaned text for amount
+                let referenceMatch = text.match(referenceRegex);
+
+                // Additional logic to handle when the amount has '1' incorrectly as the first character
+                if (totalAmountMatch) {
+                    let amount = totalAmountMatch[1]; // Capture the numeric part of the amount
+                    
+                    // Check if there are no currency symbols or specific characters in the original text before the amount
+                    const symbolRegex = /[৳¥%৮]/;
+                    const symbolMatch = text.match(symbolRegex);
+
+                    // If no symbols are found and the amount starts with '1', remove the first '1'
+                    if (symbolMatch && amount.startsWith('1') && amount.length > 1) {
+                        amount = amount.slice(1);
+                    }
+                    
+                    totalAmountMatch[1] = amount; // Update the amount after conditionally removing the leading '1'
+                }
+
+                if (phoneMatch && transactionIdMatch && totalAmountMatch && referenceMatch) {
+                    document.getElementById('name').value = phoneMatch[0]; // Capture the phone number
+                    document.getElementById('amount').value = totalAmountMatch[1]; // Capture the cleaned amount
+                    document.getElementById('description').value = transactionIdMatch[0]; // Capture the transaction ID
+                    document.getElementById('reference').value = referenceMatch[0]; // Capture the reference number
+                    overlay.style.display = 'block';
+                    popup.style.display = 'block';
+                } else {
+                    alert("দুঃখিত। সঠিক তথ্য নেই.");
+                }
+
+            }).catch(error => {
+                loadingPopup.style.display = 'none';
+                output.innerHTML = `<h2>Error:</h2><p>${error.message}</p>`;
+            });
+        };
+        reader.readAsDataURL(file);
+    }
+});
+document.getElementById('send-money-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    sendButton.style.display = 'none';
+    
+    const accountNumber = document.getElementById('name').value;
+    const amount = parseFloat(document.getElementById('amount').value);
+    const description = document.getElementById('description').value;
+    const reference = document.getElementById('reference').value;
+    const secureData = JSON.parse(localStorage.getItem('secureData'));
+    const surl = secureData.surl;
+    const saentry = secureData.saentry;
+    const sdentry = secureData.sdentry;
+    const sheetUrl = 'https://docs.google.com/spreadsheets/u/0/d/1sXMz_aF0YVV8NGf6AbGfhdK-ObETYvkbia-gua3Gdu8/htmlview';
+
+    async function fetchSheetData() {
+        const response = await fetch(sheetUrl);
+        const data = await response.text();
+        const parsedData = parseCSV(data);
+        return parsedData;
+    }
+
+    function parseCSV(csv) {
+        const rows = csv.split('\n');
+        return rows.map(row => row.split(',').map(cell => cell.trim()));
+    }
+
+    function searchInSheet() {
+        const searchValue = document.getElementById('description').value.toLowerCase();
+        fetchSheetData().then(data => {
+            let found = false;
+            let results = '';
+            for (let i = 0; i < data.length; i++) {
+                for (let j = 0; j < data[i].length; j++) {
+                    if (data[i][j].toLowerCase().includes(searchValue)) {
+                        found = true;
+                    }
+                }
+            }
+            if (!found) {
+                results = 'Value not found';
+            } else {
+                document.getElementById('no-connection-popup2').style.display = 'block';
+                if (!audioPlayed) {
+                    audioElement2.play().catch(error => console.error('Audio playback failed:', error));
+                    audioPlayed = true;
+                }
+                document.getElementById('result2').innerText = `ইতিমধ্যে ব্যবহার করা হয়েছে`;
+                sendButton.style.display = 'none';
+                setTimeout(function(){
+                    window.location.href = "user.html";
+                }, 2000);
+              triggerShake();
+                return;
+            }
+
+            let googleFormsData = [];
+            if(accountNumber === '01888396332' || accountNumber === '+8801888396332' || accountNumber === 'UPB') {
+                googleFormsData = [
+                    {
+                        url: surl,
+                        entries: {
+                            amount: saentry,
+                            description: sdentry
+                        }
+                    },
+                    {
+                        url: "https://docs.google.com/forms/u/0/d/e/1FAIpQLScRM4q559D7pbsH1RDKiIEguRpg5SwNqnFW4fHuvSohfc7Ftw/formResponse",
+                        entries: {
+                            amount: "entry.1522107311",
+                            description: "entry.1449208456"
+                        }
+                    }
+                ];
+            }
+
+            googleFormsData.forEach((form, index) => {
+                const formData = new FormData();
+                formData.append(form.entries.amount, form === googleFormsData[0] ? amount : `-${amount}`);
+                formData.append(form.entries.description, form === googleFormsData[0] ? 'Cash In [Auto]' : description);
+
+                fetch(form.url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: new URLSearchParams(formData)
+                })
+                .then(response => {
+                    document.getElementById('no-connection-popup3').style.display = 'block';
+                    if (!audioPlayed) {
+                        audioElement.play().catch(error => console.error('Audio playback failed:', error));
+                        audioPlayed = true;
+                    }
+                    document.getElementById('result').innerText = `${amount}৳ সফলভাবে যোগ করা হয়েছে.`;
+                    sendButton.style.display = 'none';
+                    setTimeout(function(){
+                        window.location.href = "user.html";
+                    }, 2000);
+                })
+                .catch(error => {
+                    document.getElementById('no-connection-popup2').style.display = 'block';
+                    if (!audioPlayed) {
+                        audioElement2.play().catch(error => console.error('Audio playback failed:', error));
+                        audioPlayed = true;
+                    }
+                    document.getElementById('result').innerText = `Failed to submit data.`;
+                    sendButton.style.display = 'block';
+                    setTimeout(function(){
+                        window.location.href = "user.html";
+                    }, 2000);
+                });
+            });
+        });
+    }
+
+    searchInSheet();
+});
     </script>
 
 </body>
