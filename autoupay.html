@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Extraction & Form Submission</title>
+    <link
+      rel="stylesheet"
+      data-purpose="Layout StyleSheet"
+      title="Web Awesome"
+      href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
+    >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
+      > <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+          background-color:#f8f0fc;
+        }
+        input {
+            margin: 10px 0;
+            border: none;
+            color: black;
+            background-color: yellow;
+          font-size:16px;
+        }
+        img {
+          margin-top:10px;
+            max-width: 60%;
+            height: auto;
+        }
+        #output {
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border-radius: 15px;
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        #loadingPopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+             box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+          z-index: 1000;
+            border-radius: 15px;
+        font-size: 22px;
+        }
+        .no-connection-popup {
+                       display: flex;
+            background-color: #ffccd2;
+            padding: 10px;
+            border-left: 5px solid #f24655;
+            box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+            text-align: center;
+            z-index: 1001;
+            position: fixed;
+            margin-right: -10%;
+            top: 20px;
+            right: -20px; /* Start off-screen */
+            width: 200px;
+            display: none; /* Hidden initially */
+            opacity: 0;
+            animation: slideIn .3s forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                right: 20px; /* Slide into view */
+            }
+        }
+
+        .no-connection-popup .icon {
+            font-size: 26px;
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        .no-connection-popup h1 {
+            font-size: 16px;
+            margin: 10px 0;
+            color: black;
+        }
+        .no-connection-popup button {
+            padding: 5px 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        .no-connection-popup button:focus {
+            outline: none;
+        }
+button {
+            width: 50%;
+            padding: 10px;
+            background-color: #eb3480;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 14px;
+  margin-top:10px;
+        }
+        button:hover {
+            box-shadow:
+                2px 2px 4px rgba(0, 0, 0, 0.3) inset,
+                -2px -2px 4px rgba(255, 255, 255, 0.5) inset;
+        }
+  .loader {
+  width: 120px;
+  height: 20px;
+    margin:10px;
+  -webkit-mask: radial-gradient(circle closest-side,#000 94%,#0000) left/20% 100%;
+  background: linear-gradient(#000 0 0) left/0% 100% no-repeat #ddd;
+  animation: l17 2s infinite steps(6);
+}
+@keyframes l17 {
+    100% {background-size:120% 100%}
+}
+    </style>
+</head>
+<body>
+    <div id="loadingPopup">অপেক্ষা করুন<div class="loader"></div></div>
+<div class="no-connection-popup" id="no-connection-popup2">
+        <div class="icon"><i class="fa-duotone fa-solid fa-gear-complex-code"></i></div>
+        <h1 id="result2">কোনো একটি সমস্যা হচ্ছে!</h1>
+           
+        </div>
+    <div style="background-color: #c6f7d6;border-left: 5px solid #52ff8b"class="no-connection-popup" id="no-connection-popup3">
+        <div class="icon"><i  style="color:green"class="fa-duotone fa-solid fa-badge-check"></i></div>
+        <h1>Cash In সম্পূর্ণ হয়েছে!</h1>
+    </div>
+    <h1>choose file এ চাপ দিন</h1>
+    <input type="file" id="imageInput" accept="image/*">
+    <div id="imagePreview"></div>
+    <div id="output"></div>
+
+    <div id="overlay"></div>
+    <div id="popup">
+        <h2 id="result">Submit এ চাপ দিন</h2>
+        <form id="send-money-form">
+            <label style="display:none" for="name">Bank Number:</label>
+            <input style="display:none" type="text" id="name" name="name" readonly><br>
+
+            <label for="amount">টাকার পরিমান:</label>
+            <input type="text" id="amount" name="amount" readonly><br>
+
+            <label style="display:none" for="description">Bkash tnx:</label>
+            <input style="display:none" type="text" id="description" name="description" readonly><br>
+
+            <label for="reference">আপনার account:</label>
+            <input type="text" id="reference" name="reference" readonly><br>
+
+            <button id="sendButton" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@v2.1.1/dist/tesseract.min.js"></script>
+    <script>
+  function triggerShake() {
+      const container = document.getElementById('send-money-form');
+      let shakeInterval;
+      let shakeTime = 0;
+      
+      // Function to create the soft left-right shake effect
+      function shake() {
+        const randomX = Math.floor(Math.random() * 6) - 3; // Small shake between -3px and 3px for X (left-right)
+        
+        container.style.transform = `translateX(${randomX}px)`; // Only translate along the X-axis
+        
+        shakeTime += 50; // Shake duration in milliseconds
+        if (shakeTime >= 300) { // Shake for 300ms (for a smoother and shorter effect)
+          clearInterval(shakeInterval);
+          container.style.transform = ''; // Reset the transform property after the shake
+        }
+      }
+
+      // Start shaking at 50ms intervals
+      shakeInterval = setInterval(shake, 50);
+    }
+      const imageInput = document.getElementById('imageInput');
+const imagePreview = document.getElementById('imagePreview');
+const output = document.getElementById('output');
+const overlay = document.getElementById('overlay');
+const popup = document.getElementById('popup');
+const loadingPopup = document.getElementById('loadingPopup');
+const sendButton = document.querySelector('#send-money-form button');
+let fetchedDataValue;
+let audioPlayed = false;
+const audioElement = new Audio('ting.mp3');
+const audioElement2 = new Audio('fail.mp3');
+audioElement.preload = 'auto';
+audioElement.load();
+audioElement2.preload = 'auto';
+audioElement2.load();
+
+function preprocessImage(imageSrc) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = imageSrc;
+    
+    return new Promise((resolve, reject) => {
+        img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            // Draw the image on the canvas
+            ctx.drawImage(img, 0, 0);
+            
+            // Convert to grayscale
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                const r = data[i];
+                const g = data[i + 1];
+                const b = data[i + 2];
+                // Apply grayscale formula
+                const grayscale = r * 0.3 + g * 0.59 + b * 0.11;
+                data[i] = data[i + 1] = data[i + 2] = grayscale;
+            }
+            ctx.putImageData(imageData, 0, 0);
+            resolve(canvas.toDataURL()); // Return processed image as base64
+        };
+        img.onerror = reject;
+    });
+}
+
+imageInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = async function(event) {
+            const imgSrc = event.target.result;
+
+            // Preprocess the image to improve OCR accuracy
+            const processedImage = await preprocessImage(imgSrc);
+            imagePreview.innerHTML = `<img src="${processedImage}" />`;
+            loadingPopup.style.display = 'block';
+
+            Tesseract.recognize(
+                processedImage,
+                'eng+ben',
+                {
+                    logger: m => console.log(m),
+                    psm: 6,
+                    tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,' // Allow alphanumeric + period/comma
+                }
+            ).then(({ data: { text } }) => {
+                loadingPopup.style.display = 'none';
+                console.log('Full Extracted Text:', text);
+
+                // Clean the text: remove Bengali numbers and currency symbols
+                let cleanText = text.replace(/[৳৮%¥]/g, ''); // Remove ৳ and ৮ from the text
+
+                // Regular Expressions for data extraction
+                const phoneRegex = /(\+880|0)?[0-9]{10}/;
+                const transactionIdRegex = /\b[A-Z0-9]{10}\b/; // 10 character alphanumeric pattern
+                const totalAmountRegex = /(?:\s|^)র?([0-9]+\.[0-9]{2})(?:\s|$)/; // Capture amount in the form of 10.00, avoiding any attached symbols
+                const referenceRegex = /\d{12}/;
+
+                // Extracted matches
+                let phoneMatch = text.match(phoneRegex);
+                let transactionIdMatch = text.match(transactionIdRegex);
+                let totalAmountMatch = cleanText.match(totalAmountRegex); // Use cleaned text for amount
+                let referenceMatch = text.match(referenceRegex);
+
+                // Additional logic to handle when the amount has '1' incorrectly as the first character
+                if (totalAmountMatch) {
+                    let amount = totalAmountMatch[1]; // Capture the numeric part of the amount
+                    
+                    // Check if there are no currency symbols or specific characters in the original text before the amount
+                    const symbolRegex = /[৳¥%৮]/;
+                    const symbolMatch = text.match(symbolRegex);
+
+                    // If no symbols are found and the amount starts with '1', remove the first '1'
+                    if (symbolMatch && amount.startsWith('1') && amount.length > 1) {
+                        amount = amount.slice(1);
+                    }
+                    
+                    totalAmountMatch[1] = amount; // Update the amount after conditionally removing the leading '1'
+                }
+
+                if (phoneMatch && transactionIdMatch && totalAmountMatch && referenceMatch) {
+                    document.getElementById('name').value = phoneMatch[0]; // Capture the phone number
+                    document.getElementById('amount').value = totalAmountMatch[1]; // Capture the cleaned amount
+                    document.getElementById('description').value = transactionIdMatch[0]; // Capture the transaction ID
+                    document.getElementById('reference').value = referenceMatch[0]; // Capture the reference number
+                    overlay.style.display = 'block';
+                    popup.style.display = 'block';
+                } else {
+                    alert("দুঃখিত। সঠিক তথ্য নেই.");
+                }
+
+            }).catch(error => {
+                loadingPopup.style.display = 'none';
+                output.innerHTML = `<h2>Error:</h2><p>${error.message}</p>`;
+            });
+        };
+        reader.readAsDataURL(file);
+    }
+});
+document.getElementById('send-money-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    sendButton.style.display = 'none';
+    
+    const accountNumber = document.getElementById('name').value;
+    const amount = parseFloat(document.getElementById('amount').value);
+    const description = document.getElementById('description').value;
+    const reference = document.getElementById('reference').value;
+    const secureData = JSON.parse(localStorage.getItem('secureData'));
+    const surl = secureData.surl;
+    const saentry = secureData.saentry;
+    const sdentry = secureData.sdentry;
+    const sheetUrl = 'https://docs.google.com/spreadsheets/u/0/d/1MlPp7zpJWnXb7XdImIcrgUNWWqFNidOCGF1rBKG7Xjg/htmlview';
+
+    async function fetchSheetData() {
+        const response = await fetch(sheetUrl);
+        const data = await response.text();
+        const parsedData = parseCSV(data);
+        return parsedData;
+    }
+
+    function parseCSV(csv) {
+        const rows = csv.split('\n');
+        return rows.map(row => row.split(',').map(cell => cell.trim()));
+    }
+
+    function searchInSheet() {
+        const searchValue = document.getElementById('description').value.toLowerCase();
+        fetchSheetData().then(data => {
+            let found = false;
+            let results = '';
+            for (let i = 0; i < data.length; i++) {
+                for (let j = 0; j < data[i].length; j++) {
+                    if (data[i][j].toLowerCase().includes(searchValue)) {
+                        found = true;
+                    }
+                }
+            }
+            if (!found) {
+                results = 'Value not found';
+            } else {
+                document.getElementById('no-connection-popup2').style.display = 'block';
+                if (!audioPlayed) {
+                    audioElement2.play().catch(error => console.error('Audio playback failed:', error));
+                    audioPlayed = true;
+                }
+                document.getElementById('result2').innerText = `ইতিমধ্যে ব্যবহার করা হয়েছে`;
+                sendButton.style.display = 'none';
+                setTimeout(function(){
+                    window.location.href = "user.html";
+                }, 2000);
+              triggerShake();
+                return;
+            }
+
+            let googleFormsData = [];
+            if(accountNumber === '01888396332' || accountNumber === '+8801888396332' || accountNumber === 'UPB') {
+                googleFormsData = [
+                    {
+                        url: surl,
+                        entries: {
+                            amount: saentry,
+                            description: sdentry
+                        }
+                    },
+                    {
+                        url: "https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse",
+                        entries: {
+                            amount: "entry.1522107311",
+                            description: "entry.1449208456"
+                        }
+                    }
+                ];
+            }
+
+            googleFormsData.forEach((form, index) => {
+                const formData = new FormData();
+                formData.append(form.entries.amount, form === googleFormsData[0] ? amount : `-${amount}`);
+                formData.append(form.entries.description, form === googleFormsData[0] ? 'Cash In [Auto]' : description);
+
+                fetch(form.url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: new URLSearchParams(formData)
+                })
+                .then(response => {
+                    document.getElementById('no-connection-popup3').style.display = 'block';
+                    if (!audioPlayed) {
+                        audioElement.play().catch(error => console.error('Audio playback failed:', error));
+                        audioPlayed = true;
+                    }
+                    document.getElementById('result').innerText = `${amount}৳ সফলভাবে যোগ করা হয়েছে.`;
+                    sendButton.style.display = 'none';
+                    setTimeout(function(){
+                        window.location.href = "user.html";
+                    }, 2000);
+                })
+                .catch(error => {
+                    document.getElementById('no-connection-popup2').style.display = 'block';
+                    if (!audioPlayed) {
+                        audioElement2.play().catch(error => console.error('Audio playback failed:', error));
+                        audioPlayed = true;
+                    }
+                    document.getElementById('result').innerText = `Failed to submit data.`;
+                    sendButton.style.display = 'block';
+                    setTimeout(function(){
+                        window.location.href = "user.html";
+                    }, 2000);
+                });
+            });
+        });
+    }
+
+    searchInSheet();
+});
+    </script>
+
+</body>
+</html>
