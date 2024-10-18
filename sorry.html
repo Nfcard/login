@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>দুঃখিত</title>
+    <style>
+        body {
+            font-family: 'SolaimanLipi', sans-serif;
+            background-color: #f8f0fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        @font-face {
+            font-family: 'SolaimanLipi';
+            src: url('https://cdn.jsdelivr.net/gh/indictools/indica@main/fonts/solaimanlipi/solaimanlipi.ttf');
+        }
+
+        h1 {
+            font-family: 'SolaimanLipi', sans-serif;
+            font-size: 3em;
+            color: #ff4b5c;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        p {
+            font-family: 'SolaimanLipi', sans-serif;
+            font-size: 1.1em;
+            color: #333;
+            text-align: center;
+        }
+
+        .message-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="message-container">
+        <h1>দুঃখিত</h1>
+        <p>সকল ১০ টা থেকে রাত ১০ টার মধ্যে ক্যাশ আউট করতে পারবেন</p>
+        <p id="timerMessage">৫ সেকেন্ড পরে একাই পূর্ববর্তী পৃষ্ঠায় ফিরে যাবে</p>
+    </div>
+
+    <script>
+        // 5-second countdown timer
+        let timeLeft = 5;
+        const timerMessage = document.getElementById("timerMessage");
+
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerMessage.textContent = timeLeft + " সেকেন্ড পরে একাই পূর্ববর্তী পৃষ্ঠায় ফিরে যাবে";
+
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                // Trigger the back action
+                window.history.back();
+            }
+        }, 1000); // Update every 1 second
+    </script>
+</body>
+</html>
