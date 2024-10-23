@@ -7,7 +7,13 @@ body {
             flex-direction: column;
             min-height: 100vh;
             color: #333;
-        }
+        transition: transform 0.5s ease-in-out;
+}
+
+body.move-down {
+    transform: translateY(5vh);
+}
+
         .navbar {
             margin: -15px;
             display: flex;
@@ -19,8 +25,8 @@ body {
             margin-bottom: 25px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
          opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn .7s forwards;
+            transform: translateY(5vh);
+            animation: fadeIn 1s forwards;
         }
         @keyframes fadeIn {
             to {
@@ -64,8 +70,8 @@ body {
 }
 form{
 opacity: 0;
-          transform: translateY(20px);
-            animation: fadeIn .7s forwards;
+          transform: translateY(5vh);
+            animation: fadeIn 1s forwards;
         }
   @keyframes fadeIn {
             to {
