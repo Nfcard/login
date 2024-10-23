@@ -44,7 +44,7 @@
 </head>
 <body>
     <div class="navbar">
-        <button onclick="window.history.back()"><i class="fa-duotone fa-solid fa-arrow-left"></i></button>
+        <button id="backButton"><i class="fas fa-arrow-left"></i></button>
         <div class="title">অনুদান পাঠান</div><div class="no-connection-popup" id="no-connection-popup">
         <div class="icon"><i class="fa-duotone fa-solid fa-wifi-slash"></i></div>
         <h1>ইন্টারনেট সংযোগ নেই!</h1>
@@ -96,7 +96,15 @@
     </form>
     <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script><script>
+</script><script>document.getElementById('backButton').addEventListener('click', function() {
+    // Add class to move the body down
+    document.body.classList.add('move-down');
+    
+    // Wait for the animation to complete (1 second), then go back
+    setTimeout(function() {
+        window.history.back();
+    }, 400);  // Match this duration with the CSS transition time
+});
 let audioPlayed = false;
 const audioElement = new Audio('fail.mp3');
 
