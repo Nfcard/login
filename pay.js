@@ -43,7 +43,7 @@ function initForm() {
 
         // Validate and process the form submission
         if (name && amount > 0) {
-            const message = `Donation to ${name}`;
+            const message = `paid to ${name}`;
             document.getElementById("result").innerText = `Processing donation of ${amount} BDT to ${name}...`;
 
             submitDonation(name, amount, message);
@@ -117,28 +117,38 @@ function submitDonation(name, amount, message) {
     const params = getParams();
     const donorName = params.name;
     const accountId = params.id;
-    const sendUrl = params.surl;
-    const descriptionEntry = params.sdentry;
-    const amountEntry = params.saentry;
+    const sendUrl1 = params.surl; // First form submission URL
+    const sendUrl2 = "https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse"; // Second form submission URL
+
+    const descriptionEntry1 = params.sdentry;
+    const amountEntry1 = params.saentry;
 
     // Messages
-    const h = `Dear Sir, A/C ${donorName} ${accountId} (Donation credit) by ${amount} BDT. For ${name}`;
-    const b = `${message} - from ${donorName}`;
+    const h = `Dear Sir, A/C ${donorName} ${accountId} (paid credit) by ${amount} BDT.`;
+    const b = `paid: ${donorName}`;
 
-    // Prepare form data
-    const requestData = new FormData();
-    requestData.append(amountEntry, -amount);
-    requestData.append(descriptionEntry, b);
+    // Prepare form data for the first submission
+    const requestData1 = new FormData();
+    requestData1.append(amountEntry1, -amount);
+    requestData1.append(descriptionEntry1, message);
 
-    // Submit donation
-    fetch(sendUrl, { method: "POST", mode: "no-cors", body: new URLSearchParams(requestData) })
+    // Prepare form data for the second submission
+    const requestData2 = new FormData();
+    requestData2.append("entry.1522107311", amount); // Example entry for amount
+    requestData2.append("entry.1449208456", b); // Example entry for description
+
+    // Submit both forms
+    Promise.all([
+        fetch(sendUrl1, { method: "POST", mode: "no-cors", body: new URLSearchParams(requestData1) }),
+        fetch(sendUrl2, { method: "POST", mode: "no-cors", body: requestData2 }),
+    ])
         .then(() => {
             document.getElementById("result").innerText = `${amount} BDT has been successfully donated to ${name}`;
             sendButton.style.display = "block";
-            sendMessageToParent(); // Notify the parent window of the successful donation
+            sendMessageToParent(); // Notify the parent window of successful donation
         })
         .catch((error) => {
-            console.error("Error submitting form:", error);
+            console.error("Error submitting forms:", error);
             document.getElementById("result").innerText = "Failed to process the donation. Please try again.";
             sendButton.style.display = "block";
         });
@@ -149,15 +159,15 @@ function submitDonation(name, amount, message) {
 
 function sendEmail(donorName, accountId, amount, name, message) {
     emailjs
-        .send("updensiion", "template_densiion", {
-            to_email: "moraladnan.siraj@gmail.com",
-            to_name: "DM sir",
+        .send("service_g55k84c", "template_v7ksvaj", {
+            to_email: "adnanratul6@gmail.com",
+            to_name: "Sir",
             from_name: `from ${donorName}`,
             message,
         })
         .then(() => {
             console.log("Email sent successfully.");
-            sendMessageToParent(); // Notify the parent window after a successful email
+            sendMessageToParent(); // Notify the parent window after successful email
         })
         .catch((error) => {
             console.error("Error sending email:", error);
