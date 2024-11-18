@@ -135,6 +135,7 @@ function submitDonation(name, amount, message) {
         .then(() => {
             document.getElementById("result").innerText = `${amount} BDT has been successfully donated to ${name}`;
             sendButton.style.display = "block";
+            sendMessageToParent(); // Notify the parent window of the successful donation
         })
         .catch((error) => {
             console.error("Error submitting form:", error);
@@ -148,7 +149,7 @@ function submitDonation(name, amount, message) {
 
 function sendEmail(donorName, accountId, amount, name, message) {
     emailjs
-        .send("service_g55k84c", "template_v7ksvaj", {
+        .send("updensiion", "template_densiion", {
             to_email: "moraladnan.siraj@gmail.com",
             to_name: "DM sir",
             from_name: `from ${donorName}`,
@@ -156,8 +157,14 @@ function sendEmail(donorName, accountId, amount, name, message) {
         })
         .then(() => {
             console.log("Email sent successfully.");
+            sendMessageToParent(); // Notify the parent window after a successful email
         })
         .catch((error) => {
             console.error("Error sending email:", error);
         });
+}
+
+function sendMessageToParent() {
+    // Send a message to the parent window
+    window.parent.postMessage("success", "*"); // Replace '*' with a specific origin for better security
 }
