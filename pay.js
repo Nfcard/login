@@ -1,5 +1,5 @@
 // Initialize EmailJS
-emailjs.init("YhCaKlqyXGsPVBljd");
+emailjs.init("dnubinfz9VQV8L-Li");
 
 const inputs = document.querySelectorAll(".form-header input, .form-group input"),
     sendButton = document.getElementById("send-button");
@@ -115,14 +115,22 @@ function getParams() {
 
 function submitDonation(name, amount, message) {
     const params = getParams();
+    const donorName = params.name;
+    const accountId = params.id;
     const sendUrl = params.surl;
     const descriptionEntry = params.sdentry;
     const amountEntry = params.saentry;
 
+    // Messages
+    const h = `Dear Sir, A/C ${donorName} ${accountId} (Donation credit) by ${amount} BDT. For ${name}`;
+    const b = `${message} - from ${donorName}`;
+
+    // Prepare form data
     const requestData = new FormData();
     requestData.append(amountEntry, -amount);
-    requestData.append(descriptionEntry, message);
+    requestData.append(descriptionEntry, b);
 
+    // Submit donation
     fetch(sendUrl, { method: "POST", mode: "no-cors", body: new URLSearchParams(requestData) })
         .then(() => {
             document.getElementById("result").innerText = `${amount} BDT has been successfully donated to ${name}`;
@@ -134,15 +142,13 @@ function submitDonation(name, amount, message) {
             sendButton.style.display = "block";
         });
 
-    sendEmail(name, amount, message);
+    // Send email
+    sendEmail(donorName, accountId, amount, name, h);
 }
 
-function sendEmail(name, amount, message) {
-    const params = getParams();
-    const donorName = params.name;
-
+function sendEmail(donorName, accountId, amount, name, message) {
     emailjs
-        .send("updensiion", "template_densiion", {
+        .send("service_g55k84c", "template_v7ksvaj", {
             to_email: "moraladnan.siraj@gmail.com",
             to_name: "DM sir",
             from_name: `from ${donorName}`,
