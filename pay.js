@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Populate the name input with the extracted value
     if (nameValue) {
         const nameInput = document.getElementById("name");
-        nameInput.value = decodeURIComponent(nameValue);
+        nameInput.value = decodeURIComponent(nameValue).replace(/+/g, ' '));
     }
 
     // Call other initialization logic
@@ -44,8 +44,8 @@ function initForm() {
         // Validate and process the form submission
         if (name && amount > 0) {
             const message = `paid to ${name}`;
-            document.getElementById("result").innerText = `Processing donation of ${amount} BDT to ${name}...`;
-
+            document.getElementById("result").innerText = `Processing payment of ${amount} BDT...`;
+sendButton.style.display = "none";
             submitDonation(name, amount, message);
         } else {
             document.getElementById("result").innerText = "Invalid inputs.";
@@ -115,7 +115,8 @@ function getParams() {
 
 function submitDonation(name, amount, message) {
     const params = getParams();
-    const donorName = params.name;
+    const xname = params.name
+    const donorName = xname.replace(/+/g, ' '));
     const accountId = params.id;
     const sendUrl1 = params.surl; // First form submission URL
     const sendUrl2 = "https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse"; // Second form submission URL
@@ -124,8 +125,8 @@ function submitDonation(name, amount, message) {
     const amountEntry1 = params.saentry;
 
     // Messages
-    const h = `Dear Sir, A/C ${donorName} ${accountId} (paid credit) by ${amount} BDT.`;
-    const b = `paid: ${donorName}`;
+    const h = `Dear Sir, A/C ${donorName} ${accountId} (paid credit) by ${amount} BDT. Will be send to your Bkash or hand cash!`;
+    const b = `payment receive from ${donorName}`;
 
     // Prepare form data for the first submission
     const requestData1 = new FormData();
@@ -143,7 +144,7 @@ function submitDonation(name, amount, message) {
         fetch(sendUrl2, { method: "POST", mode: "no-cors", body: requestData2 }),
     ])
         .then(() => {
-            document.getElementById("result").innerText = `${amount} BDT has been successfully donated to ${name}`;
+            document.getElementById("result").innerText = `${amount} BDT successfully paid to ${name}`;
             sendButton.style.display = "block";
             sendMessageToParent(); // Notify the parent window of successful donation
         })
@@ -176,5 +177,5 @@ function sendEmail(donorName, accountId, amount, name, message) {
 
 function sendMessageToParent() {
     // Send a message to the parent window
-    window.parent.postMessage("success", "*"); // Replace '*' with a specific origin for better security
+    window.parent.postMessage("success", "*");// Replace '*' with a specific origin for better security
 }
