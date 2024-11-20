@@ -6,15 +6,15 @@ function getQueryParams() {
         .split("&")
         .forEach((param) => {
             const [key, value] = param.split("=");
-            params[decodeURIComponent(key)] = decodeURIComponent(value);
+            params[decodeURIComponent(key)] = decodeURIComponent(value.replace(/\+/g, " "));
         });
     return params;
 }
+
 const params = getQueryParams();
+document.getElementById("name").value = params.payit;
 const inputs = document.querySelectorAll(".form-header input, .form-group input");
 const sendButton = document.getElementById("send-button");
-
-document.getElementById("name").value = params.payit;
 inputs.forEach((input) => {
     input.addEventListener("input", () => {
         const allInputsFilled = Array.from(inputs).every((input) => input.value.trim() !== "");
