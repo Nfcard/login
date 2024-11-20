@@ -122,10 +122,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 },
                 {
-                    url: surl,
+                    url: params.surl,
                     entries: {
-                        amount: saentry,
-                        description: sdentry
+                        amount: params.saentry,
+                        description: params.sdentry
                     }
                 }
             ];
@@ -139,10 +139,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 },
                 {
-                    url: surl,
+                    url: params.surl,
                     entries: {
-                        amount: saentry,
-                        description: sdentry
+                        amount: params.saentry,
+                        description: params.sdentry
                     }
                 }
             ];
@@ -156,10 +156,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 },
                 {
-                    url: surl,
+                    url: params.surl,
                     entries: {
-                        amount: saentry,
-                        description: sdentry
+                        amount: params.saentry,
+                        description: params.sdentry
                     }
                 }
             ];
@@ -173,10 +173,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
                         },
                         {
-                            url: surl,
+                            url: params.surl,
                             entries: {
-                                amount: saentry,
-                                description: sdentry
+                                amount: params.saentry,
+                                description: params.sdentry
                             }
                         }
                     ];
