@@ -198,7 +198,7 @@ function handleError(errorMessage) {
 sendButton.innerText = "Checking....";
         
         // Bonus handling
-        const bonusInput = document.getElementById("bonus")?.value || "0";
+        const bonusInput = document.getElementById("bonus")?.innerText || "0";
         const bonusValue = bonusInput.includes("%")
             ? (amount * parseFloat(bonusInput.replace("%", "").trim())) / 100
             : parseFloat(bonusInput) || 0;
