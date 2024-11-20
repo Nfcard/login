@@ -29,6 +29,9 @@ function fetchTableDataDynamic(rowIndex, cellIndex, targetId, animationClass) {
     const tableIndex = parseInt(params.tbl, 10);
 
     if (isNaN(tableIndex)) {
+        setTimeout(function() {
+            location.history.back();
+            }, 500);
         console.error("Invalid table number in query parameters");
     } else {
         const queryUrl = params.qurl;
@@ -230,7 +233,7 @@ fetchTableDataDynamic(3, 1, "balance", "letter");sendMessageToParent();
         document.getElementById("result").innerText = `${accountName}-এ ${amount} টাকা পেমেন্ট পাঠাতে ব্যর্থ হয়েছে!`;
     } finally {
         sendButton.style.opacity = "1";
-        sendButton.innerText = "Pay";
+        sendButton.innerText = "Error";
         sendButton.disabled = false;
     }
 });
