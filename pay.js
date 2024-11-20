@@ -109,7 +109,7 @@ document.getElementById("send-money-form")?.addEventListener("submit", async fun
     }
 
     sendButton.style.opacity = "0.5";
-    sendButton.innerText = "wait....";
+    sendButton.innerText = "processing....";
     sendButton.disabled = true;
 
     // Inputs
@@ -138,20 +138,25 @@ document.getElementById("send-money-form")?.addEventListener("submit", async fun
     };
     const remail = remailMap[accountName] || "adnanratul6@gmail.com";
 
-    // Error messages for insufficient amount or balance
-    if (amount < 10 || amount > fetchedDataValue) {
-        const errorMessage = amount < 10
-            ? "সর্বনিম্ন পেমেন্ট 10 টাকা।"
-            : "অপর্যাপ্ত ব্যালেন্স। পেমেন্টের পরিমাণ আপনার ব্যালেন্স অতিক্রম করেছে।";
+   if (amount < 10) {
+    handleError("সর্বনিম্ন পেমেন্ট 10 টাকা।");
+    return;
+}
 
-        audioElement2.play().catch((error) => console.error("Audio playback failed:", error));
-        if (failedPopup) failedPopup.style.display = "block";
-        document.getElementById("result").innerText = errorMessage;
-        sendButton.style.opacity = "1";
-        sendButton.innerText = "Send";
-        sendButton.disabled = false;
-        return;
-    }
+if (amount > fetchedDataValue) {
+    handleError("অপর্যাপ্ত ব্যালেন্স। পেমেন্টের পরিমাণ আপনার ব্যালেন্স অতিক্রম করেছে।");
+    return;
+}
+
+// Error handling function
+function handleError(errorMessage) {
+    audioElement2.play().catch((error) => console.error("Audio playback failed:", error));
+    if (failedPopup) failedPopup.style.display = "block";
+    document.getElementById("result").innerText = errorMessage;
+    sendButton.style.opacity = "1";
+    sendButton.innerText = "Pay";
+    sendButton.disabled = false;
+}
 
     // Google Forms Data
     let googleFormsData = [];
@@ -205,7 +210,7 @@ document.getElementById("send-money-form")?.addEventListener("submit", async fun
 
             await fetch(bonusFormUrl, { method: "POST", mode: "no-cors", body: bonusFormData });
         }
-
+   sendButton.style.display = 'none';
         // Success message
         if (donePopup) donePopup.style.display = "block";
         audioElement.play().catch((error) => console.error("Audio playback failed:", error));
@@ -217,7 +222,7 @@ document.getElementById("send-money-form")?.addEventListener("submit", async fun
         document.getElementById("result").innerText = `${accountName}-এ ${amount} টাকা পেমেন্ট পাঠাতে ব্যর্থ হয়েছে!`;
     } finally {
         sendButton.style.opacity = "1";
-        sendButton.innerText = "Send";
+        sendButton.innerText = "Pay";
         sendButton.disabled = false;
     }
 });
