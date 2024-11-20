@@ -22,7 +22,6 @@ inputs.forEach((input) => {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
     let fetchedDataValue;
 
     function fetchTableData() {
@@ -69,7 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
             target.appendChild(span);
         });
     }
-});
     function sendMessageToParent() {
         window.parent.postMessage("success", "*");
     }
