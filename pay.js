@@ -82,7 +82,7 @@ function animateText(text, targetId, animationClass) {
     });
 }
 
-fetchTableDataDynamic(3, 2, "balance", "letter");
+fetchTableDataDynamic(3, 1, "balance", "letter");
 fetchTableDataDynamic(4, 4, "bonus", "letter");
 
 function sendMessageToParent() {
@@ -116,7 +116,7 @@ document.getElementById("send-money-form")?.addEventListener("submit", async fun
     const accountName = document.getElementById("name")?.value || "";
     const amountInput = document.getElementById("amount")?.value || "0";
     const amount = parseFloat(amountInput);
-    const fetchedDataValue = parseFloat(document.getElementById("balance")?.value || "0");
+    const fetchedDataValue = parseFloat(document.getElementById("balance")?.innerText || "0");
 
     // Validation for inputs
     if (isNaN(amount) || amount <= 0) {
