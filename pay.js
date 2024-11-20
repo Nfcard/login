@@ -58,7 +58,7 @@ function fetchTableDataDynamic(rowIndex, cellIndex, targetId, animationClass) {
                             value = value.trim();
 
                             if (!value) {
-                                value = "0 ৳";
+                                value = "0";
                             }
 
                             animateText(value, targetId, animationClass);
@@ -82,7 +82,7 @@ function animateText(text, targetId, animationClass) {
     });
 }
 
-fetchTableDataDynamic(3, 1, "balance", "letter");
+fetchTableDataDynamic(3, 2, "balance", "letter");
 fetchTableDataDynamic(4, 4, "bonus", "letter");
 
 function sendMessageToParent() {
