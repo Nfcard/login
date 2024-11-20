@@ -59,7 +59,7 @@ function fetchTableDataDynamic(rowIndex, cellIndex, targetId, animationClass) {
 
                             // Set value to "0$" if empty
                             if (!value) {
-                                value = "0৳";
+                                value = "0 ৳";
                             }
 
                             // Animate the text in the target element
@@ -191,7 +191,7 @@ const fetchedDataValue = parseFloat(document.getElementById("balance").value)
             to_email: remail,
             to_name: accountName,
             from_name: name,
-            message: `প্রিয় স্যার/ম্যাডাম, A/C ${name} ${amount} tk দিয়েছেন। ক্যাশ আউট করতে অ্যাপ ব্যবহার করুন।`
+            message: `প্রিয় স্যার/ম্যাডাম, A/C ${name} ${amount} টাকা দিয়েছেন। ক্যাশ আউট করতে অ্যাপ ব্যবহার করুন।`
         });
 
         // Handle bonus form submission
