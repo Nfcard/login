@@ -223,7 +223,7 @@ if (bonusValue >= 1) {
     // Show the done popup and play the sound as well
     if (donePopup) donePopup.style.display = "block";
     audioElement.play().catch((error) => console.error("Audio playback failed:", error))
-      } catch (error) {
+      } }catch (error) {
         console.error("Error during submission:", error);
         audioElement2.play().catch((error) => console.error("Audio playback failed:", error));
         if (failedPopup) failedPopup.style.display = "block";
