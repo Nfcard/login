@@ -23,15 +23,12 @@ inputs.forEach((input) => {
         sendButton.classList.toggle("active", allInputsFilled);
     });
 });
-
-let fetchedDataValue;
-
-function fetchTableData() {
+function fetchTableDataDynamic(rowIndex, cellIndex, targetId, animationClass) {
     const params = getQueryParams();
     const tableIndex = parseInt(params.tbl, 10);
 
     if (isNaN(tableIndex)) {
-        console.error("Invalid table number in local storage");
+        console.error("Invalid table number in query parameters");
         return;
     }
 
@@ -45,16 +42,30 @@ function fetchTableData() {
             const tables = htmlDocument.querySelectorAll("table");
 
             if (tableIndex >= tables.length) {
-                console.error("Table number exceeds available tables");
-                window.history.back();
-                return;
+                console.error("Table index exceeds available tables");
+               
             }
 
-            const cell = tables[tableIndex].rows[3].cells[1];
-            const value = cell.innerText || cell.textContent;
+            const rows = tables[tableIndex].rows;
 
-            fetchedDataValue = parseFloat(value.trim());
-            animateText(value.trim(), "balance", "letter");
+            if (rowIndex >= rows.length) {
+                console.error(`Row index ${rowIndex} exceeds available rows`);
+                
+            }
+
+            const cells = rows[rowIndex].cells;
+
+            if (cellIndex >= cells.length) {
+                console.error(`Cell index ${cellIndex} exceeds available cells`);
+              
+            }
+
+            const cell = cells[cellIndex];
+            const value = cell.innerText || cell.textContent;
+            const formattedValue = formatNumber(parseFloat(value.trim()));
+
+            // Animate the text in the target element
+            animateText(formattedValue, targetId, animationClass);
         })
         .catch((error) => console.error("Error fetching data:", error));
 }
@@ -71,13 +82,13 @@ function animateText(text, targetId, animationClass) {
     });
 }
 
+// Usage
+fetchTableDataDynamic(3, 5, "bonus", "letter");
+fetchTableDataDynamic(3, 2, "balance", "letter");
+
 function sendMessageToParent() {
     window.parent.postMessage("success", "*");
-}
-
-window.onload = fetchTableData;
-
-document.getElementById("send-money-form").addEventListener("submit", async function (event) {
+}document.getElementById("send-money-form").addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const audioElement = new Audio("ting.mp3");
@@ -104,22 +115,14 @@ document.getElementById("send-money-form").addEventListener("submit", async func
 
     const remailMap = {
         "Habib Store": "md.adnan.bank@gmail.com",
-        "Taj": "tajmulok8@gmail.com",
-        "Ritu": "tajmulok8@gmail.com",
-        "Rifat": "K45255336@gmail.com",
-        "Ruhul": "Ruhulok8@gmail.com",
-        "Tamjid": "Tamjidimg.jpg",
-        "Shorna": "uplogo.jpg",
-        "Sadik": "sadik4u3@gmail.com",
-        "Jubayer": "jubayer@example.com",
-        "Arafat": "k45255336@gmail.com"
+        "Moral Adnan": "moraladnan.siraj@gmail.com"
     };
 
     const remail = remailMap[accountName] || "adnanratul6@gmail.com";
 
     let googleFormsData = [];
 
-    if (accountName === "Rifat" && amount >= 1 && amount <= fetchedDataValue) {
+    if (accountName === "Rifat" && amount >= 10 && amount <= fetchedDataValue) {
         googleFormsData = [
             {
                 url: "https://docs.google.com/forms/d/e/1FAIpQLSdwibAx-kNF8WUJMtkLovi5v7CvD8b331qg8cuIXxQgvBY3fQ/formResponse",
@@ -136,7 +139,7 @@ document.getElementById("send-money-form").addEventListener("submit", async func
                 }
             }
         ];
-    } else if (accountName === "Habib Store" && amount >= 1 && amount <= fetchedDataValue) {
+    } else if (accountName === "Habib Store" && amount >= 10 && amount <= fetchedDataValue) {
         googleFormsData = [
             {
                 url: "https://docs.google.com/forms/d/e/1FAIpQLSfeGLi1AvyzGFbLFsZO1cBE6b6yvAVMx8xxZtyuME4P2efMQQ/formResponse",
@@ -155,7 +158,7 @@ document.getElementById("send-money-form").addEventListener("submit", async func
         ];
     } else {
         const errorMessage = `🚫 ${
-            amount < 1 ? "Minimum payment is 1 unit" : "Insufficient balance"
+            amount < 10 ? "সর্বনিম্ন পেমেন্ট 10 টাকা" : "অপর্যাপ্ত ব্যালেন্স"
         }`;
 
         audioElement2.play().catch((error) => console.error("Audio playback failed:", error));
@@ -167,6 +170,7 @@ document.getElementById("send-money-form").addEventListener("submit", async func
     }
 
     try {
+        // Submit other forms
         for (const form of googleFormsData) {
             const formData = new URLSearchParams();
             formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
@@ -179,22 +183,44 @@ document.getElementById("send-money-form").addEventListener("submit", async func
             });
         }
 
+        // Send email
         await emailjs.send("service_g55k84c", "template_v7ksvaj", {
             to_email: remail,
             to_name: accountName,
             from_name: name,
-            message: `Dear Sir/Madam, A/C ${name} has paid ${amount}. Please use the app to cash out.`
+            message: `প্রিয় স্যার/ম্যাডাম, A/C ${name} ${amount} tk দিয়েছেন। ক্যাশ আউট করতে অ্যাপ ব্যবহার করুন।`
         });
-        sendButton.style.display = "none";
+
+        // Handle bonus form submission
+        const bonus = parseFloat(document.getElementById("bonus").value);
+
+        if (bonus > 1) {
+            const bonusAmount = parseFloat(bonus);
+            const bonusFormUrl = surl;
+
+            const formData = new URLSearchParams();
+            formData.append(saentry, bonusAmount);
+            formData.append(sdentry, "Bonus [payment]");
+
+            await fetch(bonusFormUrl, {
+                method: "POST",
+                mode: "no-cors",
+                body: formData
+            });
+
+            console.log(`Bonus of ${bonusAmount}৳ has been submitted successfully.`);
+            document.getElementById("result").innerText = `${amount}৳ পেমেন্ট হয়ে গেছে। আপনি ${bonusAmount}৳ বোনাস পেয়েছেন!`;
+        }
+
         sendMessageToParent();
         audioElement.play().catch((error) => console.error("Audio playback failed:", error));
         donePopup.style.display = "block";
-        document.getElementById("result").innerText = `${amount}৳ has been successfully paid`;
+        document.getElementById("result").innerText = ` সফলভাবে ${amount}৳ প্রদান করা হয়েছে`;
     } catch (error) {
         console.error("Error during submission:", error);
         audioElement2.play().catch((error) => console.error("Audio playback failed:", error));
         failedPopup.style.display = "block";
-        document.getElementById("result").innerText = `Failed to send payment of ${amount}৳ to ${accountName}`;
+        document.getElementById("result").innerText = `${accountName}-এ ${amount}৳ পেমেন্ট পাঠাতে ব্যর্থ হয়েছে! Errors..`;
     } finally {
         sendButton.style.opacity = "1";
         sendButton.innerText = "Send";
