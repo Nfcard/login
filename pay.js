@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
             target.appendChild(span);
         });
     }
-
+});
     function sendMessageToParent() {
         window.parent.postMessage("success", "*");
     }
@@ -86,7 +86,7 @@ document.getElementById("send-money-form").addEventListener("submit", async func
     audioElement2.load();
     const failed = document.getElementById('no-connection-popup2');
     const done = document.getElementById('no-connection-popup3');
-
+sendButton.style.opacity = 0.5;
     sendButton.innerText = 'wait....';
     sendButton.disabled = true;
 const params = getQueryParams();
@@ -94,7 +94,11 @@ const params = getQueryParams();
     const amount = parseFloat(document.getElementById("amount").value);
     const amount2 = `-${amount}`;
     const description = `Paid to ${accountName}`;
-    const description2 = `Payment from ${params.name}`;
+    const name = params.name || "unknown";
+    const surl = params.surl;
+    const saentry = params.saentry;
+    const sdentry = params.sdentry;
+    const description2 = `Payment from ${name}`;
 
     const remailMap = {
         "Habib Store": "md.adnan.bank@gmail.com",
@@ -123,10 +127,27 @@ const params = getQueryParams();
                 }
             },
             {
-                url: params.surl,
+                url: surl,
                 entries: {
-                    amount: params.saentry,
-                    description: params.sdentry
+                    amount: saentry,
+                    description: sdentry
+                }
+            }
+        ];
+    }else if (accountName === 'Habib Store' && amount >= 1 && amount <= fetchedDataValue) {
+        googleFormsData = [
+            {
+                url: 'https://docs.google.com/forms/d/e/1FAIpQLSfeGLi1AvyzGFbLFsZO1cBE6b6yvAVMx8xxZtyuME4P2efMQQ/formResponse',
+entries: {
+    amount: 'entry.1522107311',
+    description: 'entry.1449208456'
+                }
+            },
+            {
+                url: surl,
+                entries: {
+                    amount: saentry,
+                    description: sdentry
                 }
             }
         ];
@@ -150,7 +171,7 @@ const params = getQueryParams();
         for (const form of googleFormsData) {
             const formData = new URLSearchParams();
             formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
-            formData.append(form.entries.description, form === googleFormsData[0] ? description : description2);
+            formData.append(form.entries.description, form === googleFormsData[0] ? description2 : description);
 
             await fetch(form.url, {
                 method: 'POST',
@@ -163,8 +184,8 @@ const params = getQueryParams();
         await emailjs.send("service_g55k84c", "template_v7ksvaj", {
             to_email: remail,
             to_name: accountName,
-            from_name: `${params.name}`,
-            message: `মাননীয় স্যার, A/C ${params.name} থেকে ${amount} টাকা পেমেন্ট পেয়েছেন। টাকা তুলতে অ্যাপে ক্যাশআউট ব্যবহার করুন।`
+            from_name: name,
+            message: `মাননীয় স্যার, A/C ${name} থেকে ${amount} টাকা পেমেন্ট পেয়েছেন। টাকা তুলতে অ্যাপে ক্যাশআউট ব্যবহার করুন।`
         });
 
         // Success feedback
