@@ -83,7 +83,7 @@ function animateText(text, targetId, animationClass) {
 }
 
 // Usage
-fetchTableDataDynamic(3, 5, "bonus", "letter");
+fetchTableDataDynamic(4, 5, "bonus", "letter");
 fetchTableDataDynamic(3, 2, "balance", "letter");
 
 function sendMessageToParent() {
