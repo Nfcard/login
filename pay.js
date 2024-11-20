@@ -1,4 +1,15 @@
 emailjs.init("dnubinfz9VQV8L-Li");
+function getQueryParams() {
+    const params = {};
+    window.location.search
+        .substring(1)
+        .split("&")
+        .forEach((param) => {
+            const [key, value] = param.split("=");
+            params[decodeURIComponent(key)] = decodeURIComponent(value);
+        });
+    return params;
+}
 const params = getQueryParams();
 const inputs = document.querySelectorAll(".form-header input, .form-group input");
 const sendButton = document.getElementById("send-button");
@@ -47,18 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch((error) => console.error("Error fetching data:", error));
     }
 
-    function getQueryParams() {
-        const params = {};
-        window.location.search
-            .substring(1)
-            .split("&")
-            .forEach((param) => {
-                const [key, value] = param.split("=");
-                params[decodeURIComponent(key)] = decodeURIComponent(value);
-            });
-        return params;
-    }
-
     function animateText(text, targetId, animationClass) {
         const target = document.getElementById(targetId);
         target.innerHTML = "";
@@ -99,8 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
         
         const remailMap = {
             "Habib Store": "md.adnan.bank@gmail.com",
-            "habib store": "adnanratul6@gmail.com",
-            "Habib store": "moraladnan.siraj@gmail.com",
+            "Taj": "tajmulok8@gmail.com",
+            "Ritu": "tajmulok8@gmail.com",
             "Rifat": "K45255336@gmail.com",
             "Ruhul": "Ruhulok8@gmail.com",
             "Tamjid": "Tamjidimg.jpg",
