@@ -57,12 +57,10 @@ function fetchTableDataDynamic(rowIndex, cellIndex, targetId, animationClass) {
                             let value = cell.innerText || cell.textContent;
                             value = value.trim();
 
-                            // Set value to "0$" if empty
                             if (!value) {
                                 value = "0 ৳";
                             }
 
-                            // Animate the text in the target element
                             animateText(value, targetId, animationClass);
                         }
                     }
@@ -83,13 +81,15 @@ function animateText(text, targetId, animationClass) {
         target.appendChild(span);
     });
 }
-fetchTableDataDynamic(3, 1, "balance", "letter"),
-fetchTableDataDynamic(4, 5, "bonus", "letter");
 
+fetchTableDataDynamic(3, 1, "balance", "letter");
+fetchTableDataDynamic(4, 5, "bonus", "letter");
 
 function sendMessageToParent() {
     window.parent.postMessage("success", "*");
-}document.getElementById("send-money-form").addEventListener("submit", async function (event) {
+}
+
+document.getElementById("send-money-form").addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const audioElement = new Audio("ting.mp3");
@@ -113,7 +113,8 @@ function sendMessageToParent() {
     const saentry = params.saentry;
     const sdentry = params.sdentry;
     const description2 = `Payment from ${name}`;
-const fetchedDataValue = parseFloat(document.getElementById("balance").value)
+    const fetchedDataValue = parseFloat(document.getElementById("balance").value);
+
     const remailMap = {
         "Habib Store": "md.adnan.bank@gmail.com",
         "Moral Adnan": "moraladnan.siraj@gmail.com"
@@ -158,12 +159,10 @@ const fetchedDataValue = parseFloat(document.getElementById("balance").value)
             }
         ];
     } else {
-        let errorMessage;
-        if(amount < 0) {
-  errorMessage ="সর্বনিম্ন পেমেন্ট 10 টাকা";
-        } else if( amount > fetchedDataValue){
-            errorMessage = "অপর্যাপ্ত ব্যালেন্স";
-        } 
+        let errorMessage = amount < 10
+            ? "সর্বনিম্ন পেমেন্ট 10 টাকা"
+            : "অপর্যাপ্ত ব্যালেন্স";
+
         audioElement2.play().catch((error) => console.error("Audio playback failed:", error));
         failedPopup.style.display = "block";
         document.getElementById("result").innerText = errorMessage;
@@ -173,7 +172,6 @@ const fetchedDataValue = parseFloat(document.getElementById("balance").value)
     }
 
     try {
-        // Submit other forms
         for (const form of googleFormsData) {
             const formData = new URLSearchParams();
             formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
@@ -186,7 +184,6 @@ const fetchedDataValue = parseFloat(document.getElementById("balance").value)
             });
         }
 
-        // Send email
         await emailjs.send("service_g55k84c", "template_v7ksvaj", {
             to_email: remail,
             to_name: accountName,
@@ -194,15 +191,12 @@ const fetchedDataValue = parseFloat(document.getElementById("balance").value)
             message: `প্রিয় স্যার/ম্যাডাম, A/C ${name} ${amount} টাকা দিয়েছেন। ক্যাশ আউট করতে অ্যাপ ব্যবহার করুন।`
         });
 
-        // Handle bonus form submission
         const bonus = parseFloat(document.getElementById("bonus").value);
 
         if (bonus > 1) {
-            const bonusAmount = parseFloat(bonus);
             const bonusFormUrl = surl;
-
             const formData = new URLSearchParams();
-            formData.append(saentry, bonusAmount);
+            formData.append(saentry, bonus);
             formData.append(sdentry, "Bonus [payment]");
 
             await fetch(bonusFormUrl, {
@@ -211,8 +205,7 @@ const fetchedDataValue = parseFloat(document.getElementById("balance").value)
                 body: formData
             });
 
-            console.log(`Bonus of ${bonusAmount}টাকা has been submitted successfully.`);
-            document.getElementById("result").innerText = `${amount}টাকা পেমেন্ট হয়ে গেছে। আপনি ${bonusAmount}টাকা বোনাস পেয়েছেন!`;
+            document.getElementById("result").innerText = `${amount}টাকা পেমেন্ট হয়ে গেছে। আপনি ${bonus}টাকা বোনাস পেয়েছেন!`;
         }
 
         sendMessageToParent();
