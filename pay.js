@@ -195,14 +195,15 @@ document.getElementById("send-money-form").addEventListener("submit", async func
             message: `প্রিয় স্যার/ম্যাডাম, A/C ${name} ${amount} টাকা দিয়েছেন। ক্যাশ আউট করতে অ্যাপ ব্যবহার করুন।`
         });
 
-const bonusInput = document.getElementById("bonus").value;
+const bonusInput = document.getElementById("bonus").value || "0";
+        const bonusInputx = bonusInput.toString();
 let bonusValue;
 
-if (bonusInput.includes("%")) {
+if (bonusInputx.includes("%")) {
     const bonusPercentage = parseFloat(bonusInput.replace("%", "").trim());
     bonusValue = (amount * bonusPercentage) / 100;
 } else {
-    bonusValue = parseFloat(bonusInput);
+    bonusValue = parseFloat(bonusInput) || 0;
 }
 
 // Use bonusValue for further processing
@@ -220,7 +221,6 @@ if (bonusValue > 1) {
 
     document.getElementById("result").innerText = `${amount} টাকা পেমেন্ট হয়ে গেছে। আপনি ${bonusValue} টাকা বোনাস পেয়েছেন!`;
 }
-
         sendMessageToParent();
         audioElement.play().catch((error) => console.error("Audio playback failed:", error));
         donePopup.style.display = "block";
