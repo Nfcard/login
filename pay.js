@@ -158,10 +158,12 @@ const fetchedDataValue = parseFloat(document.getElementById("balance").value)
             }
         ];
     } else {
-        const errorMessage = `🚫 ${
-            amount < 10 ? "সর্বনিম্ন পেমেন্ট 10 টাকা" : "অপর্যাপ্ত ব্যালেন্স"
-        }`;
-
+        let errorMessage;
+        if(amount < 0) {
+  errorMessage ="সর্বনিম্ন পেমেন্ট 10 টাকা";
+        } else if( amount > fetchedDataValue){
+            errorMessage = "অপর্যাপ্ত ব্যালেন্স";
+        } 
         audioElement2.play().catch((error) => console.error("Audio playback failed:", error));
         failedPopup.style.display = "block";
         document.getElementById("result").innerText = errorMessage;
