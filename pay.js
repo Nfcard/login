@@ -129,7 +129,7 @@ document.getElementById("send-money-form")?.addEventListener("submit", async fun
     const saentry = params.saentry || "default_entry1";
     const sdentry = params.sdentry || "default_entry2";
     const name = params.name || "unknown";
-
+    const number = params.id;
     const description = `Paid to ${accountName}`;
     const description2 = `Payment from ${name}`;
     const remailMap = {
@@ -193,7 +193,7 @@ function handleError(errorMessage) {
             to_email: remail,
             to_name: accountName,
             from_name: name,
-            message: `প্রিয় স্যার/ম্যাডাম, A/C ${name} ${amount} টাকা দিয়েছেন। ক্যাশ আউট করতে অ্যাপ ব্যবহার করুন।`
+            message: `প্রিয় স্যার/ম্যাডাম, A/C ${name} [ ${number} ] ${amount} টাকা দিয়েছেন। ক্যাশ আউট করতে অ্যাপ ব্যবহার করুন।`
         });
 sendButton.innerText = "Checking....";
         
