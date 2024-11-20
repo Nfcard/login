@@ -22,8 +22,7 @@ inputs.forEach((input) => {
         const allInputsFilled = Array.from(inputs).every((input) => input.value.trim() !== "");
         sendButton.classList.toggle("active", allInputsFilled);
     });
-});
-function fetchTableDataDynamic(rowIndex, cellIndex, targetId, animationClass) {
+});function fetchTableDataDynamic(rowIndex, cellIndex, targetId, animationClass) {
     const params = getQueryParams();
     const tableIndex = parseInt(params.tbl, 10);
 
@@ -43,29 +42,28 @@ function fetchTableDataDynamic(rowIndex, cellIndex, targetId, animationClass) {
 
             if (tableIndex >= tables.length) {
                 console.error("Table index exceeds available tables");
-               
+                return;
             }
 
             const rows = tables[tableIndex].rows;
 
             if (rowIndex >= rows.length) {
                 console.error(`Row index ${rowIndex} exceeds available rows`);
-                
+                return;
             }
 
             const cells = rows[rowIndex].cells;
 
             if (cellIndex >= cells.length) {
                 console.error(`Cell index ${cellIndex} exceeds available cells`);
-              
+                return;
             }
 
             const cell = cells[cellIndex];
             const value = cell.innerText || cell.textContent;
-            const formattedValue = formatNumber(parseFloat(value.trim()));
 
             // Animate the text in the target element
-            animateText(formattedValue, targetId, animationClass);
+            animateText(value.trim(), targetId, animationClass);
         })
         .catch((error) => console.error("Error fetching data:", error));
 }
