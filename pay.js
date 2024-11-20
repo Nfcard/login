@@ -124,11 +124,11 @@ document.getElementById("send-money-form")?.addEventListener("submit", async fun
         return;
     }
 
-    const params = window.params || {};
-    const surl = params.surl || "";
+   const params = getQueryParams();
+ const surl = params.surl || "";
     const saentry = params.saentry || "default_entry1";
     const sdentry = params.sdentry || "default_entry2";
-    const name = params.name || "unknown";
+    const name = params.name;
     const number = params.id;
     const description = `Paid to ${accountName}`;
     const description2 = `Payment from ${name}`;
@@ -195,28 +195,35 @@ function handleError(errorMessage) {
             from_name: name,
             message: `প্রিয় স্যার/ম্যাডাম, A/C ${name} [ ${number} ] ${amount} টাকা দিয়েছেন। ক্যাশ আউট করতে অ্যাপ ব্যবহার করুন।`
         });
-sendButton.innerText = "Checking....";
-        
-        // Bonus handling
         const bonusInput = document.getElementById("bonus")?.innerText || "0";
-        const bonusValue = bonusInput.includes("%")
-            ? (amount * parseFloat(bonusInput.replace("%", "").trim())) / 100
-            : parseFloat(bonusInput) || 0;
+const bonusValue = bonusInput.includes("%")
+    ? Math.min((amount * parseFloat(bonusInput.replace("%", "").trim())) / 100, 20)
+    : Math.min(parseFloat(bonusInput) || 0, 20);
 
-        if (bonusValue > 1) {
-            const bonusFormUrl = surl;
-            const bonusFormData = new URLSearchParams();
-            bonusFormData.append(saentry, bonusValue.toString());
-            bonusFormData.append(sdentry, "Bonus [payment]");
+if (bonusValue >= 1) {
+    // Submit the bonus form
+    const bonusFormUrl = surl;
+    const bonusFormData = new URLSearchParams();
+    bonusFormData.append(saentry, bonusValue.toString());
+    bonusFormData.append(sdentry, "Bonus [payment]");
 
-            await fetch(bonusFormUrl, { method: "POST", mode: "no-cors", body: bonusFormData });
-        }
-   sendButton.style.display = 'none';
-        // Success message
-        if (donePopup) donePopup.style.display = "block";
-        audioElement.play().catch((error) => console.error("Audio playback failed:", error));
-        document.getElementById("result").innerText = `${amount} টাকা পেমেন্ট হয়ে গেছে। আপনি ${bonusValue} টাকা বোনাস পেয়েছেন!`;
-    } catch (error) {
+    await fetch(bonusFormUrl, { method: "POST", mode: "no-cors", body: bonusFormData });
+
+    sendButton.style.display = 'none';
+
+    // Success message
+    if (donePopup) donePopup.style.display = "block";
+    audioElement.play().catch((error) => console.error("Audio playback failed:", error));
+
+    document.getElementById("result").innerText = `${amount} টাকা পেমেন্ট হয়ে গেছে। আপনি ${bonusValue} টাকা বোনাস পেয়েছেন!`;
+} else {
+    // Display result message only (no form submission)
+    document.getElementById("result").innerText = `${amount} টাকা পেমেন্ট হয়ে গেছে।`;
+
+    // Show the done popup and play the sound as well
+    if (donePopup) donePopup.style.display = "block";
+    audioElement.play().catch((error) => console.error("Audio playback failed:", error))
+      } catch (error) {
         console.error("Error during submission:", error);
         audioElement2.play().catch((error) => console.error("Audio playback failed:", error));
         if (failedPopup) failedPopup.style.display = "block";
