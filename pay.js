@@ -75,178 +75,115 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     window.onload = fetchTableData;
+document.getElementById("send-money-form").addEventListener("submit", async function (event) {
+    event.preventDefault();
+    let audioPlayed = false;
+    const audioElement = new Audio('ting.mp3');
+    const audioElement2 = new Audio('fail.mp3');
+    audioElement.preload = 'auto';
+    audioElement.load();
+    audioElement2.preload = 'auto';
+    audioElement2.load();
+    const failed = document.getElementById('no-connection-popup2');
+    const done = document.getElementById('no-connection-popup3');
 
-    document.getElementById("send-money-form").addEventListener("submit", function (event) {
-        event.preventDefault();
-        let audioPlayed = false;
-        const audioElement = new Audio('ting.mp3');
-        const audioElement2 = new Audio('fail.mp3');
-        audioElement.preload = 'auto';
-        audioElement.load();
-        audioElement2.preload = 'auto';
-        audioElement2.load();
-        const failed = document.getElementById('no-connection-popup2');
-        const done = document.getElementById('no-connection-popup3');
+    sendButton.innerText = 'wait....';
+    sendButton.disabled = true;
+const params = getQueryParams();
+    const accountName = document.getElementById("name").value;
+    const amount = parseFloat(document.getElementById("amount").value);
+    const amount2 = `-${amount}`;
+    const description = `Paid to ${accountName}`;
+    const description2 = `Payment from ${params.name}`;
 
-        sendButton.innerText = 'wait....';
-        sendButton.disabled = true;
-        const accountName = document.getElementById("name").value;
-        const amount = parseFloat(document.getElementById("amount").value);
-        const amount2 = `-${amount}`;
-        const description = `Paid to ${accountName}`;
-        const description2 = `Payment from ${params.name}`;
-        
-        const remailMap = {
-            "Habib Store": "md.adnan.bank@gmail.com",
-            "Taj": "tajmulok8@gmail.com",
-            "Ritu": "tajmulok8@gmail.com",
-            "Rifat": "K45255336@gmail.com",
-            "Ruhul": "Ruhulok8@gmail.com",
-            "Tamjid": "Tamjidimg.jpg",
-            "Shorna": "uplogo.jpg",
-            "Sadik": "sadik4u3@gmail.com",
-            "Jubayer": "jubayer@example.com",
-            "Arafat": "k45255336@gmail.com"
-        };
+    const remailMap = {
+        "Habib Store": "md.adnan.bank@gmail.com",
+        "Taj": "tajmulok8@gmail.com",
+        "Ritu": "tajmulok8@gmail.com",
+        "Rifat": "K45255336@gmail.com",
+        "Ruhul": "Ruhulok8@gmail.com",
+        "Tamjid": "Tamjidimg.jpg",
+        "Shorna": "uplogo.jpg",
+        "Sadik": "sadik4u3@gmail.com",
+        "Jubayer": "jubayer@example.com",
+        "Arafat": "k45255336@gmail.com"
+    };
 
-        const remail = remailMap[accountName] || "adnanratul6@gmail.com";
-        let googleFormsData = [];
+    const remail = remailMap[accountName] || "adnanratul6@gmail.com";
 
-        if (accountName === 'Rifat' && amount >= 1 && amount <= fetchedDataValue) {
-            googleFormsData = [
-                {
-                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSdwibAx-kNF8WUJMtkLovi5v7CvD8b331qg8cuIXxQgvBY3fQ/formResponse',
-                    entries: {
-                        amount: 'entry.571402887',
-                        description: 'entry.885732113'
-                    }
-                },
-                {
-                    url: params.surl,
-                    entries: {
-                        amount: params.saentry,
-                        description: params.sdentry
-                    }
+    let googleFormsData = [];
+
+    if (accountName === 'Rifat' && amount >= 1 && amount <= fetchedDataValue) {
+        googleFormsData = [
+            {
+                url: 'https://docs.google.com/forms/d/e/1FAIpQLSdwibAx-kNF8WUJMtkLovi5v7CvD8b331qg8cuIXxQgvBY3fQ/formResponse',
+                entries: {
+                    amount: 'entry.571402887',
+                    description: 'entry.885732113'
                 }
-            ];
-        } else if (accountName === 'Ratul' && amount >= 1 && amount <= fetchedDataValue) {
-            googleFormsData = [
-                {
-                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSfNAWSxevXYMOE8HlhzfouKHf5canb-c4QR0GSa_vE-T_LYAA/formResponse',
-                    entries: {
-                        amount: 'entry.1522107311',
-                        description: 'entry.1449208456'
-                    }
-                },
-                {
-                    url: params.surl,
-                    entries: {
-                        amount: params.saentry,
-                        description: params.sdentry
-                    }
+            },
+            {
+                url: params.surl,
+                entries: {
+                    amount: params.saentry,
+                    description: params.sdentry
                 }
-            ];
-        } else if (accountName === 'Sadik' && amount >= 1 && amount <= fetchedDataValue) {
-            googleFormsData = [
-                {
-                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSeRN1fDSrzXRhvT4PCW5_DyDhaZj-bYjkMtogsGznLGu_Y9_w/formResponse',
-                    entries: {
-                        amount: 'entry.388106005',
-                        description: 'entry.478936436'
-                    }
-                },
-                {
-                    url: params.surl,
-                    entries: {
-                        amount: params.saentry,
-                        description: params.sdentry
-                    }
-                }
-            ];
-        }else if (accountName === 'Habib Store' && amount >= 1 && amount <= fetchedDataValue) {
-                    googleFormsData = [
-                        {
-                            url: 'https://docs.google.com/forms/d/e/1FAIpQLSfeGLi1AvyzGFbLFsZO1cBE6b6yvAVMx8xxZtyuME4P2efMQQ/formResponse',
-            entries: {
-                amount: 'entry.1522107311',
-                description: 'entry.1449208456'
-                            }
-                        },
-                        {
-                            url: params.surl,
-                            entries: {
-                                amount: params.saentry,
-                                description: params.sdentry
-                            }
-                        }
-                    ];
-                } else {
-                    let errorMessage = `🚫 `;
-                    if (amount < 1) {
-                        errorMessage += `সর্বনিম্ন 10 টাকা পেমেন্ট যাবে`;
-                    }
-                    if (amount > fetchedDataValue) {
-                        errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই `;
-                    }
-                                           if (!audioPlayed) {
-                    audioElement2.play().catch(error => {
-                        console.error('Audio playback failed:', error);
-                    });
-                    audioPlayed = true;
-                }failed.style.display = 'block';
-                document.getElementById('result').innerText = errorMessage;
-           
-                return;
             }
-    
-        googleFormsData.forEach((form, index) => {
-            const formData = new FormData();
+        ];
+    } else {
+        let errorMessage = `🚫 `;
+        if (amount < 1) errorMessage += `সর্বনিম্ন 10 টাকা পেমেন্ট যাবে`;
+        if (amount > fetchedDataValue) errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই `;
+        if (!audioPlayed) {
+            audioElement2.play().catch(error => console.error('Audio playback failed:', error));
+            audioPlayed = true;
+        }
+        failed.style.display = 'block';
+        document.getElementById('result').innerText = errorMessage;
+        sendButton.disabled = false;
+        sendButton.innerText = 'Send';
+        return;
+    }
+
+    try {
+        // Submit data to Google Forms
+        for (const form of googleFormsData) {
+            const formData = new URLSearchParams();
             formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
             formData.append(form.entries.description, form === googleFormsData[0] ? description : description2);
 
-            fetch(form.url, {
+            await fetch(form.url, {
                 method: 'POST',
                 mode: 'no-cors',
-                body: new URLSearchParams(formData)
-            })
-            .then(response => {
-                    if (!response.ok) throw new Error("Error submitting form");
-                    sendButton.style.display = "none";
-                    fetchTableData();
-                })
-                .catch((error) => {
-                    console.error("Error submitting form:", error);
-                });
+                body: formData
+            });
+        }
+
+        // Send Email
+        await emailjs.send("service_g55k84c", "template_v7ksvaj", {
+            to_email: remail,
+            to_name: accountName,
+            from_name: `${params.name}`,
+            message: `মাননীয় স্যার, A/C ${params.name} থেকে ${amount} টাকা পেমেন্ট পেয়েছেন। টাকা তুলতে অ্যাপে ক্যাশআউট ব্যবহার করুন।`
         });
 
-        emailjs
-            .send("service_g55k84c", "template_v7ksvaj", {
-                to_email: remail,
-                to_name: accountName,
-                from_name: `${params.name}`,
-                message: `মাননীয় স্যার, A/C ${params.name} থেকে ${amount} টাকা পেমেন্ট পেয়েছেন। টাকা তুলতে অ্যাপে ক্যাশআউট ব্যবহার করুন।`
-            })
-            .then(() => {
-                sendMessageToParent();
-                if (!audioPlayed) {
-                    audioElement.play().catch(error => {
-                        console.error('Audio playback failed:', error);
-                    });
-                    audioPlayed = true;
-                }
-                done.style.display = 'block';
-                document.getElementById("result").innerText = `${amount}৳ has been successfully paid`;
-            })
-            .catch((error) => {
-                console.error("Error sending email:", error);
-                if (!audioPlayed) {
-                    audioElement.play().catch(error => {
-                        console.error('Audio playback failed:', error);
-                    });
-                    audioPlayed = true;
-                }
-                failed.style.display = 'block';
-                document.getElementById("result").innerText = `Failed to send payment of ${amount}৳ to ${accountName}`;
-            });
-    });
+        // Success feedback
+        sendMessageToParent();
+        if (!audioPlayed) {
+            audioElement.play().catch(error => console.error('Audio playback failed:', error));
+            audioPlayed = true;
+        }
+        done.style.display = 'block';
+        document.getElementById("result").innerText = `${amount}৳ has been successfully paid`;
+    } catch (error) {
+        console.error("Error during submission:", error);
+        if (!audioPlayed) {
+            audioElement2.play().catch(error => console.error('Audio playback failed:', error));
+            audioPlayed = true;
+        }
+        failed.style.display = 'block';
+        document.getElementById("result").innerText = `Failed to send payment of ${amount}৳ to ${accountName}`;
+    } finally {
+        sendButton.style.display = "none";
+    }
 });
