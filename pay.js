@@ -22,50 +22,54 @@ inputs.forEach((input) => {
         const allInputsFilled = Array.from(inputs).every((input) => input.value.trim() !== "");
         sendButton.classList.toggle("active", allInputsFilled);
     });
-});function fetchTableDataDynamic(rowIndex, cellIndex, targetId, animationClass) {
+});
+
+function fetchTableDataDynamic(rowIndex, cellIndex, targetId, animationClass) {
     const params = getQueryParams();
     const tableIndex = parseInt(params.tbl, 10);
 
     if (isNaN(tableIndex)) {
         console.error("Invalid table number in query parameters");
-        return;
+    } else {
+        const queryUrl = params.qurl;
+
+        fetch(queryUrl)
+            .then((response) => response.text())
+            .then((htmlText) => {
+                const parser = new DOMParser();
+                const htmlDocument = parser.parseFromString(htmlText, "text/html");
+                const tables = htmlDocument.querySelectorAll("table");
+
+                if (tableIndex >= tables.length) {
+                    console.error("Table index exceeds available tables");
+                } else {
+                    const rows = tables[tableIndex].rows;
+
+                    if (rowIndex >= rows.length) {
+                        console.error(`Row index ${rowIndex} exceeds available rows`);
+                    } else {
+                        const cells = rows[rowIndex].cells;
+
+                        if (cellIndex >= cells.length) {
+                            console.error(`Cell index ${cellIndex} exceeds available cells`);
+                        } else {
+                            const cell = cells[cellIndex];
+                            let value = cell.innerText || cell.textContent;
+                            value = value.trim();
+
+                            // Set value to "0$" if empty
+                            if (!value) {
+                                value = "0৳";
+                            }
+
+                            // Animate the text in the target element
+                            animateText(value, targetId, animationClass);
+                        }
+                    }
+                }
+            })
+            .catch((error) => console.error("Error fetching data:", error));
     }
-
-    const queryUrl = params.qurl;
-
-    fetch(queryUrl)
-        .then((response) => response.text())
-        .then((htmlText) => {
-            const parser = new DOMParser();
-            const htmlDocument = parser.parseFromString(htmlText, "text/html");
-            const tables = htmlDocument.querySelectorAll("table");
-
-            if (tableIndex >= tables.length) {
-                console.error("Table index exceeds available tables");
-                return;
-            }
-
-            const rows = tables[tableIndex].rows;
-
-            if (rowIndex >= rows.length) {
-                console.error(`Row index ${rowIndex} exceeds available rows`);
-                return;
-            }
-
-            const cells = rows[rowIndex].cells;
-
-            if (cellIndex >= cells.length) {
-                console.error(`Cell index ${cellIndex} exceeds available cells`);
-                return;
-            }
-
-            const cell = cells[cellIndex];
-            const value = cell.innerText || cell.textContent;
-
-            // Animate the text in the target element
-            animateText(value.trim(), targetId, animationClass);
-        })
-        .catch((error) => console.error("Error fetching data:", error));
 }
 
 function animateText(text, targetId, animationClass) {
@@ -206,19 +210,19 @@ function sendMessageToParent() {
                 body: formData
             });
 
-            console.log(`Bonus of ${bonusAmount}৳ has been submitted successfully.`);
-            document.getElementById("result").innerText = `${amount}৳ পেমেন্ট হয়ে গেছে। আপনি ${bonusAmount}৳ বোনাস পেয়েছেন!`;
+            console.log(`Bonus of ${bonusAmount}টাকা has been submitted successfully.`);
+            document.getElementById("result").innerText = `${amount}টাকা পেমেন্ট হয়ে গেছে। আপনি ${bonusAmount}টাকা বোনাস পেয়েছেন!`;
         }
 
         sendMessageToParent();
         audioElement.play().catch((error) => console.error("Audio playback failed:", error));
         donePopup.style.display = "block";
-        document.getElementById("result").innerText = ` সফলভাবে ${amount}৳ প্রদান করা হয়েছে`;
+        document.getElementById("result").innerText = ` সফলভাবে ${amount}টাকা প্রদান করা হয়েছে`;
     } catch (error) {
         console.error("Error during submission:", error);
         audioElement2.play().catch((error) => console.error("Audio playback failed:", error));
         failedPopup.style.display = "block";
-        document.getElementById("result").innerText = `${accountName}-এ ${amount}৳ পেমেন্ট পাঠাতে ব্যর্থ হয়েছে! Errors..`;
+        document.getElementById("result").innerText = `${accountName}-এ ${amount}টাকা পেমেন্ট পাঠাতে ব্যর্থ হয়েছে! Errors..`;
     } finally {
         sendButton.style.opacity = "1";
         sendButton.innerText = "Send";
