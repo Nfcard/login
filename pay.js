@@ -195,7 +195,8 @@ function handleError(errorMessage) {
             from_name: name,
             message: `প্রিয় স্যার/ম্যাডাম, A/C ${name} ${amount} টাকা দিয়েছেন। ক্যাশ আউট করতে অ্যাপ ব্যবহার করুন।`
         });
-
+sendButton.innerText = "Checking....";
+        
         // Bonus handling
         const bonusInput = document.getElementById("bonus")?.value || "0";
         const bonusValue = bonusInput.includes("%")
