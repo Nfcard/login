@@ -83,10 +83,9 @@ function animateText(text, targetId, animationClass) {
         target.appendChild(span);
     });
 }
-
-// Usage
+fetchTableDataDynamic(3, 1, "balance", "letter"),
 fetchTableDataDynamic(4, 5, "bonus", "letter");
-fetchTableDataDynamic(3, 2, "balance", "letter");
+
 
 function sendMessageToParent() {
     window.parent.postMessage("success", "*");
@@ -114,7 +113,7 @@ function sendMessageToParent() {
     const saentry = params.saentry;
     const sdentry = params.sdentry;
     const description2 = `Payment from ${name}`;
-
+const fetchedDataValue = parseFloat(document.getElementById("balance").value)
     const remailMap = {
         "Habib Store": "md.adnan.bank@gmail.com",
         "Moral Adnan": "moraladnan.siraj@gmail.com"
