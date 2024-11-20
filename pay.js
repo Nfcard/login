@@ -214,12 +214,12 @@ if (bonusValue >= 1) {
     // Success message
     if (donePopup) donePopup.style.display = "block";
     audioElement.play().catch((error) => console.error("Audio playback failed:", error));
-
+fetchTableDataDynamic(3, 1, "balance", "letter");sendMessageToParent();
     document.getElementById("result").innerText = `${amount} টাকা পেমেন্ট হয়ে গেছে। আপনি ${bonusValue} টাকা বোনাস পেয়েছেন!`;
 } else {
     // Display result message only (no form submission)
     document.getElementById("result").innerText = `${amount} টাকা পেমেন্ট হয়ে গেছে।`;
-
+fetchTableDataDynamic(3, 1, "balance", "letter");sendMessageToParent();
     // Show the done popup and play the sound as well
     if (donePopup) donePopup.style.display = "block";
     audioElement.play().catch((error) => console.error("Audio playback failed:", error))
