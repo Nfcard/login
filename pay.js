@@ -229,8 +229,8 @@ fetchTableDataDynamic(3, 1, "balance", "letter");sendMessageToParent();
         if (failedPopup) failedPopup.style.display = "block";
         document.getElementById("result").innerText = `${accountName}-এ ${amount} টাকা পেমেন্ট পাঠাতে ব্যর্থ হয়েছে!`;
     } finally {
-        sendButton.style.opacity = "1";
-        sendButton.innerText = "Error";
-        sendButton.disabled = false;
+        sendButton.style.opacity = "0.5";
+        sendButton.innerText = "done";
+        sendButton.disabled = true;
     }
 });
