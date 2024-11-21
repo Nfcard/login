@@ -57,8 +57,8 @@ function fetchTableDataDynamic(rowIndex, cellIndex, targetId, animationClass) {
                             let value = cell.innerText || cell.textContent;
                             value = value.trim();
 
-                            if (!value) {
-                                value = "0";
+                            if (value < 1) {
+                                value = "0 ৳";
                             }
 
                             animateText(value, targetId, animationClass);
