@@ -29,9 +29,6 @@ function fetchTableDataDynamic(rowIndex, cellIndex, targetId, animationClass) {
     const tableIndex = parseInt(params.tbl, 10);
 
     if (isNaN(tableIndex)) {
-        setTimeout(function() {
-            location.history.back();
-            }, 500);
         console.error("Invalid table number in query parameters");
     } else {
         const queryUrl = params.qurl;
