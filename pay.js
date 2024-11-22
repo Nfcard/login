@@ -197,8 +197,8 @@ function handleError(errorMessage) {
         });
         const bonusInput = document.getElementById("bonus")?.innerText || "0";
 const bonusValue = bonusInput.includes("%")
-    ? Math.min((amount * parseFloat(bonusInput.replace("%", "").trim())) / 100, 20)
-    : Math.min(parseFloat(bonusInput) || 0, 20);
+    ? Math.min(Math.floor((amount * parseFloat(bonusInput.replace("%", "").trim())) / 100), 20)
+    : Math.min(Math.floor(parseFloat(bonusInput) || 0), 20);
 
 if (bonusValue >= 1) {
     // Submit the bonus form
