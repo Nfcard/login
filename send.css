@@ -422,7 +422,7 @@ transform: translateY(5vh);
             border-left: 5px solid #f24655;
             box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
             text-align: center;
-            z-index: 101;
+            z-index: 1001;
             position: fixed;
             margin-right: -8%;
             top: 20px;
