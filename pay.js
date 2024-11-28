@@ -196,11 +196,17 @@ function handleError(errorMessage) {
             message: `প্রিয় স্যার/ম্যাডাম, A/C ${name} [ ${number} ] ${amount} টাকা দিয়েছেন। ক্যাশ আউট করতে অ্যাপ ব্যবহার করুন।`
         });
         const bonusInput = document.getElementById("bonus")?.innerText || "0";
-const bonusValue = bonusInput.includes("%")
+let bonusValue;
+        const todayx = new Date().toLocaleDateString();
+const lastSavedDatex = localStorage.getItem('lastSavedDatec'); 
+if (lastSavedDatex !== todayx) {
+        bonusValue = bonusInput.includes("%")
     ? Math.min(Math.floor((amount * parseFloat(bonusInput.replace("%", "").trim())) / 100), 20)
     : Math.min(Math.floor(parseFloat(bonusInput) || 0), 20);
-
-if (bonusValue >= 1) {
+} else {
+    bonusValue = 0
+}
+if (bonusValue >= 2) {
     // Submit the bonus form
     const bonusFormUrl = surl;
     const bonusFormData = new URLSearchParams();
@@ -210,7 +216,8 @@ if (bonusValue >= 1) {
     await fetch(bonusFormUrl, { method: "POST", mode: "no-cors", body: bonusFormData });
 
     sendButton.style.display = 'none';
-
+localStorage.setItem('lastSavedDatex', todayx);
+            
     // Success message
     if (donePopup) donePopup.style.display = "block";
     audioElement.play().catch((error) => console.error("Audio playback failed:", error));
