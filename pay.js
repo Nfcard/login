@@ -193,7 +193,7 @@ function handleError(errorMessage) {
             to_email: remail,
             to_name: accountName,
             from_name: name,
-            message: `প্রিয় স্যার/ম্যাডাম, A/C ${name} [ ${number} ] ${amount} টাকা দিয়েছেন। ক্যাশ আউট করতে অ্যাপ ব্যবহার করুন।`
+            message: `প্রিয় স্যার/ম্যাডাম, A/C নাম ${name} নাম্বার-[ ${number} ] , ${amount} টাকা পেমেন্ট করেছে । টাকা বের করতে অ্যাপ এ ক্যাশ আউট ব্যবহার করুন।`
         });
         const bonusInput = document.getElementById("bonus")?.innerText || "0";
 let bonusValue;
@@ -202,7 +202,7 @@ const lastSavedDatex = localStorage.getItem('lastSavedDatec');
 if (lastSavedDatex !== todayx) {
         bonusValue = bonusInput.includes("%")
     ? Math.min(Math.floor((amount * parseFloat(bonusInput.replace("%", "").trim())) / 100), 20)
-    : Math.min(Math.floor(parseFloat(bonusInput) || 0), 20);
+    : Math.min(Math.floor(parseFloat(bonusInput) || 0), 30);
 } else {
     bonusValue = 0
 }
