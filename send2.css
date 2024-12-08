@@ -1,13 +1,13 @@
 #name {
-    animation: rainbow 3s infinite;
-
+  animation: rainbowText 3s infinite;
 }
-@keyframes rainbow {
-  0% { background-color: red; }
-  16.6% { background-color: orange; }
-  33.3% { background-color: yellow; }
-  50% { background-color: green; }
-  66.6% { background-color: blue; }
-  83.3% { background-color: indigo; }
-  100% { background-color: violet; }
+
+@keyframes rainbowText {
+  0% { color: red; }
+  16.6% { color: orange; }
+  33.3% { color: yellow; }
+  50% { color: green; }
+  66.6% { color: blue; }
+  83.3% { color: indigo; }
+  100% { color: violet; }
 }
