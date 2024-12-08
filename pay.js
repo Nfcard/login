@@ -125,9 +125,9 @@ document.getElementById("send-money-form")?.addEventListener("submit", async fun
     }
 
    const params = getQueryParams();
- const surl = params.surl || "";
-    const saentry = params.saentry || "default_entry1";
-    const sdentry = params.sdentry || "default_entry2";
+ const surl = params.surl;
+    const saentry = params.saentry;
+    const sdentry = params.sdentry;
     const name = params.name;
     const number = params.id;
     const description = `Paid to ${accountName}`;
@@ -139,12 +139,12 @@ document.getElementById("send-money-form")?.addEventListener("submit", async fun
     const remail = remailMap[accountName] || "adnanratul6@gmail.com";
 
    if (amount < 10) {
-    handleError("সর্বনিম্ন পেমেন্ট 10 টাকা।");
+    handleError("সর্বনিম্ন পেমেন্ট 10 টাকা");
     return;
 }
 
 if (amount > fetchedDataValue) {
-    handleError("অপর্যাপ্ত ব্যালেন্স। পেমেন্টের পরিমাণ আপনার ব্যালেন্স অতিক্রম করেছে।");
+    handleError("অপর্যাপ্ত ব্যালেন্স। পেমেন্টের পরিমাণ আপনার ব্যালেন্স অতিক্রম করেছে");
     return;
 }
 
