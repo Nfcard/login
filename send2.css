@@ -1,13 +1,25 @@
 #name {
-  animation: rainbowText 3s infinite;
+  color: transparent; /* Make the text transparent */
+  background-clip: text; /* Clip the gradient to the text */
+  -webkit-background-clip: text; /* For WebKit browsers */
+  background-image: linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    green,
+    blue,
+    indigo,
+    violet
+  );
+  background-size: 200%; /* Make the gradient larger for smooth flow */
+  animation: randomFlow 3s infinite linear;
 }
 
-@keyframes rainbowText {
-  0% { color: red; }
-  16.6% { color: orange; }
-  33.3% { color: yellow; }
-  50% { color: green; }
-  66.6% { color: blue; }
-  83.3% { color: indigo; }
-  100% { color: violet; }
+@keyframes randomFlow {
+  0% { background-position: 0% 0%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 0%; }
+  100% { background-position: 0% 100%; }
 }
