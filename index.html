@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        function redirectToApp() {
+            // Try opening the app
+            window.location.href = "upbank://open";
+            
+            // If the app doesn't open, redirect to fallback after a delay
+            setTimeout(function() {
+                window.location.href = "upbank://open";
+            }, 2000); // Wait 2 seconds before redirecting
+        }
+    </script>
+</head>
+<body onload="redirectToApp()">
+    <p>Redirecting to the app... If nothing happens, <a href="upbank://open">click here</a>.</p>
+</body>
+</html>
